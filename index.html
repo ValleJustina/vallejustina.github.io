@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en-PH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Valle Justina Mountain Resort | Infinity Pool Above Masbate City</title>
+<meta name="description" content="A mountaintop resort above Masbate City. Swim at the edge of the horizon, watch the island turn gold at sunset, then stay for the city lights. Rooms, camping, and day tours.">
+<link rel="canonical" href="https://vallejustina.example/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Valle Justina Mountain Resort">
+<meta property="og:title" content="Valle Justina Mountain Resort | Peace above Masbate City">
+<meta property="og:description" content="Swim at the edge of the horizon, watch the island turn gold at sunset, then stay for the city lights.">
+<meta property="og:image" content="https://vallejustina.example/img/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The lit pavilion and infinity pool at Valle Justina after dark">
+<meta property="og:locale" content="en_PH">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F4F4F4">
+
+<link rel="icon" href="img/icon-48.png" sizes="48x48">
+<link rel="apple-touch-icon" href="img/icon-180.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hero-800.webp" type="image/webp" fetchpriority="high">
+
+<script>document.documentElement.className += ' js';</script>
+<style>
+/* ============================================================
+   VALLE JUSTINA  ·  "Golden Horizon"
+   Palette sampled from the client's own company profile PDF.
+   Contrast ratios verified against #F4F4F4.
+   ============================================================ */
+:root{
+  --canvas:#F4F4F4;   /* profile background            */
+  --band:#EBE7E2;     /* alternating section           */
+  --ink:#0A0A0A;      /* headings          18.00 AAA   */
+  --body:#533525;     /* profile body brown 10.03 AAA  */
+  --muted:#7A675C;    /*                    4.87 AA    */
+  --gold:#C88A3C;     /* FILLS AND RULES ONLY. 2.67 = fails for text */
+  --gold-text:#8A5A18;/* the text-safe gold 5.37 AA    */
+  --midnight:#1B2B3A; /*                   13.14 AAA inverted */
+  --cyan:#2E8FA8;
+  --avail:#2E6B4F;    /* 5.73 AA */
+  --hold:#8A5A18;     /* 5.37 AA */
+  --booked:#5C5C56;   /* 6.12 AA */
+  --line:rgba(83,53,37,.16);
+  --display:'Jost',"Century Gothic",system-ui,sans-serif;
+  --serif:'Lora',Georgia,serif;
+  --pad:clamp(1.25rem,5vw,4rem);
+  --maxw:1180px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+body{
+  margin:0;background:var(--canvas);color:var(--body);
+  font:400 17px/1.75 var(--serif);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+/* When the reserve bar is showing it would otherwise sit on top of the last
+   rows of the calendar and swallow taps meant for a cell. */
+body.bar-on{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--gold-text)}
+:focus-visible{outline:2px solid var(--gold-text);outline-offset:3px;border-radius:2px}
+
+h1,h2,h3,.dsp{
+  font-family:var(--display);font-weight:300;color:var(--ink);
+  letter-spacing:.11em;text-transform:uppercase;line-height:1.22;margin:0;
+}
+h1{font-size:clamp(2rem,6.2vw,3.9rem);letter-spacing:.07em}
+h2{font-size:clamp(1.5rem,3.6vw,2.5rem)}
+h3{font-size:clamp(1.05rem,2vw,1.3rem);letter-spacing:.14em}
+p{margin:0 0 1.15em}
+.lede{font-size:clamp(1.12rem,2.2vw,1.42rem);line-height:1.72}
+.eyebrow{
+  font-family:var(--display);font-size:.72rem;font-weight:400;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--gold-text);margin:0 0 1.1rem;
+}
+.muted{color:var(--muted)}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+section{padding-block:clamp(3.5rem,9vw,7rem);scroll-margin-top:70px}
+
+.band{background:var(--band)}
+.rule{height:1px;background:var(--gold);border:0;opacity:.55;margin:0}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:var(--display);font-size:.82rem;font-weight:400;letter-spacing:.2em;
+  text-transform:uppercase;text-decoration:none;cursor:pointer;
+  min-height:52px;padding:.9rem 1.9rem;border:1px solid var(--ink);border-radius:2px;
+  background:var(--ink);color:#F7F5F2;transition:background .18s,color .18s,border-color .18s;
+}
+.btn:hover{background:var(--gold-text);border-color:var(--gold-text)}
+.btn--ghost{background:transparent;color:var(--ink)}
+.btn--ghost:hover{background:var(--ink);color:#F7F5F2}
+.btn--sm{min-height:44px;padding:.6rem 1.15rem;font-size:.72rem;letter-spacing:.16em}
+.btn[disabled]{opacity:.42;cursor:not-allowed}
+.btn[disabled]:hover{background:var(--ink);border-color:var(--ink)}
+
+.skip{position:absolute;left:-9999px;top:0;z-index:200}
+.skip:focus{left:.5rem;top:.5rem;background:var(--ink);color:#fff;padding:.75rem 1.1rem}
+
+/* ---------- header ---------- */
+.hdr{
+  position:sticky;top:0;z-index:60;background:rgba(244,244,244,.94);
+  backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line);
+}
+.hdr__in{display:flex;align-items:center;gap:1rem;min-height:64px;
+  max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;margin-right:auto;min-width:0}
+.brand img{width:32px;height:32px;flex:0 0 auto}
+.brand b{display:block;font-family:var(--display);font-weight:400;font-size:.74rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink);white-space:nowrap}
+.brand span span{display:block;font-family:var(--display);font-size:.55rem;letter-spacing:.22em;
+  color:var(--muted);text-transform:uppercase;white-space:nowrap}
+@media(min-width:520px){
+  .brand img{width:36px;height:36px}
+  .brand b{font-size:.82rem;letter-spacing:.2em}
+  .brand span span{font-size:.6rem;letter-spacing:.26em}
+}
+@media(max-width:400px){.brand span span{display:none}}
+.hdr nav{display:none;gap:1.5rem}
+@media(min-width:900px){.hdr nav{display:flex}}
+.hdr nav a{font-family:var(--display);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;color:var(--body)}
+.hdr nav a:hover{color:var(--gold-text)}
+.hdr__cta{display:flex;gap:.5rem}
+
+/* ---------- hero (split: source images cap at ~970px wide) ---------- */
+.hero{display:grid;gap:0;border-bottom:1px solid var(--line)}
+@media(min-width:900px){.hero{grid-template-columns:1fr 1fr;align-items:stretch}}
+.hero__text{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(2.5rem,7vw,5rem) var(--pad);order:2;
+}
+@media(min-width:900px){
+  .hero__text{order:1;padding-left:max(var(--pad),calc((100vw - var(--maxw))/2 + var(--pad)))}
+}
+.hero__media{order:1;position:relative;background:var(--band);min-height:56vh}
+@media(min-width:900px){.hero__media{order:2;min-height:82vh}}
+.hero__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero h1{margin-bottom:1.1rem}
+.hero .lede{max-width:34ch;margin-bottom:2rem}
+.hero__actions{display:flex;flex-wrap:wrap;gap:.7rem}
+.hero__meta{display:flex;flex-wrap:wrap;gap:.2rem 0;margin-top:2rem;font-family:var(--display);
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase}
+.hero__meta a{color:var(--muted);text-decoration:none;padding:.5rem .9rem .5rem 0;margin-right:.9rem;
+  position:relative;transition:color .16s}
+.hero__meta a::after{content:"";position:absolute;right:0;top:50%;width:1px;height:11px;
+  margin-top:-5px;background:var(--line)}
+.hero__meta a:last-child{margin-right:0;padding-right:0}
+.hero__meta a:last-child::after{display:none}
+.hero__meta a:hover{color:var(--gold-text)}
+
+/* ---------- three times a day ---------- */
+.times{background:var(--midnight);color:#EDE9E4;transition:background .5s ease}
+.times[data-state="noon"]{background:#20323F}
+.times[data-state="golden"]{background:#3B2A1E}
+.times[data-state="dark"]{background:#121C28}
+.times h2,.times h3{color:#F7F5F2}
+.times .eyebrow{color:var(--gold)}
+.tabs{display:flex;flex-wrap:wrap;gap:.4rem;margin:2rem 0 2.2rem;padding:0;list-style:none}
+.tabs button{
+  font-family:var(--display);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;
+  background:transparent;color:#CFC7BE;border:1px solid rgba(255,255,255,.3);
+  border-radius:2px;padding:.85rem 1.25rem;min-height:48px;cursor:pointer;transition:.18s;
+}
+.tabs button:hover{border-color:var(--gold);color:#fff}
+.tabs button[aria-selected="true"]{background:var(--gold);border-color:var(--gold);color:#151006}
+.times__grid{display:grid;gap:clamp(1.5rem,4vw,3rem)}
+@media(min-width:820px){.times__grid{grid-template-columns:0.9fr 1.1fr;align-items:center}}
+.times__fig{margin:0;position:relative;aspect-ratio:4/5;background:#0c1219;overflow:hidden;border-radius:2px}
+.times__fig img{width:100%;height:100%;object-fit:cover}
+.html-js .times__panel[hidden]{display:none}
+.times__panel p{color:#DBD3CB}
+.times__panel .lede{color:#F2EDE8}
+
+/* ---------- cards ---------- */
+.cards{display:grid;gap:1.5rem;margin-top:2.5rem}
+@media(min-width:760px){.cards--2{grid-template-columns:1fr 1fr}}
+.card{
+  background:var(--canvas);border:1px solid var(--line);border-radius:2px;
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.band .card{background:#FAF8F6}
+.card__media{aspect-ratio:16/10;background:var(--band);overflow:hidden}
+.card__media img{width:100%;height:100%;object-fit:cover}
+.card__body{padding:clamp(1.4rem,3vw,2rem);display:flex;flex-direction:column;flex:1}
+.card--feature{border-color:var(--gold);border-width:2px}
+.tag{
+  align-self:flex-start;font-family:var(--display);font-size:.63rem;letter-spacing:.22em;
+  text-transform:uppercase;background:var(--gold);color:#151006;padding:.32rem .7rem;
+  border-radius:2px;margin-bottom:.9rem;
+}
+.tag--quiet{background:transparent;border:1px solid var(--line);color:var(--muted)}
+.price{font-family:var(--display);font-weight:400;font-size:clamp(1.6rem,3.4vw,2.15rem);
+  color:var(--ink);letter-spacing:.03em;margin:.4rem 0 .15rem}
+.price small{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  display:block;margin-top:.35rem;font-family:var(--display)}
+.incl{list-style:none;margin:1.1rem 0 1.4rem;padding:0;font-size:.96rem}
+.incl li{padding:.42rem 0 .42rem 1.5rem;position:relative;border-bottom:1px solid var(--line)}
+.incl li:last-child{border-bottom:0}
+.incl li::before{content:"";position:absolute;left:0;top:1.05em;width:9px;height:1px;background:var(--gold)}
+.note{
+  font-family:var(--display);font-size:.74rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--gold-text);border-top:1px solid var(--gold);padding-top:.9rem;margin-top:auto;
+}
+.note a{color:var(--gold-text)}
+
+/* ---------- day pass ---------- */
+.pass{display:grid;gap:clamp(1.5rem,4vw,3rem);margin-top:2.5rem}
+@media(min-width:820px){.pass{grid-template-columns:1.15fr .85fr;align-items:start}}
+.pass__rates{display:grid;gap:.6rem}
+.rate{
+  display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:.3rem 1rem;
+  background:#FAF8F6;border:1px solid var(--line);border-left:3px solid var(--gold);
+  border-radius:2px;padding:1.05rem 1.2rem;
+}
+.rate--free{border-left-color:var(--avail)}
+.rate__k{font-family:var(--display);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
+.rate__v{font-family:var(--display);font-size:clamp(1.45rem,3.2vw,1.9rem);color:var(--ink);letter-spacing:.02em;text-align:right}
+.rate--free .rate__v{color:var(--avail)}
+.rate__n{grid-column:1;font-size:.86rem;color:var(--muted)}
+.pass__pay{background:#FAF8F6;border:1px solid var(--line);border-radius:2px;padding:clamp(1.4rem,3vw,2rem)}
+.qr{margin:1.3rem 0 1rem;text-align:center}
+.qr img{max-width:250px;margin-inline:auto;border:1px solid var(--line);border-radius:2px;padding:.5rem;background:#fff}
+.qr figcaption{margin-top:1rem;display:grid;gap:.22rem;justify-items:center}
+.qr figcaption b{font-family:var(--display);font-size:.95rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink)}
+.qr figcaption span{font-size:.92rem;color:var(--body)}
+.qr figcaption .mono{font-size:1rem;letter-spacing:.04em}
+.qr figcaption em{font-family:var(--display);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
+  font-style:normal;color:var(--muted);margin-top:.35rem}
+.todo{
+  display:inline-block;background:repeating-linear-gradient(45deg,#F6E9D2,#F6E9D2 6px,#F0DFC2 6px,#F0DFC2 12px);
+  border:1px dashed var(--gold-text);color:#5A3B10;font-family:var(--display);
+  font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;padding:.18rem .5rem;border-radius:2px;
+}
+
+/* ---------- calendar ---------- */
+.cal__head{display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between}
+.months{display:flex;gap:.35rem;overflow-x:auto;padding:1.6rem 0 .6rem;
+  scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.months button{
+  flex:0 0 auto;font-family:var(--display);font-size:.73rem;letter-spacing:.16em;text-transform:uppercase;
+  background:transparent;border:1px solid var(--line);border-radius:2px;color:var(--body);
+  padding:.7rem 1.05rem;min-height:44px;cursor:pointer;white-space:nowrap;
+}
+.months button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#F7F5F2}
+.sync{font-family:var(--display);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:.5rem}
+.sync::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.sync[data-s="ok"]{color:var(--avail)}   .sync[data-s="ok"]::before{background:var(--avail)}
+.sync[data-s="stale"]{color:var(--hold)} .sync[data-s="stale"]::before{background:var(--hold)}
+.sync[data-s="err"]{color:#8C2F1E}       .sync[data-s="err"]::before{background:#8C2F1E}
+
+.legend{display:flex;flex-wrap:wrap;gap:1.1rem;margin:1.2rem 0 .4rem;padding:0;list-style:none;
+  font-family:var(--display);font-size:.71rem;letter-spacing:.13em;text-transform:uppercase}
+.legend li{display:flex;align-items:center;gap:.45rem}
+.swatch{width:15px;height:15px;border-radius:50%;border:2px solid currentColor;flex:0 0 auto}
+.swatch--open{color:var(--avail)}
+.swatch--hold{color:var(--hold);background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
+.swatch--full{color:var(--booked);background:
+  repeating-linear-gradient(45deg,currentColor,currentColor 2px,transparent 2px,transparent 4px)}
+
+.week{margin:1.8rem 0 0}
+.week caption{
+  font-family:var(--display);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);text-align:left;padding-bottom:.5rem;
+}
+table.week{width:100%;border-collapse:separate;border-spacing:3px;table-layout:fixed}
+.week th,.week td{padding:0}
+.week thead th{
+  font-family:var(--display);font-weight:400;font-size:.62rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);text-align:center;padding:.3rem 0 .5rem;line-height:1.35;
+}
+.week thead th b{display:block;font-size:.95rem;font-weight:400;color:var(--ink);letter-spacing:0}
+.week thead th.is-we b{color:var(--gold-text)}
+.week tbody th{
+  font-family:var(--display);font-weight:400;font-size:.56rem;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--body);text-align:left;padding-right:.4rem;white-space:nowrap;
+}
+.col-lbl{width:4.2rem}
+.lbl-lg{display:none}
+.lbl-sm{display:inline}
+@media(min-width:560px){
+  .col-lbl{width:7.5rem}
+  .week tbody th{font-size:.68rem;letter-spacing:.11em;padding-right:.6rem}
+  .lbl-lg{display:inline}
+  .lbl-sm{display:none}
+}
+.cell{
+  width:100%;min-height:44px;border-radius:2px;cursor:pointer;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid var(--line);background:#FBFAF8;color:var(--avail);transition:.14s;
+}
+.cell[data-s="open"]:hover{border-color:var(--gold);background:#FDF6EA}
+.cell[data-s="hold"]{color:var(--hold);background:#FBF3E4;border-color:rgba(138,90,24,.3)}
+.cell[data-s="full"],.cell[data-s="unknown"]{
+  color:var(--booked);background:
+    repeating-linear-gradient(45deg,#E6E4E0,#E6E4E0 3px,#DEDCD7 3px,#DEDCD7 6px);
+  border-color:#D6D3CD;cursor:not-allowed;
+}
+.cell[data-s="off"]{border-color:transparent;background:transparent;cursor:default;visibility:hidden}
+.cell.is-in,.cell.is-out{background:var(--ink);border-color:var(--ink);color:#F7F5F2}
+.cell.is-mid{background:var(--gold);border-color:var(--gold);color:#151006}
+.cell:disabled{pointer-events:none}
+/* On the narrowest phones the word will not fit, so fall back to the same
+   ring shapes used in the legend. Status is still conveyed by shape plus the
+   visually-hidden text, never by colour alone. */
+@media(max-width:429px){
+  .cell>span[aria-hidden]{
+    display:block;font-size:0;line-height:0;width:13px;height:13px;flex:0 0 auto;
+    border:2px solid currentColor;border-radius:50%;
+  }
+  .cell[data-s="hold"]>span[aria-hidden]{background:linear-gradient(90deg,currentColor 50%,transparent 50%)}
+  .cell[data-s="full"]>span[aria-hidden],.cell[data-s="unknown"]>span[aria-hidden]{
+    background:repeating-linear-gradient(45deg,currentColor,currentColor 2px,transparent 2px,transparent 4px)}
+}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- reserve ---------- */
+.form{display:grid;gap:1.1rem;margin-top:2rem}
+@media(min-width:700px){.form{grid-template-columns:1fr 1fr}.form .full{grid-column:1/-1}}
+label{display:block;font-family:var(--display);font-size:.7rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:.42rem}
+input,textarea,select{
+  width:100%;font:400 16px/1.5 var(--serif);color:var(--body);background:#FBFAF8;
+  border:1px solid var(--line);border-radius:2px;padding:.85rem .9rem;min-height:50px;
+}
+input:focus,textarea:focus,select:focus{border-color:var(--gold-text);outline:none;
+  box-shadow:0 0 0 2px rgba(138,90,24,.18)}
+textarea{min-height:110px;resize:vertical}
+.err{display:block;color:#8C2F1E;font-family:var(--display);font-size:.7rem;letter-spacing:.1em;
+  text-transform:uppercase;margin-top:.35rem;min-height:1em}
+.summary{
+  background:#FBFAF8;border:1px solid var(--line);border-left:3px solid var(--gold);
+  border-radius:2px;padding:1.3rem 1.4rem;
+}
+.summary dl{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1.2rem;margin:0;font-size:.95rem}
+.summary dt{font-family:var(--display);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);align-self:center}
+.summary dd{margin:0;text-align:right;color:var(--ink)}
+.summary .tot{font-family:var(--display);font-size:1.45rem;color:var(--ink);letter-spacing:.02em}
+.saving{background:#EAF3ED;border:1px solid rgba(46,107,79,.3);color:#1F4F39;
+  padding:.7rem .9rem;border-radius:2px;font-size:.9rem;margin-top:.9rem}
+.pay{display:grid;gap:1.2rem;margin-top:1.6rem}
+@media(min-width:640px){.pay{grid-template-columns:1fr 1fr}}
+.pay__box{border:1px solid var(--line);border-radius:2px;padding:1.2rem;background:#FBFAF8}
+.pay__box img{border-radius:2px;margin-top:.8rem}
+.copy{
+  display:inline-flex;align-items:center;gap:.5rem;font-family:var(--display);font-size:.72rem;
+  letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--gold-text);
+  border:1px solid var(--gold-text);border-radius:2px;padding:.5rem .8rem;min-height:44px;cursor:pointer;
+}
+.copy:hover{background:var(--gold-text);color:#fff}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.05rem;color:var(--ink);
+  letter-spacing:.06em;word-break:break-all}
+
+/* ---------- sticky reserve bar ---------- */
+.bar{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;transform:translateY(105%);
+  transition:transform .28s ease;background:var(--ink);color:#F7F5F2;
+  padding:.75rem var(--pad) calc(.75rem + env(safe-area-inset-bottom));
+  border-top:2px solid var(--gold);
+}
+.bar.on{transform:none}
+.bar__in{max-width:var(--maxw);margin-inline:auto;display:flex;align-items:center;gap:1rem}
+.bar__txt{flex:1 1 auto;min-width:0;margin:0;font-family:var(--display);font-size:.68rem;
+  letter-spacing:.08em;text-transform:uppercase;line-height:1.45;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar__txt b{display:block;font-size:.86rem;letter-spacing:.02em;color:#fff;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(min-width:560px){.bar__txt{font-size:.72rem}.bar__txt b{font-size:1rem}}
+.bar .btn{flex:0 0 auto;background:var(--gold);border-color:var(--gold);color:#151006}
+.bar .btn:hover{background:#E0A24E;border-color:#E0A24E}
+
+.map{position:relative;aspect-ratio:4/3;margin-top:2rem;border:1px solid var(--line);
+  border-radius:2px;overflow:hidden;background:var(--band)}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media(min-width:640px){.map{aspect-ratio:2/1;max-height:480px}}
+
+/* ---------- faq / footer ---------- */
+details{border-bottom:1px solid var(--line)}
+summary{
+  cursor:pointer;list-style:none;padding:1.2rem 2.2rem 1.2rem 0;position:relative;
+  font-family:var(--display);font-size:.9rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink);
+}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:.3rem;top:1rem;font-size:1.3rem;color:var(--gold-text)}
+details[open] summary::after{content:"\2013"}
+details .ans{padding:0 0 1.3rem;max-width:65ch}
+footer{background:var(--midnight);color:#CFC7BE;padding-block:clamp(3rem,7vw,5rem)}
+footer h2,footer b{color:#F7F5F2}
+.fgrid{display:grid;gap:2.2rem}
+@media(min-width:760px){.fgrid{grid-template-columns:1.3fr 1fr 1fr}}
+footer a{color:#E3C08A;text-decoration:none;border-bottom:1px solid rgba(227,192,138,.35)}
+footer a:hover{color:#fff}
+.fine{margin-top:2.6rem;padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.15);
+  font-family:var(--display);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#9A9188}
+.toast{
+  position:fixed;left:50%;bottom:6.5rem;transform:translate(-50%,1rem);z-index:90;
+  background:var(--ink);color:#fff;padding:.8rem 1.3rem;border-radius:2px;opacity:0;
+  pointer-events:none;transition:.25s;font-family:var(--display);font-size:.75rem;letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<a class="skip" href="#reserve">Skip to reservation</a>
+
+<header class="hdr">
+  <div class="hdr__in">
+    <a class="brand" href="#top">
+      <img src="img/logo.png" alt="" width="34" height="34">
+      <span><b>Valle Justina</b><span>Mountain Resort</span></span>
+    </a>
+    <nav aria-label="Sections">
+      <a href="#light">The Day</a>
+      <a href="#stay">Stay</a>
+      <a href="#camp">Camp</a>
+      <a href="#daypass">Day Pass</a>
+      <a href="#events">Events</a>
+      <a href="#dates">Dates</a>
+    </nav>
+    <div class="hdr__cta">
+      <a class="btn btn--sm btn--ghost" id="lnkCall" href="tel:+639065044935">Call</a>
+      <a class="btn btn--sm" id="lnkMsg" href="#" target="_blank" rel="noopener noreferrer">Message</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="hero__text">
+    <p class="eyebrow">Mayong Payong &middot; Mobo &middot; Masbate</p>
+    <h1>Peace above<br>the city.</h1>
+    <p class="lede">A mountaintop resort where the pool runs into the horizon and Masbate opens up beneath you.</p>
+    <div class="hero__actions">
+      <a class="btn" href="#dates">Check availability</a>
+      <a class="btn btn--ghost" href="#stay">See the rooms</a>
+    </div>
+    <p class="hero__meta"><a href="#stay">Rooms</a><a href="#camp">Camping</a><a href="#daypass">Day Pass</a><a href="#events">Events</a></p>
+  </div>
+  <div class="hero__media">
+    <picture>
+      <source type="image/webp" srcset="img/hero-480.webp 480w, img/hero-800.webp 800w" sizes="(min-width:900px) 50vw, 100vw">
+      <img src="img/hero-800.jpg" srcset="img/hero-480.jpg 480w, img/hero-800.jpg 800w"
+           sizes="(min-width:900px) 50vw, 100vw" width="971" height="1434" fetchpriority="high"
+           alt="The infinity pool at Valle Justina meeting the horizon, with the mountains and bay of Masbate beyond">
+    </picture>
+  </div>
+</div>
+
+<!-- ============ THE VIEW ============ -->
+<section id="view">
+  <div class="wrap">
+    <p class="eyebrow">The View</p>
+    <p class="lede" style="max-width:46ch">Valle Justina sits at the top of Mayong Payong, high enough that the whole of Masbate opens up beneath you. The infinity pool runs straight out into the horizon.</p>
+    <p class="lede muted" style="max-width:46ch">Cool air. Wide sky. Nothing in a hurry.</p>
+  </div>
+</section>
+
+<!-- ============ THREE TIMES A DAY ============ -->
+<section class="times" id="light" data-state="noon">
+  <div class="wrap">
+    <p class="eyebrow">Three Times A Day</p>
+    <h2>The same place,<br>three times over.</h2>
+    <p class="lede" style="max-width:44ch;margin-top:1rem">Most people come up for one of these. The ones who know stay for all three.</p>
+
+    <div class="tabs" role="tablist" aria-label="Time of day">
+      <button role="tab" id="tab-noon"   aria-controls="p-noon"   aria-selected="true"  data-k="noon">Noon</button>
+      <button role="tab" id="tab-golden" aria-controls="p-golden" aria-selected="false" data-k="golden">Golden Hour</button>
+      <button role="tab" id="tab-dark"   aria-controls="p-dark"   aria-selected="false" data-k="dark">After Dark</button>
+    </div>
+
+    <div class="times__grid">
+      <figure class="times__fig">
+        <picture>
+          <source type="image/webp" srcset="img/noon-480.webp">
+          <img id="timesImg" src="img/noon-480.jpg" width="768" height="1024" loading="lazy" decoding="async"
+               alt="The pool and sun loungers at midday, looking out over Masbate Bay">
+        </picture>
+      </figure>
+      <div>
+        <div role="tabpanel" id="p-noon" aria-labelledby="tab-noon" class="times__panel">
+          <h3>Noon</h3>
+          <p class="lede">Turquoise water, open sky, and the island laid out to the edge of sight.</p>
+          <p>The best hours for swimming and for a long lunch that nobody is rushing.</p>
+        </div>
+        <div role="tabpanel" id="p-golden" aria-labelledby="tab-golden" class="times__panel" hidden>
+          <h3>Golden Hour</h3>
+          <p class="lede">The ridge turns warm and the pool goes to gold.</p>
+          <p>Come up before five. This is the one you will photograph, and the one you will remember.</p>
+        </div>
+        <div role="tabpanel" id="p-dark" aria-labelledby="tab-dark" class="times__panel" hidden>
+          <h3>After Dark</h3>
+          <p class="lede">The city switches its lights on below you and the pool glows blue above them.</p>
+          <p>Quiet enough to hear the wind. Bright enough to see every star.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STAY ============ -->
+<section id="stay" class="band">
+  <div class="wrap">
+    <p class="eyebrow">Stay</p>
+    <h2>Four rooms on the ridge.</h2>
+    <p class="lede" style="max-width:48ch;margin-top:1rem">Air-conditioned, bunk beds, and the mountain outside the window. Breakfast comes with it.</p>
+
+    <div class="cards cards--2">
+      <article class="card">
+        <div class="card__media">
+          <picture><source type="image/webp" srcset="img/room-480.webp">
+          <img src="img/room-480.jpg" width="681" height="1210" loading="lazy" decoding="async"
+               alt="A warm timber interior at Valle Justina with a driftwood sculpture and mountain light"></picture>
+        </div>
+        <div class="card__body">
+          <span class="tag tag--quiet">Three available</span>
+          <h3>Standard Room</h3>
+          <p class="price">&#8369;3,000<small>per night &middot; good for 4 to 5</small></p>
+          <ul class="incl">
+            <li>Air-conditioned, bunk beds</li>
+            <li>Free pool use for 4 guests</li>
+            <li>Complimentary breakfast for 2</li>
+          </ul>
+          <p class="note">Book a month ahead and take 10% off</p>
+        </div>
+      </article>
+
+      <article class="card card--feature">
+        <div class="card__media">
+          <picture><source type="image/webp" srcset="img/stay-800.webp 800w, img/stay-480.webp 480w">
+          <img src="img/stay-800.jpg" srcset="img/stay-480.jpg 480w, img/stay-800.jpg 800w"
+               sizes="(min-width:760px) 50vw, 100vw" width="1134" height="2016" loading="lazy" decoding="async"
+               alt="Floor-to-ceiling windows framing the bay at sunrise from inside the resort"></picture>
+        </div>
+        <div class="card__body">
+          <span class="tag">One only</span>
+          <h3>Balcony Room</h3>
+          <p class="price">&#8369;3,500<small>per night &middot; good for 2 to 3</small></p>
+          <ul class="incl">
+            <li>Air-conditioned, bunk beds</li>
+            <li>Free pool use for 4 guests</li>
+            <li>Complimentary breakfast for 2</li>
+            <li>Your own balcony over the view</li>
+          </ul>
+          <p class="note">The only balcony room on the property</p>
+        </div>
+      </article>
+    </div>
+
+    <p class="muted" style="margin-top:1.8rem;font-family:var(--display);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase">
+      Check in from 2:00 PM &nbsp;·&nbsp; Check out by 11:00 AM
+    </p>
+  </div>
+</section>
+
+<!-- ============ CAMP + VISIT ============ -->
+<section id="camp">
+  <div class="wrap">
+    <div class="cards cards--2">
+      <article class="card">
+        <div class="card__media">
+          <picture><source type="image/webp" srcset="img/camp-800.webp 800w, img/camp-480.webp 480w">
+          <img src="img/camp-800.jpg" srcset="img/camp-480.jpg 480w, img/camp-800.jpg 800w"
+               sizes="(min-width:760px) 50vw, 100vw" width="856" height="1024" loading="lazy" decoding="async"
+               alt="A tent pitched on the ridge beside a bonfire under a sky full of stars"></picture>
+        </div>
+        <div class="card__body">
+          <p class="eyebrow" style="margin-bottom:.6rem">Camp</p>
+          <h3>Sleep on the ridge.</h3>
+          <p style="margin-top:.9rem">Bring your tent, pick your spot, and wake up above the clouds. There is a bonfire, there is the whole sky, and there is nothing else you need to do.</p>
+          <ul class="incl">
+            <li>Sold per pitch</li>
+            <li>Bring your own tent</li>
+          </ul>
+          <p class="note" id="campRate">Rate <span class="todo">to be confirmed</span></p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__media">
+          <picture><source type="image/webp" srcset="img/visit-800.webp 800w, img/visit-480.webp 480w">
+          <img src="img/visit-800.jpg" srcset="img/visit-480.jpg 480w, img/visit-800.jpg 800w"
+               sizes="(min-width:760px) 50vw, 100vw" width="1024" height="1024" loading="lazy" decoding="async"
+               alt="The pavilion and pool lit at night, seen from the water's edge"></picture>
+        </div>
+        <div class="card__body">
+          <p class="eyebrow" style="margin-bottom:.6rem">Swimming</p>
+          <h3>Free if you stay.</h3>
+          <p style="margin-top:.9rem">The pool is included for guests staying the night. Everyone else is welcome to swim on a day pass.</p>
+          <ul class="incl">
+            <li>Staying guests, free</li>
+            <li>Daytime swim, &#8369;250</li>
+            <li>Night swim, &#8369;300</li>
+          </ul>
+          <p class="note"><a href="#daypass">See the day pass</a></p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DAY PASS ============ -->
+<section id="daypass" class="band">
+  <div class="wrap">
+    <p class="eyebrow">Day Pass</p>
+    <h2>Up for the day.</h2>
+    <p class="lede" style="max-width:48ch;margin-top:1rem">Come for lunch, stay for the sunset, swim under the city lights. No reservation and no waiting, just pay on arrival or settle it before you drive up.</p>
+
+    <div class="pass">
+      <div class="pass__rates">
+        <div class="rate">
+          <span class="rate__k">Entrance</span>
+          <span class="rate__v">&#8369;50</span>
+          <span class="rate__n">per person</span>
+        </div>
+        <div class="rate">
+          <span class="rate__k">Daytime swim</span>
+          <span class="rate__v">&#8369;250</span>
+          <span class="rate__n">per person</span>
+        </div>
+        <div class="rate">
+          <span class="rate__k">Night swim</span>
+          <span class="rate__v">&#8369;300</span>
+          <span class="rate__n">per person</span>
+        </div>
+        <div class="rate rate--free">
+          <span class="rate__k">Staying guests</span>
+          <span class="rate__v">Free</span>
+          <span class="rate__n">swimming included</span>
+        </div>
+      </div>
+
+      <div class="pass__pay">
+        <h3>Pay as you go</h3>
+        <p style="margin-top:.9rem">Scan to settle your day pass with GCash. Show the confirmation at the gate, or pay in cash when you arrive.</p>
+        <figure class="qr">
+          <picture><source type="image/webp" srcset="img/gcash-qr.webp">
+          <img src="img/gcash-qr.jpg" width="620" height="620" loading="lazy" decoding="async"
+               alt="GCash InstaPay QR code for V.JUSTINA"></picture>
+          <figcaption>
+            <b>V.JUSTINA</b>
+            <span>Jayson A.</span>
+            <span class="mono">+63 946 753 5153</span>
+            <em>Transfer fees may apply</em>
+          </figcaption>
+        </figure>
+        <button class="copy" type="button" data-copy="09467535153">Copy GCash number</button>
+        <p class="note">Opening hours <span class="todo">to be confirmed</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVENTS ============ -->
+<section id="events" class="band">
+  <div class="wrap">
+    <div class="times__grid">
+      <figure class="times__fig" style="aspect-ratio:1/1;background:var(--band)">
+        <picture><source type="image/webp" srcset="img/events-480.webp">
+        <img src="img/events-480.jpg" width="764" height="764" loading="lazy" decoding="async"
+             alt="Guests sharing a meal in the open-air pavilion overlooking the bay"></picture>
+      </figure>
+      <div>
+        <p class="eyebrow">Events</p>
+        <h2>The whole place,<br>for your people only.</h2>
+        <p class="lede" style="margin-top:1rem">Weddings, reunions, and company gatherings, with the pool, the pavilion, the lawn, and the entire ridge closed to everyone but you.</p>
+        <p class="price">&#8369;50,000<small>exclusive use</small></p>
+        <p>Every celebration is different. Tell us your date and what you have in mind.</p>
+        <p><a class="btn" id="lnkEvent" href="#">Enquire about your date</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AVAILABILITY ============ -->
+<section id="dates">
+  <div class="wrap">
+    <div class="cal__head">
+      <div>
+        <p class="eyebrow">Availability</p>
+        <h2>Find your date.</h2>
+      </div>
+      <p class="sync" id="sync" data-s="load" role="status">Loading the master calendar</p>
+    </div>
+
+    <p style="max-width:56ch;margin-top:1rem">Updated by the resort. Tap a night to set your check-in, then tap a later night in the same row to set your check-out.</p>
+
+    <ul class="legend">
+      <li><span class="swatch swatch--open"></span> Open</li>
+      <li><span class="swatch swatch--hold"></span> On hold</li>
+      <li><span class="swatch swatch--full"></span> Taken</li>
+    </ul>
+
+    <div class="months" id="months" role="group" aria-label="Choose a month"></div>
+    <div id="cal"></div>
+  </div>
+</section>
+
+<!-- ============ RESERVE ============ -->
+<section id="reserve" class="band">
+  <div class="wrap">
+    <p class="eyebrow">Reserve</p>
+    <h2>Reserve your stay.</h2>
+    <p class="lede" style="max-width:50ch;margin-top:1rem">Fill this in and we will send it straight to the resort. Someone will confirm your booking and walk you through payment.</p>
+
+    <form class="form" id="form" novalidate>
+      <div class="full summary" aria-live="polite">
+        <dl>
+          <dt>Room</dt>       <dd id="sUnit">Not selected yet</dd>
+          <dt>Check in</dt>   <dd id="sIn">Not set</dd>
+          <dt>Check out</dt>  <dd id="sOut">Not set</dd>
+          <dt>Nights</dt>     <dd id="sNights">Not set</dd>
+          <dt>Total</dt>      <dd class="tot" id="sTotal">Not set</dd>
+        </dl>
+        <div id="sSave" hidden class="saving"></div>
+        <p class="muted" style="margin:.9rem 0 0;font-size:.88rem">Pick your dates in the calendar above, or just tell us in the notes below.</p>
+      </div>
+
+      <div><label for="fName">Your name</label><input id="fName" name="name" autocomplete="name" required><span class="err" id="eName"></span></div>
+      <div><label for="fMobile">Mobile number</label><input id="fMobile" name="mobile" type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxxx" required><span class="err" id="eMobile"></span></div>
+      <div><label for="fEmail">Email <span class="muted">(optional)</span></label><input id="fEmail" name="email" type="email" autocomplete="email"><span class="err" id="eEmail"></span></div>
+      <div><label for="fGuests">Number of guests</label><input id="fGuests" name="guests" type="number" min="1" max="60" value="4" required><span class="err" id="eGuests"></span></div>
+      <div class="full"><label for="fNotes">Anything we should know</label><textarea id="fNotes" name="notes" placeholder="Arrival time, celebrating something, extra guests, camping, day tour, questions"></textarea></div>
+
+      <div class="full">
+        <p class="muted" style="font-family:var(--display);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.8rem">Send your request</p>
+        <div class="hero__actions">
+          <button class="btn" type="button" id="bMsg">Send on Messenger</button>
+          <button class="btn btn--ghost" type="button" id="bMail">Send by email</button>
+          <button class="btn btn--ghost" type="button" id="bCopy">Copy for Viber or SMS</button>
+        </div>
+        <p class="muted" style="margin-top:.9rem;font-size:.9rem">Your reference number is <b class="mono" id="refCode">Not set</b>. Include it when you send payment so the resort can match it to your booking.</p>
+      </div>
+
+      <div class="full">
+        <hr class="rule" style="margin:1rem 0 2rem">
+        <h3>Payment</h3>
+        <p style="max-width:56ch;margin-top:1rem">Reservations are secured by full payment in advance. Send your proof of payment together with your reference number.</p>
+        <div class="pay">
+          <div class="pay__box">
+            <p class="eyebrow" style="margin-bottom:.5rem">Bank transfer</p>
+            <p style="margin-bottom:.3rem"><b>BDO</b> &middot; Valle Justina</p>
+            <p class="mono" id="acctNo">048750002967</p>
+            <button class="copy" type="button" data-copy="048750002967">Copy account number</button>
+          </div>
+          <div class="pay__box">
+            <p class="eyebrow" style="margin-bottom:.5rem">GCash</p>
+            <p style="margin-bottom:.3rem"><b>V.JUSTINA</b> &middot; Jayson A.</p>
+            <p class="mono">+63 946 753 5153</p>
+            <button class="copy" type="button" data-copy="09467535153">Copy GCash number</button>
+            <picture><source type="image/webp" srcset="img/gcash-qr.webp">
+            <img src="img/gcash-qr.jpg" width="620" height="620" loading="lazy" decoding="async"
+                 style="max-width:200px;padding:.4rem;background:#fff;border:1px solid var(--line);border-radius:2px"
+                 alt="GCash InstaPay QR code for V.JUSTINA"></picture>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ GETTING HERE ============ -->
+<section id="getting-here">
+  <div class="wrap">
+    <p class="eyebrow">Getting Here</p>
+    <h2>The drive up.</h2>
+    <p class="lede" style="max-width:46ch;margin-top:1rem">Mayong Payong, Mobo, Masbate.</p>
+    <ul class="incl" style="max-width:44rem">
+      <li>Travel time from Masbate City <span class="todo">to be confirmed</span></li>
+      <li>Travel time from Masbate Airport <span class="todo">to be confirmed</span></li>
+      <li>Road condition and what vehicle you need <span class="todo">to be confirmed</span></li>
+    </ul>
+    <div class="map">
+      <iframe title="Map showing Valle Justina Mountain Resort at Plus Code 8JGP+7M, Mobo, Masbate"
+              src="https://www.google.com/maps?q=8JGP%2B7M%20Mobo%2C%20Masbate&z=15&output=embed"
+              width="600" height="450" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+    </div>
+    <p class="muted" style="margin-top:1rem;font-family:var(--display);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase">
+      Plus Code <b class="mono" style="font-size:.95rem">8JGP+7M</b> Mobo, Masbate
+      <button class="copy" type="button" data-copy="8JGP+7M Mobo, Masbate" style="margin-left:.6rem">Copy</button>
+    </p>
+    <p><a class="btn btn--ghost" id="lnkMap" href="https://www.google.com/maps/search/?api=1&query=8JGP%2B7M+Mobo,+Masbate" target="_blank" rel="noopener noreferrer">Open in Google Maps</a></p>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="band">
+  <div class="wrap" style="max-width:820px">
+    <p class="eyebrow">Questions</p>
+    <h2>Before you come up.</h2>
+    <div style="margin-top:2rem">
+      <details><summary>How do I reserve, and how do I pay?</summary><div class="ans"><p>Pick your dates on the calendar, send the request, and the resort will confirm. Reservations are secured by full payment in advance, by BDO transfer or GCash. Send your proof of payment with your reference number.</p></div></details>
+      <details><summary>How do I get the 10% discount?</summary><div class="ans"><p>Book at least one month before your check-in date. The calculator above applies it automatically once your check-in is 30 or more days away.</p></div></details>
+      <details><summary>What is included in the room rate?</summary><div class="ans"><p>Air-conditioning, bunk beds for 4 to 5 guests in a Standard Room or 2 to 3 in the Balcony Room, free pool use for 4 guests, and complimentary breakfast for 2.</p></div></details>
+      <details><summary>Can I bring extra guests?</summary><div class="ans"><p>Yes. Extra guest and extra pool guest charges are <span class="todo">to be confirmed</span>. Tell us your headcount in the notes and the resort will quote you.</p></div></details>
+      <details><summary>Can I come up just for the day?</summary><div class="ans"><p>Yes. Entrance is &#8369;50 per person. Swimming is &#8369;250 in the daytime and &#8369;300 at night, and it is free for guests staying overnight. No reservation needed, and you can settle the day pass by GCash before you drive up. Opening hours are <span class="todo">to be confirmed</span>.</p></div></details>
+      <details><summary>What do I need for camping?</summary><div class="ans"><p>Camping is sold per pitch and you bring your own tent. The per-pitch rate is <span class="todo">to be confirmed</span>.</p></div></details>
+      <details><summary>Can I book the whole place for an event?</summary><div class="ans"><p>Yes. Exclusive use of the entire property is &#8369;50,000. Message the resort with your date and what you have in mind.</p></div></details>
+      <details><summary>What time is check-in and check-out?</summary><div class="ans"><p>Check in from 2:00 PM. Check out by 11:00 AM.</p></div></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h2 style="font-size:1.2rem">Valle Justina<br>Mountain Resort</h2>
+        <p style="margin-top:1rem">Peace above the city.</p>
+      </div>
+      <div>
+        <p><b>Find us</b><br>Mayong Payong<br>5401 Mobo, Masbate<br>Philippines</p>
+        <p><a id="lnkMap2" href="https://www.google.com/maps/search/?api=1&query=8JGP%2B7M+Mobo,+Masbate" target="_blank" rel="noopener noreferrer">Open in Maps</a></p>
+      </div>
+      <div>
+        <p><b>Talk to us</b><br>
+        <a href="tel:+639065044935">+63 906 504 4935</a><br>
+        <a href="tel:+639467535153">+63 946 753 5153</a><br>
+        <a href="mailto:vallejustina@gmail.com">vallejustina@gmail.com</a></p>
+        <p><a id="lnkFb" href="https://www.facebook.com/p/Valle-Justina-100087347483424/" target="_blank" rel="noopener noreferrer">Facebook Page</a></p>
+        <p>Check in 2:00 PM &middot; Check out 11:00 AM</p>
+      </div>
+    </div>
+    <p class="fine">&copy; <span id="yr">2026</span> Valle Justina Mountain Resort. All rights reserved.</p>
+  </div>
+</footer>
+
+<div class="bar" id="bar" role="region" aria-label="Your selection">
+  <div class="bar__in">
+    <p class="bar__txt" id="barTxt"></p>
+    <a class="btn btn--sm" href="#reserve">Continue</a>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Resort",
+  "name":"Valle Justina Mountain Resort",
+  "description":"A mountaintop resort in Mayong Payong, Mobo, Masbate, with an infinity pool overlooking Masbate City and the bay, air-conditioned rooms, camping, day tours, and exclusive-use event hire.",
+  "url":"https://vallejustina.example/",
+  "image":["https://vallejustina.example/img/og-card.jpg"],
+  "telephone":["+63 906 504 4935","+63 946 753 5153"],
+  "email":"vallejustina@gmail.com",
+  "sameAs":["https://www.facebook.com/p/Valle-Justina-100087347483424/"],
+  "address":{"@type":"PostalAddress","streetAddress":"Mayong Payong","addressLocality":"Mobo","addressRegion":"Masbate","postalCode":"5401","addressCountry":"PH"},
+  "checkinTime":"14:00","checkoutTime":"11:00",
+  "priceRange":"₱50 - ₱50,000",
+  "currenciesAccepted":"PHP",
+  "paymentAccepted":"Bank transfer, GCash",
+  "amenityFeature":[
+    {"@type":"LocationFeatureSpecification","name":"Infinity pool","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Air conditioning","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Camping ground","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Breakfast included","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Mountain view","value":true}
+  ],
+  "makesOffer":[
+    {"@type":"Offer","name":"Standard Room","price":"3000","priceCurrency":"PHP"},
+    {"@type":"Offer","name":"Balcony Room","price":"3500","priceCurrency":"PHP"},
+    {"@type":"Offer","name":"Day tour entrance","price":"50","priceCurrency":"PHP"},
+    {"@type":"Offer","name":"Daytime swim, non-guest","price":"250","priceCurrency":"PHP"},
+    {"@type":"Offer","name":"Night swim, non-guest","price":"300","priceCurrency":"PHP"},
+    {"@type":"Offer","name":"Exclusive use of the whole property","price":"50000","priceCurrency":"PHP"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"How do I reserve, and how do I pay?","acceptedAnswer":{"@type":"Answer","text":"Pick your dates on the calendar and send the request. Reservations are secured by full payment in advance, by BDO transfer or GCash."}},
+    {"@type":"Question","name":"How do I get the 10% discount?","acceptedAnswer":{"@type":"Answer","text":"Book at least one month before your check-in date and 10% is taken off automatically."}},
+    {"@type":"Question","name":"What is included in the room rate?","acceptedAnswer":{"@type":"Answer","text":"Air-conditioning, bunk beds, free pool use for 4 guests, and complimentary breakfast for 2."}},
+    {"@type":"Question","name":"Can I come up just for the day?","acceptedAnswer":{"@type":"Answer","text":"Yes. Entrance is 50 pesos per person. Swimming is 250 pesos daytime and 300 pesos at night, free for guests staying overnight."}},
+    {"@type":"Question","name":"Can I book the whole place for an event?","acceptedAnswer":{"@type":"Answer","text":"Yes. Exclusive use of the entire property is 50,000 pesos."}},
+    {"@type":"Question","name":"What time is check-in and check-out?","acceptedAnswer":{"@type":"Answer","text":"Check in from 2:00 PM. Check out by 11:00 AM."}}
+  ]
+}
+</script>
+
+<script>
+/* ================================================================
+   CONFIG
+   Everything the resort may want to change lives here.
+   Nothing below this block needs editing to update a rate,
+   a room name, a phone number, or the calendar source.
+   ================================================================ */
+const CONFIG = {
+  /* --- LIVE AVAILABILITY SOURCE -------------------------------------
+     This is the Apps Script web app bound to the master sheet:
+     https://docs.google.com/spreadsheets/d/1Z0sT4xBUGa6RPW5x-mQ4yrZG8Y5Hzcv9pf440U4FZJs
+
+     The loader below accepts EITHER JSON or CSV, so it does not matter
+     which one the script returns. Recognised column names:
+       Date   = YYYY-MM-DD
+       Room   (or Unit) = must match a `sheet` value in units below
+       Status = booked | hold      (anything else counts as open)
+
+     If the browser blocks this with a CORS error, publish the sheet
+     instead (File > Share > Publish to web > CSV) and paste that link
+     into fallbackCsvUrl. The page tries the fallback automatically.  */
+  dataUrl: "https://script.google.com/macros/s/AKfycbxvITWOYCqUiNQ7DZtlzakOVIe-s9D7IGvTLZBLkAfbjEg75RZ4BZq2zNd4bIJ3qXwY/exec",
+  fallbackCsvUrl: "",
+
+  refreshMinutes: 10,          // mark data stale after this long
+  earlyBirdDays: 30,           // book this far ahead for the discount
+  earlyBirdPct: 10,
+  monthsAhead: 12,             // calendar rolls forward from today, never hardcoded
+
+  messenger: "https://m.me/100087347483424",
+  facebook:  "https://www.facebook.com/p/Valle-Justina-100087347483424/",
+  bookingEmail: "apayaresorts@gmail.com",
+  publicEmail:  "vallejustina@gmail.com",
+
+  dayPass: { entrance:50, swimDay:250, swimNight:300 },   // staying guests swim free
+
+  units: [
+    /* name = what guests see · sheet = what staff type in the Sheet
+       rate = null means "to be confirmed" and the page says so       */
+    { id:"s1", name:"Standard 1", short:"Std 1",  sheet:"Standard 1", rate:3000, kind:"room" },
+    { id:"s2", name:"Standard 2", short:"Std 2",  sheet:"Standard 2", rate:3000, kind:"room" },
+    { id:"s3", name:"Standard 3", short:"Std 3",  sheet:"Standard 3", rate:3000, kind:"room" },
+    { id:"b1", name:"Balcony Room", short:"Balcony", sheet:"Balcony", rate:3500, kind:"room" },
+    { id:"cp", name:"Camping",    short:"Camp",   sheet:"Camping",    rate:null,  kind:"camp" }
+  ]
+};
+
+/* ================================================================
+   helpers
+   ================================================================ */
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const DOW = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const MON = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+const ymd = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+const midnight = d => { const x=new Date(d); x.setHours(0,0,0,0); return x; };
+const addDays = (d,n) => { const x=new Date(d); x.setDate(x.getDate()+n); return x; };
+const daysBetween = (a,b) => Math.round((midnight(b)-midnight(a))/86400000);
+const peso = n => "₱" + n.toLocaleString("en-PH");
+const nice = d => `${DOW[(d.getDay()+6)%7]} ${d.getDate()} ${MON[d.getMonth()].slice(0,3)} ${d.getFullYear()}`;
+const unitById = id => CONFIG.units.find(u=>u.id===id);
+
+const TODAY = midnight(new Date());
+
+function toast(msg){
+  const t=$("#toast"); t.textContent=msg; t.classList.add("on");
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("on"),2400);
+}
+
+/* ================================================================
+   links
+   ================================================================ */
+$("#lnkMsg").href = CONFIG.messenger;
+$("#lnkFb").href  = CONFIG.facebook;
+$("#lnkEvent").href = "mailto:"+CONFIG.bookingEmail+
+  "?subject="+encodeURIComponent("Exclusive use enquiry - Valle Justina")+
+  "&body="+encodeURIComponent("Hello Valle Justina,\n\nI would like to ask about booking the whole place.\n\nDate:\nType of event:\nApproximate number of guests:\n\nThank you.");
+$("#yr").textContent = new Date().getFullYear();
+
+/* ================================================================
+   Three times a day
+   ================================================================ */
+(function times(){
+  const sec=$("#light"), img=$("#timesImg");
+  const map={
+    noon:  {jpg:"img/noon-480.jpg",  alt:"The pool and sun loungers at midday, looking out over Masbate Bay"},
+    golden:{jpg:"img/golden-480.jpg",alt:"The pool turned gold by the setting sun, with the sun low on the horizon"},
+    dark:  {jpg:"img/night-480.jpg", alt:"The infinity pool glowing blue at night above the lights of Masbate City"}
+  };
+  const tabs=$$('[role="tab"]');
+  function pick(k, focus){
+    tabs.forEach(t=>{
+      const on = t.dataset.k===k;
+      t.setAttribute("aria-selected", on?"true":"false");
+      t.tabIndex = on?0:-1;
+      $("#"+t.getAttribute("aria-controls")).hidden = !on;
+      if(on && focus) t.focus();
+    });
+    sec.dataset.state=k;
+    const m=map[k];
+    // swap the <source> too, or Safari keeps showing the old webp
+    const src = img.parentElement.querySelector("source");
+    if(src) src.srcset = m.jpg.replace(".jpg",".webp");
+    img.src=m.jpg; img.alt=m.alt;
+  }
+  tabs.forEach((t,i)=>{
+    t.tabIndex = i===0?0:-1;
+    t.addEventListener("click",()=>pick(t.dataset.k));
+    t.addEventListener("keydown",e=>{
+      const k=e.key;
+      if(k!=="ArrowRight"&&k!=="ArrowLeft"&&k!=="Home"&&k!=="End") return;
+      e.preventDefault();
+      let n = k==="Home"?0 : k==="End"?tabs.length-1 : i + (k==="ArrowRight"?1:-1);
+      n=(n+tabs.length)%tabs.length;
+      pick(tabs[n].dataset.k,true);
+    });
+  });
+})();
+
+/* ================================================================
+   Availability data
+   Fails CLOSED: if the sheet cannot be read, nothing is bookable.
+   Showing a guest a free night that is actually taken is worse
+   than showing no calendar at all.
+   ================================================================ */
+const AVAIL = { map:new Map(), state:"load", fetched:null };
+
+function parseCsv(text){
+  const rows=[]; let f="",row=[],q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){ if(c==='"'){ if(text[i+1]==='"'){f+='"';i++;} else q=false; } else f+=c; }
+    else if(c==='"') q=true;
+    else if(c===","){ row.push(f); f=""; }
+    else if(c==="\n"){ row.push(f); rows.push(row); row=[]; f=""; }
+    else if(c!=="\r") f+=c;
+  }
+  if(f||row.length){ row.push(f); rows.push(row); }
+  return rows;
+}
+
+/* Normalise one record from any shape into the lookup map.
+   Tolerant on purpose: a non-technical owner editing a spreadsheet will
+   eventually type " Booked" with a leading space or "2026-11-5", and the
+   calendar must not break because of it. */
+function addRecord(m, dateRaw, roomRaw, statusRaw){
+  let d=String(dateRaw==null?"":dateRaw).trim();
+  const u=String(roomRaw==null?"":roomRaw).trim().toLowerCase();
+  const s=String(statusRaw==null?"":statusRaw).trim().toLowerCase();
+  if(!d||!u) return;
+  // accept ISO, or anything Date can parse (Apps Script often emits ISO datetimes)
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(d)){
+    const p=new Date(d);
+    if(isNaN(p)) return;
+    d=`${p.getFullYear()}-${String(p.getMonth()+1).padStart(2,"0")}-${String(p.getDate()).padStart(2,"0")}`;
+  }
+  if(s!=="booked"&&s!=="hold") return;      // anything else counts as open
+  m.set(d+"|"+u, s==="booked"?"full":"hold");
+}
+
+/* Accepts JSON (array of objects, array of arrays, or {rows|data|values:[...]})
+   or CSV. Column may be called Room or Unit. */
+function buildMap(text){
+  const m=new Map();
+  const pick=(o,...keys)=>{
+    for(const k of Object.keys(o)){
+      if(keys.includes(k.trim().toLowerCase())) return o[k];
+    }
+    return undefined;
+  };
+  let json=null;
+  try{ json=JSON.parse(text); }catch(_){}
+
+  if(json){
+    let rows = Array.isArray(json) ? json
+             : (json.rows||json.data||json.values||json.records||null);
+    if(!Array.isArray(rows)) throw new Error("shape");
+    if(rows.length && Array.isArray(rows[0])){
+      // array of arrays, first row may be a header
+      const head=rows[0].map(h=>String(h).trim().toLowerCase());
+      const hasHead = head.includes("date");
+      const body = hasHead ? rows.slice(1) : rows;
+      const iD = hasHead ? head.indexOf("date") : 0;
+      const iU = hasHead ? (head.indexOf("room")>=0?head.indexOf("room"):head.indexOf("unit")) : 1;
+      const iS = hasHead ? head.indexOf("status") : 2;
+      body.forEach(r=>addRecord(m, r[iD], r[iU], r[iS]));
+    }else{
+      rows.forEach(o=>{
+        if(o && typeof o==="object") addRecord(m, pick(o,"date"), pick(o,"room","unit"), pick(o,"status"));
+      });
+    }
+    return m;
+  }
+
+  const rows=parseCsv(text);
+  const head=(rows.shift()||[]).map(h=>h.trim().toLowerCase());
+  const iD=head.indexOf("date");
+  const iU=head.indexOf("room")>=0?head.indexOf("room"):head.indexOf("unit");
+  const iS=head.indexOf("status");
+  if(iD<0||iU<0||iS<0) throw new Error("columns");
+  rows.forEach(r=>{ if(r) addRecord(m, r[iD], r[iU], r[iS]); });
+  return m;
+}
+
+async function tryUrl(url){
+  const u = url + (url.includes("?")?"&":"?") + "_=" + Date.now();
+  const r = await fetch(u,{cache:"no-store",redirect:"follow"});
+  if(!r.ok) throw new Error(r.status);
+  return buildMap(await r.text());
+}
+
+async function loadAvail(){
+  const sources=[CONFIG.dataUrl, CONFIG.fallbackCsvUrl].filter(Boolean);
+  if(!sources.length){ AVAIL.state="none"; paintSync(); return; }
+  for(const src of sources){
+    try{
+      AVAIL.map = await tryUrl(src);
+      AVAIL.state="ok"; AVAIL.fetched=Date.now();
+      paintSync(); renderMonth(); return;
+    }catch(err){ /* try the next source */ }
+  }
+  AVAIL.state="err";
+  paintSync(); renderMonth();
+}
+
+function paintSync(){
+  const el=$("#sync");
+  if(AVAIL.state==="ok"){
+    const mins = AVAIL.fetched ? Math.floor((Date.now()-AVAIL.fetched)/60000) : 0;
+    if(mins >= CONFIG.refreshMinutes){ el.dataset.s="stale"; el.textContent="Availability may be out of date"; }
+    else { el.dataset.s="ok"; el.textContent="Synced with the resort calendar"; }
+  } else if(AVAIL.state==="none"){
+    el.dataset.s="stale"; el.textContent="Calendar source not connected yet";
+  } else if(AVAIL.state==="err"){
+    el.dataset.s="err"; el.textContent="Could not reach the calendar. Please message us.";
+  } else {
+    el.dataset.s="load"; el.textContent="Loading the resort calendar";
+  }
+}
+
+function statusOf(dateStr, unit){
+  if(AVAIL.state==="err") return "unknown";           // fail closed
+  return AVAIL.map.get(dateStr+"|"+unit.sheet.toLowerCase()) || "open";
+}
+
+/* ================================================================
+   Calendar
+   ================================================================ */
+const MONTHS = (()=>{
+  const out=[]; const d=new Date(TODAY.getFullYear(),TODAY.getMonth(),1);
+  for(let i=0;i<CONFIG.monthsAhead;i++){ out.push(new Date(d)); d.setMonth(d.getMonth()+1); }
+  return out;
+})();
+let activeMonth = 0;
+const SEL = { unitId:null, inD:null, outD:null };
+
+(function monthTabs(){
+  const box=$("#months");
+  MONTHS.forEach((m,i)=>{
+    const b=document.createElement("button");
+    b.type="button";
+    b.textContent = MON[m.getMonth()].slice(0,3)+" "+m.getFullYear();
+    b.setAttribute("aria-pressed", i===0?"true":"false");
+    b.addEventListener("click",()=>{ activeMonth=i; renderMonth();
+      $$("#months button").forEach((x,j)=>x.setAttribute("aria-pressed", j===i?"true":"false"));
+    });
+    box.appendChild(b);
+  });
+})();
+
+function weeksOf(monthDate){
+  const y=monthDate.getFullYear(), m=monthDate.getMonth();
+  const first=new Date(y,m,1), last=new Date(y,m+1,0);
+  const start=addDays(first, -((first.getDay()+6)%7));       // back to Monday
+  const weeks=[]; let cur=new Date(start);
+  while(cur<=last){
+    weeks.push(Array.from({length:7},(_,i)=>addDays(cur,i)));
+    cur=addDays(cur,7);
+  }
+  return weeks;
+}
+
+function cellState(d,u){
+  const s = statusOf(ymd(d),u);
+  if(midnight(d) < TODAY) return "full";                     // the past is not bookable
+  return s;
+}
+
+function renderMonth(){
+  const host=$("#cal"); host.innerHTML="";
+  const mDate=MONTHS[activeMonth];
+  const frag=document.createDocumentFragment();
+
+  weeksOf(mDate).forEach(week=>{
+    const t=document.createElement("table");
+    t.className="week";
+    const cap=document.createElement("caption");
+    cap.textContent = `${week[0].getDate()} ${MON[week[0].getMonth()].slice(0,3)} to ${week[6].getDate()} ${MON[week[6].getMonth()].slice(0,3)}`;
+    t.appendChild(cap);
+
+    /* table-layout:fixed takes its column widths from the FIRST row, which
+       lives in <thead>. A colgroup is the only reliable way to reserve the
+       room-label column, otherwise every column ends up equal and the labels
+       clip on narrow phones. */
+    const cg=document.createElement("colgroup");
+    const c0=document.createElement("col"); c0.className="col-lbl"; cg.appendChild(c0);
+    for(let i=0;i<7;i++) cg.appendChild(document.createElement("col"));
+    t.appendChild(cg);
+
+    const thead=document.createElement("thead");
+    const hr=document.createElement("tr");
+    hr.appendChild(Object.assign(document.createElement("th"),{scope:"col"})).innerHTML='<span class="vh">Room</span>';
+    week.forEach((d,i)=>{
+      const th=document.createElement("th"); th.scope="col";
+      if(i>=4) th.className="is-we";
+      const inMonth = d.getMonth()===mDate.getMonth();
+      th.innerHTML = `${DOW[i]}<b>${inMonth?d.getDate():""}</b>`;
+      hr.appendChild(th);
+    });
+    thead.appendChild(hr); t.appendChild(thead);
+
+    const tb=document.createElement("tbody");
+    CONFIG.units.forEach(u=>{
+      const tr=document.createElement("tr");
+      const rh=document.createElement("th"); rh.scope="row";
+      rh.innerHTML = `<span class="lbl-lg">${u.name}</span><span class="lbl-sm" aria-hidden="true">${u.short||u.name}</span>`;
+      tr.appendChild(rh);
+      week.forEach(d=>{
+        const td=document.createElement("td");
+        const inMonth = d.getMonth()===mDate.getMonth();
+        const b=document.createElement("button");
+        b.type="button"; b.className="cell";
+        if(!inMonth){
+          b.dataset.s="off"; b.disabled=true; b.setAttribute("aria-hidden","true"); b.tabIndex=-1;
+        }else{
+          const st=cellState(d,u);
+          b.dataset.s=st;
+          b.dataset.date=ymd(d);
+          b.dataset.unit=u.id;
+          const label = st==="open"?"Open" : st==="hold"?"On hold" : st==="unknown"?"Unknown" : "Taken";
+          b.dataset.lbl = st==="open"?"Open":st==="hold"?"Hold":"Taken";
+          b.dataset.vh  = `${u.name}, ${nice(d)}, ${label}`;
+          b.innerHTML = `<span aria-hidden="true">${b.dataset.lbl}</span>
+                         <span class="vh">${b.dataset.vh}</span>`;
+          if(st==="full"||st==="unknown"){ b.disabled=true; b.setAttribute("aria-disabled","true"); }
+          b.tabIndex=-1;
+        }
+        td.appendChild(b); tr.appendChild(td);
+      });
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb); frag.appendChild(t);
+  });
+
+  host.appendChild(frag);
+  paintSelection();
+  rovingSetup();
+}
+
+/* roving tabindex so the whole month is one tab stop, arrows move around */
+function rovingSetup(){
+  const cells=$$("#cal .cell:not([disabled])");
+  cells.forEach((c,i)=>{ c.tabIndex = i===0?0:-1; });
+}
+$("#cal").addEventListener("keydown", e=>{
+  const keys=["ArrowRight","ArrowLeft","ArrowUp","ArrowDown","Home","End"];
+  if(!keys.includes(e.key)) return;
+  const cells=$$("#cal .cell:not([disabled])");
+  const i=cells.indexOf(document.activeElement);
+  if(i<0) return;
+  e.preventDefault();
+  let n;
+  if(e.key==="Home") n=0;
+  else if(e.key==="End") n=cells.length-1;
+  else if(e.key==="ArrowRight") n=i+1;
+  else if(e.key==="ArrowLeft")  n=i-1;
+  else if(e.key==="ArrowDown")  n=i+7;
+  else                          n=i-7;
+  n=Math.max(0,Math.min(cells.length-1,n));
+  cells[i].tabIndex=-1; cells[n].tabIndex=0; cells[n].focus();
+});
+
+$("#cal").addEventListener("click", e=>{
+  const b=e.target.closest(".cell");
+  if(!b||b.disabled||!b.dataset.date) return;
+  const d=new Date(b.dataset.date+"T00:00:00");
+  const uid=b.dataset.unit;
+
+  if(SEL.unitId!==uid || !SEL.inD || SEL.outD || d<=SEL.inD){
+    SEL.unitId=uid; SEL.inD=d; SEL.outD=null;
+  }else{
+    // every night from check-in up to (not including) check-out must be free
+    const u=unitById(uid);
+    let ok=true;
+    for(let x=new Date(SEL.inD); x<d; x=addDays(x,1)){
+      const s=cellState(x,u);
+      if(s==="full"||s==="unknown"){ ok=false; break; }
+    }
+    if(!ok){ toast("Those nights are not all free"); SEL.inD=d; SEL.outD=null; }
+    else SEL.outD=d;
+  }
+  paintSelection(); updateSummary();
+});
+
+function paintSelection(){
+  $$("#cal .cell").forEach(c=>{
+    c.classList.remove("is-in","is-mid","is-out");
+    if(!c.dataset.lbl) return;
+    relabel(c, c.dataset.lbl, c.dataset.vh);
+  });
+  if(!SEL.inD) return;
+  $$("#cal .cell").forEach(c=>{
+    if(c.dataset.unit!==SEL.unitId||!c.dataset.date) return;
+    const d=new Date(c.dataset.date+"T00:00:00");
+    if(+d===+SEL.inD){ c.classList.add("is-in"); relabel(c,"In", c.dataset.vh+", your check-in"); }
+    else if(SEL.outD && +d===+SEL.outD){ c.classList.add("is-out"); relabel(c,"Out", c.dataset.vh+", your check-out"); }
+    else if(SEL.outD && d>SEL.inD && d<SEL.outD){ c.classList.add("is-mid"); relabel(c,"·", c.dataset.vh+", part of your stay"); }
+  });
+}
+function relabel(cell, visible, screenReader){
+  const v=cell.querySelector('span[aria-hidden]'), s=cell.querySelector('.vh');
+  if(v) v.textContent=visible;
+  if(s) s.textContent=screenReader;
+}
+
+/* ================================================================
+   Summary, pricing, early bird
+   ================================================================ */
+function calc(){
+  if(!SEL.unitId||!SEL.inD) return null;
+  const u=unitById(SEL.unitId);
+  const nights = SEL.outD ? daysBetween(SEL.inD,SEL.outD) : 0;
+  const lead = daysBetween(TODAY, SEL.inD);
+  const early = lead >= CONFIG.earlyBirdDays;
+  let gross=null, save=0, total=null;
+  if(u.rate!=null && nights>0){
+    gross = u.rate*nights;
+    save = early ? Math.round(gross*CONFIG.earlyBirdPct/100) : 0;
+    total = gross-save;
+  }
+  return {u,nights,lead,early,gross,save,total};
+}
+
+function updateSummary(){
+  const c=calc();
+  const set=(id,v)=>$(id).textContent=v;
+  if(!c){
+    set("#sUnit","Not selected yet"); set("#sIn","Not set"); set("#sOut","Not set");
+    set("#sNights","Not set"); set("#sTotal","Not set");
+    $("#sSave").hidden=true;
+    $("#bar").classList.remove("on");
+    document.body.classList.remove("bar-on");
+    return;
+  }
+  set("#sUnit", c.u.name);
+  set("#sIn", nice(SEL.inD));
+  set("#sOut", SEL.outD?nice(SEL.outD):"Tap a later night");
+  set("#sNights", c.nights?c.nights:"Not set");
+
+  if(c.total!=null){
+    set("#sTotal", peso(c.total));
+  }else if(c.u.rate==null){
+    set("#sTotal","Rate to be confirmed");
+  }else{
+    set("#sTotal","Not set");
+  }
+
+  const sv=$("#sSave");
+  if(c.save>0){
+    sv.hidden=false;
+    sv.innerHTML = `Booking ${c.lead} days ahead. <b>Early-bird ${CONFIG.earlyBirdPct}% applied, you save ${peso(c.save)}.</b>`;
+  }else if(c.nights>0 && c.u.rate!=null){
+    sv.hidden=false;
+    const need = CONFIG.earlyBirdDays - c.lead;
+    sv.innerHTML = `Book ${CONFIG.earlyBirdDays} or more days ahead for ${CONFIG.earlyBirdPct}% off. This date is ${c.lead} day${c.lead===1?"":"s"} away${need>0?`, ${need} short`:""}.`;
+  }else sv.hidden=true;
+
+  const bar=$("#bar");
+  bar.classList.add("on");
+  document.body.classList.add("bar-on");
+  const nm = window.matchMedia("(min-width:560px)").matches ? c.u.name : (c.u.short||c.u.name);
+  $("#barTxt").innerHTML = c.nights
+    ? `<b>${nm} &middot; ${c.nights} night${c.nights>1?"s":""}</b>${c.total!=null?peso(c.total):"Rate to be confirmed"}`
+    : `<b>${nm}</b>Tap a later night`;
+}
+
+/* ================================================================
+   Reference code, message building, handoff
+   ================================================================ */
+function refCode(){
+  const d=new Date();
+  const p=n=>String(n).padStart(2,"0");
+  const rnd=Math.random().toString(36).slice(2,5).toUpperCase();
+  return `VJ-${String(d.getFullYear()).slice(2)}${p(d.getMonth()+1)}${p(d.getDate())}-${rnd}`;
+}
+const REF = refCode();
+$("#refCode").textContent = REF;
+
+function validate(){
+  let ok=true;
+  const req=[["#fName","#eName","Please tell us your name"],
+             ["#fMobile","#eMobile","We need a number to reach you"],
+             ["#fGuests","#eGuests","How many guests?"]];
+  req.forEach(([f,e,msg])=>{
+    const v=$(f).value.trim();
+    $(e).textContent = v?"":msg;
+    if(!v){ ok=false; $(f).setAttribute("aria-invalid","true"); }
+    else $(f).removeAttribute("aria-invalid");
+  });
+  const em=$("#fEmail").value.trim();
+  if(em && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){
+    $("#eEmail").textContent="That email does not look right"; ok=false;
+  } else $("#eEmail").textContent="";
+  if(!ok){ const bad=$('[aria-invalid="true"]'); if(bad) bad.focus(); }
+  return ok;
+}
+
+function message(){
+  const c=calc();
+  const L=[];
+  L.push("Hello Valle Justina, I would like to reserve.");
+  L.push("");
+  L.push("Reference: "+REF);
+  if(c){
+    L.push("Room: "+c.u.name);
+    L.push("Check in: "+nice(SEL.inD)+" (from 2:00 PM)");
+    if(SEL.outD) L.push("Check out: "+nice(SEL.outD)+" (by 11:00 AM)");
+    if(c.nights) L.push("Nights: "+c.nights);
+    if(c.total!=null){
+      L.push("Rate: "+peso(c.u.rate)+" per night");
+      if(c.save>0) L.push("Early-bird "+CONFIG.earlyBirdPct+"%: -"+peso(c.save));
+      L.push("Total: "+peso(c.total));
+    }
+  }else{
+    L.push("Dates: (not chosen yet)");
+  }
+  L.push("Guests: "+($("#fGuests").value||"").trim());
+  L.push("");
+  L.push("Name: "+$("#fName").value.trim());
+  L.push("Mobile: "+$("#fMobile").value.trim());
+  const em=$("#fEmail").value.trim(); if(em) L.push("Email: "+em);
+  const nt=$("#fNotes").value.trim(); if(nt){ L.push(""); L.push("Notes: "+nt); }
+  L.push("");
+  L.push("Sent from the Valle Justina website.");
+  return L.join("\n");
+}
+
+async function copyText(t){
+  try{ await navigator.clipboard.writeText(t); return true; }
+  catch(e){
+    const ta=document.createElement("textarea");
+    ta.value=t; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    let ok=false; try{ ok=document.execCommand("copy"); }catch(_){}
+    ta.remove(); return ok;
+  }
+}
+
+$("#bMsg").addEventListener("click", async ()=>{
+  if(!validate()) return;
+  await copyText(message());
+  toast("Details copied. Paste them in Messenger.");
+  window.open(CONFIG.messenger,"_blank","noopener");
+});
+$("#bMail").addEventListener("click", ()=>{
+  if(!validate()) return;
+  location.href = "mailto:"+CONFIG.bookingEmail+
+    "?subject="+encodeURIComponent("Reservation "+REF+" - Valle Justina")+
+    "&body="+encodeURIComponent(message());
+});
+$("#bCopy").addEventListener("click", async ()=>{
+  if(!validate()) return;
+  toast(await copyText(message()) ? "Copied. Paste it in Viber or SMS." : "Could not copy, please select the text manually.");
+});
+$$("[data-copy]").forEach(b=>b.addEventListener("click", async ()=>{
+  toast(await copyText(b.dataset.copy) ? "Copied" : "Could not copy");
+}));
+
+$("#form").addEventListener("submit", e=>e.preventDefault());
+$$("#form input, #form textarea").forEach(f=>f.addEventListener("input",()=>{
+  const e=$("#e"+f.id.slice(1)); if(e) e.textContent="";
+  f.removeAttribute("aria-invalid");
+}));
+
+/* ================================================================
+   boot
+   ================================================================ */
+renderMonth();
+paintSync();
+loadAvail();
+setInterval(paintSync, 60000);
+document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) loadAvail(); });
+</script>
+</body>
+</html>
