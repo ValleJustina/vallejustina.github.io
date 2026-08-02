@@ -1179,7 +1179,7 @@ footer a:hover{color:#fff}
       <p class="sync" id="sync" data-s="load" role="status">Loading the master calendar</p>
     </div>
 
-    <p id="calHelp" style="max-width:56ch;margin-top:1rem">Updated by the resort. Tap a night to set your check-in, then tap a later night in the same row to set your check-out.</p>
+    <p id="calHelp" style="max-width:60ch;margin-top:1rem">Updated by the resort. Tap a night to set your check-in, then tap a later night in the same row to set your check-out. <b>Need more than one room?</b> Once your dates are set, tap the same nights in another room to add it. Tap it again to take it off. Camping is not here, it has its own form.</p>
 
     <ul class="legend">
       <li><span class="swatch swatch--open"></span> Available</li>
@@ -1230,7 +1230,7 @@ footer a:hover{color:#fff}
         </div>
         <span class="err" data-err></span>
       </div>
-      <div class="full"><label for="fNotes">Anything we should know</label><textarea id="fNotes" name="notes" placeholder="Arrival time, celebrating something, extra guests, camping, day tour, questions"></textarea></div>
+      <div class="full"><label for="fNotes">Anything we should know</label><textarea id="fNotes" name="notes" placeholder="Arrival time, celebrating something, extra guests, questions"></textarea></div>
 
       <div class="full">
         <div id="sendBox">
@@ -1317,7 +1317,7 @@ footer a:hover{color:#fff}
       <details><summary>What is included in the room rate?</summary><div class="ans"><p>Air-conditioning, free pool use for 4 guests, and complimentary breakfast for 2.</p><p>The three Standard Rooms have bunk beds and sleep 4 to 5. The Balcony Room has a queen bed with a pull-out and sleeps 2 to 3.</p></div></details>
       <details><summary>Can I bring extra guests?</summary><div class="ans"><p>Yes. Extra guest and extra pool guest charges are <span class="todo">to be confirmed</span>. Tell us your headcount in the notes and the resort will quote you.</p></div></details>
       <details><summary>Can I come up just for the day?</summary><div class="ans"><p>Yes. Entrance is &#8369;50 per person. Swimming is &#8369;250 in the daytime and &#8369;300 at night, and it is free for guests staying overnight. No reservation needed, and you can settle the day pass by GCash before you drive up. Opening hours are <span class="todo">to be confirmed</span>.</p></div></details>
-      <details><summary>What do I need for camping?</summary><div class="ans"><p>Camping is sold per pitch and you bring your own tent. The per-pitch rate is <span class="todo">to be confirmed</span>.</p></div></details>
+      <details><summary>What do I need for camping?</summary><div class="ans"><p>Nothing, unless you want to bring it. Rent one of our tents and it is set up and waiting, from &#8369;650 for two people, or pay the pitching fee from &#8369;400 and put your own up. Lamps, chairs, tables, mattresses and airbeds can all be added.</p><p>Camping is not on the availability calendar because it does not run out the way a room does. It has its own form: pay, enter your reference, and the page gives you a ticket for the gate.</p></div></details>
       <details><summary>Can I book the whole place for an event?</summary><div class="ans"><p>Yes. Exclusive use of the entire property is &#8369;50,000. Message the resort with your date and what you have in mind.</p></div></details>
       <details><summary>What time is check-in and check-out?</summary><div class="ans"><p>Check in from 2:00 PM. Check out by 11:00 AM.</p></div></details>
     </div>
@@ -1446,6 +1446,8 @@ const CONFIG = {
     { id:"s2", name:"Standard 2", short:"Std 2",  sheet:"Standard 2", rate:3000, kind:"room" },
     { id:"s3", name:"Standard 3", short:"Std 3",  sheet:"Standard 3", rate:3000, kind:"room" },
     { id:"b1", name:"Balcony Room", short:"Balcony", sheet:"Balcony", rate:3500, kind:"room" },
+    /* Camping is not in the calendar. There is always room on the ridge, and it
+       has its own registration form, so it would only ever read Available. */
     { id:"cp", name:"Camping",    short:"Camp",   sheet:"Camping",    rate:null,  kind:"camp" }
   ]
 };
@@ -1537,6 +1539,8 @@ $("#yr").textContent = new Date().getFullYear();
    than showing no calendar at all.
    ================================================================ */
 const AVAIL = { map:new Map(), state:"load", fetched:null };
+/* the rooms the calendar is actually about */
+const ROOMS = CONFIG.units.filter(u=>u.kind==="room");
 
 function parseCsv(text){
   const rows=[]; let f="",row=[],q=false;
@@ -1582,7 +1586,7 @@ function addRecord(m, dateRaw, roomRaw, statusRaw){
   /* One row blocks one room. The only exception is a deliberate whole-place
      booking, which has to be spelled out in the Room column. */
   if(WHOLE_PLACE.includes(u)){
-    CONFIG.units.forEach(x=> m.set(d+"|"+x.sheet.toLowerCase(), state));
+    ROOMS.forEach(x=> m.set(d+"|"+x.sheet.toLowerCase(), state));
     return;
   }
   m.set(d+"|"+u, state);
@@ -1742,7 +1746,18 @@ const MONTHS = (()=>{
   return out;
 })();
 let activeMonth = 0;
-const SEL = { unitId:null, inD:null, outD:null };
+/* One stay, one set of dates, as many rooms as they need. Two rooms on
+   different nights is two separate requests, which is also how the resort
+   would handle it on Messenger. */
+const SEL = { unitIds:[], inD:null, outD:null };
+const selHas = id => SEL.unitIds.indexOf(id) > -1;
+function rangeFree(u, a, b){
+  for(let x=new Date(a); x<b; x=addDays(x,1)){
+    const st=cellState(x,u);
+    if(st!=="open"&&st!=="hold") return false;
+  }
+  return true;
+}
 
 (function monthTabs(){
   const box=$("#months");
@@ -1847,7 +1862,7 @@ function renderMonth(){
     thead.appendChild(hr); t.appendChild(thead);
 
     const tb=document.createElement("tbody");
-    CONFIG.units.forEach(u=>{
+    ROOMS.forEach(u=>{
       const tr=document.createElement("tr");
       const rh=document.createElement("th"); rh.scope="row";
       rh.innerHTML = `<span class="lbl-lg">${u.name}</span><span class="lbl-sm" aria-hidden="true">${u.short||u.name}</span>`;
@@ -2327,19 +2342,39 @@ $("#cal").addEventListener("click", e=>{
   if(!b||b.disabled||!b.dataset.date) return;
   const d=new Date(b.dataset.date+"T00:00:00");
   const uid=b.dataset.unit;
+  const u=unitById(uid);
 
-  if(SEL.unitId!==uid || !SEL.inD || SEL.outD || d<=SEL.inD){
-    SEL.unitId=uid; SEL.inD=d; SEL.outD=null;
-  }else{
-    // every night from check-in up to (not including) check-out must be free
-    const u=unitById(uid);
-    let ok=true;
-    for(let x=new Date(SEL.inD); x<d; x=addDays(x,1)){
-      const s=cellState(x,u);
-      if(s!=="open"&&s!=="hold"){ ok=false; break; }
+  /* Nothing chosen yet: this is the check-in. */
+  if(!SEL.inD){
+    SEL.unitIds=[uid]; SEL.inD=d; SEL.outD=null;
+  }
+
+  /* Check-in set, waiting for the check-out. It has to be a later night in the
+     same row, otherwise treat the tap as starting again. */
+  else if(!SEL.outD){
+    if(uid===SEL.unitIds[0] && d>SEL.inD){
+      if(rangeFree(u, SEL.inD, d)) SEL.outD=d;
+      else { toast("Those nights are not all free"); SEL.inD=d; SEL.outD=null; }
+    }else{
+      SEL.unitIds=[uid]; SEL.inD=d; SEL.outD=null;
     }
-    if(!ok){ toast("Those nights are not all free"); SEL.inD=d; SEL.outD=null; }
-    else SEL.outD=d;
+  }
+
+  /* Dates settled. Now a tap on any row adds or removes that room. */
+  else{
+    if(selHas(uid)){
+      if(SEL.unitIds.length>1){
+        SEL.unitIds=SEL.unitIds.filter(x=>x!==uid);
+        toast(u.name+" removed");
+      }else{
+        SEL.unitIds=[uid]; SEL.inD=d; SEL.outD=null;   // last room, start again
+      }
+    }else if(rangeFree(u, SEL.inD, SEL.outD)){
+      SEL.unitIds.push(uid);
+      toast(u.name+" added, "+SEL.unitIds.length+" rooms");
+    }else{
+      toast(u.name+" is not free for all of those nights");
+    }
   }
   paintSelection(); updateSummary();
 });
@@ -2352,7 +2387,7 @@ function paintSelection(){
   });
   if(!SEL.inD) return;
   $$("#cal .cell").forEach(c=>{
-    if(c.dataset.unit!==SEL.unitId||!c.dataset.date) return;
+    if(!selHas(c.dataset.unit)||!c.dataset.date) return;
     const d=new Date(c.dataset.date+"T00:00:00");
     if(+d===+SEL.inD){ c.classList.add("is-in"); relabel(c,"In", c.dataset.vh+", your check-in"); }
     else if(SEL.outD && +d===+SEL.outD){ c.classList.add("is-out"); relabel(c,"Out", c.dataset.vh+", your check-out"); }
@@ -2369,18 +2404,26 @@ function relabel(cell, visible, screenReader){
    Summary, pricing, early bird
    ================================================================ */
 function calc(){
-  if(!SEL.unitId||!SEL.inD) return null;
-  const u=unitById(SEL.unitId);
+  if(!SEL.unitIds.length||!SEL.inD) return null;
+  const us = SEL.unitIds.map(unitById).filter(Boolean);
+  if(!us.length) return null;
   const nights = SEL.outD ? daysBetween(SEL.inD,SEL.outD) : 0;
   const lead = daysBetween(TODAY, SEL.inD);
   const early = lead >= CONFIG.earlyBirdDays;
+  const nightly = us.reduce((sum,u)=> sum + (u.rate||0), 0);
+  const priced = us.every(u=>u.rate!=null);
   let gross=null, save=0, total=null;
-  if(u.rate!=null && nights>0){
-    gross = u.rate*nights;
+  if(priced && nights>0){
+    gross = nightly*nights;
     save = early ? Math.round(gross*CONFIG.earlyBirdPct/100) : 0;
     total = gross-save;
   }
-  return {u,nights,lead,early,gross,save,total};
+  return {us, u:us[0], nights, lead, early, nightly, priced, gross, save, total};
+}
+function roomWords(us, short){
+  if(us.length===1) return short ? (us[0].short||us[0].name) : us[0].name;
+  if(short) return us.length+" rooms";
+  return us.slice(0,-1).map(u=>u.name).join(", ")+" and "+us[us.length-1].name;
 }
 
 function updateSummary(){
@@ -2394,14 +2437,14 @@ function updateSummary(){
     document.body.classList.remove("bar-on");
     return;
   }
-  set("#sUnit", c.u.name);
+  set("#sUnit", roomWords(c.us) + (c.us.length>1 ? " ("+c.us.length+" rooms)" : ""));
   set("#sIn", nice(SEL.inD));
   set("#sOut", SEL.outD?nice(SEL.outD):"Tap a later night");
   set("#sNights", c.nights?c.nights:"Not set");
 
   if(c.total!=null){
     set("#sTotal", peso(c.total));
-  }else if(c.u.rate==null){
+  }else if(!c.priced){
     set("#sTotal","Rate to be confirmed");
   }else{
     set("#sTotal","Not set");
@@ -2411,7 +2454,7 @@ function updateSummary(){
   if(c.save>0){
     sv.hidden=false;
     sv.innerHTML = `Booking ${c.lead} days ahead. <b>Early-bird ${CONFIG.earlyBirdPct}% applied, you save ${peso(c.save)}.</b>`;
-  }else if(c.nights>0 && c.u.rate!=null){
+  }else if(c.nights>0 && c.priced){
     sv.hidden=false;
     const need = CONFIG.earlyBirdDays - c.lead;
     sv.innerHTML = `Book ${CONFIG.earlyBirdDays} or more days ahead for ${CONFIG.earlyBirdPct}% off. This date is ${c.lead} day${c.lead===1?"":"s"} away${need>0?`, ${need} short`:""}.`;
@@ -2420,7 +2463,7 @@ function updateSummary(){
   const bar=$("#bar");
   bar.classList.add("on");
   document.body.classList.add("bar-on");
-  const nm = window.matchMedia("(min-width:560px)").matches ? c.u.name : (c.u.short||c.u.name);
+  const nm = roomWords(c.us, !window.matchMedia("(min-width:560px)").matches);
   $("#barTxt").innerHTML = c.nights
     ? `<b>${nm} &middot; ${c.nights} night${c.nights>1?"s":""}</b>${c.total!=null?peso(c.total):"Rate to be confirmed"}`
     : `<b>${nm}</b>Tap a later night`;
@@ -2464,12 +2507,12 @@ function message(){
   L.push("");
   L.push("Reference: "+REF);
   if(c){
-    L.push("Room: "+c.u.name);
+    L.push((c.us.length>1?"Rooms: ":"Room: ")+c.us.map(u=>u.name).join(", "));
     L.push("Check in: "+nice(SEL.inD)+" (from 2:00 PM)");
     if(SEL.outD) L.push("Check out: "+nice(SEL.outD)+" (by 11:00 AM)");
     if(c.nights) L.push("Nights: "+c.nights);
     if(c.total!=null){
-      L.push("Rate: "+peso(c.u.rate)+" per night");
+      L.push("Rate: "+peso(c.nightly)+" per night"+(c.us.length>1?" for all "+c.us.length+" rooms":""));
       if(c.save>0) L.push("Early-bird "+CONFIG.earlyBirdPct+"%: -"+peso(c.save));
       L.push("Total: "+peso(c.total));
     }
@@ -2516,12 +2559,13 @@ async function record(){
   const c = calc();
   const payload = {
     ref: REF,
-    room:     c ? c.u.name : "",
+    room:      c ? c.us.map(u=>u.name).join(", ") : "",
+    roomCount: c ? c.us.length : 0,
     /* The calendar is keyed on the sheet's own room name, which is not always
        the name a guest sees: the Balcony Room is just "Balcony" in the sheet.
        Send both, and send the dates as plain YYYY-MM-DD as well, so the script
        never has to guess at either. */
-    roomSheet: c ? c.u.sheet : "",
+    roomSheets: c ? c.us.map(u=>u.sheet) : [],
     checkIn:  SEL.inD  ? nice(SEL.inD)  : "",
     checkOut: SEL.outD ? nice(SEL.outD) : "",
     checkInISO:  SEL.inD  ? ymd(SEL.inD)  : "",
