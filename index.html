@@ -447,6 +447,9 @@ table.week{width:100%;border-collapse:separate;border-spacing:3px;table-layout:f
   border-color:#D6D3CD;cursor:not-allowed;
 }
 .cell[data-s="off"]{border-color:transparent;background:transparent;cursor:default;visibility:hidden}
+/* a night already gone: present, so the week reads correctly, but plainly spent */
+.cell[data-s="past"]{border-color:transparent;background:transparent;color:var(--muted);
+  cursor:default;opacity:.45}
 .cell.is-in,.cell.is-out{background:var(--ink);border-color:var(--ink);color:#F7F5F2}
 .cell.is-mid{background:var(--gold);border-color:var(--gold);color:#151006}
 .cell:disabled{pointer-events:none}
@@ -1768,9 +1771,11 @@ function weeksOf(monthDate){
 }
 
 function cellState(d,u){
-  const s = statusOf(ymd(d),u);
-  if(midnight(d) < TODAY) return "full";                     // the past is not bookable
-  return s;
+  /* A night that has already gone is not "booked", it is simply gone. Labelling
+     it Booked makes a quiet week look like a full one, which is exactly the
+     wrong story for the page to tell. */
+  if(midnight(d) < TODAY) return "past";
+  return statusOf(ymd(d),u);
 }
 
 function renderMonth(){
@@ -1859,12 +1864,14 @@ function renderMonth(){
           b.dataset.s=st;
           b.dataset.date=ymd(d);
           b.dataset.unit=u.id;
-          const label = st==="open"?"Available" : st==="hold"?"Hold" : st==="unknown"?"Ask us" : "Booked";
-          b.dataset.lbl = st==="open"?"Free" : st==="hold"?"Hold" : st==="unknown"?"Ask" : "Booked";
+          const label = st==="open"?"Available" : st==="hold"?"Hold" :
+                        st==="unknown"?"Ask us" : st==="past"?"Past" : "Booked";
+          b.dataset.lbl = st==="open"?"Free" : st==="hold"?"Hold" :
+                          st==="unknown"?"Ask" : st==="past"?"" : "Booked";
           b.dataset.vh  = `${u.name}, ${nice(d)}, ${label}`;
           b.innerHTML = `<span aria-hidden="true">${b.dataset.lbl}</span>
                          <span class="vh">${b.dataset.vh}</span>`;
-          if(st==="full"||st==="unknown"){ b.disabled=true; b.setAttribute("aria-disabled","true"); }
+          if(st!=="open"&&st!=="hold"){ b.disabled=true; b.setAttribute("aria-disabled","true"); }
           b.tabIndex=-1;
         }
         td.appendChild(b); tr.appendChild(td);
@@ -2329,7 +2336,7 @@ $("#cal").addEventListener("click", e=>{
     let ok=true;
     for(let x=new Date(SEL.inD); x<d; x=addDays(x,1)){
       const s=cellState(x,u);
-      if(s==="full"||s==="unknown"){ ok=false; break; }
+      if(s!=="open"&&s!=="hold"){ ok=false; break; }
     }
     if(!ok){ toast("Those nights are not all free"); SEL.inD=d; SEL.outD=null; }
     else SEL.outD=d;
@@ -2510,8 +2517,15 @@ async function record(){
   const payload = {
     ref: REF,
     room:     c ? c.u.name : "",
+    /* The calendar is keyed on the sheet's own room name, which is not always
+       the name a guest sees: the Balcony Room is just "Balcony" in the sheet.
+       Send both, and send the dates as plain YYYY-MM-DD as well, so the script
+       never has to guess at either. */
+    roomSheet: c ? c.u.sheet : "",
     checkIn:  SEL.inD  ? nice(SEL.inD)  : "",
     checkOut: SEL.outD ? nice(SEL.outD) : "",
+    checkInISO:  SEL.inD  ? ymd(SEL.inD)  : "",
+    checkOutISO: SEL.outD ? ymd(SEL.outD) : "",
     nights:   c && c.nights ? c.nights : "",
     guests:   $("#fGuests").value.trim(),
     total:    c && c.total!=null ? peso(c.total) : "",
