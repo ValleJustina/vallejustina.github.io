@@ -24,8 +24,11 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/hero-800.webp" type="image/webp" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&family=Parisienne&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/night-t1080.webp" type="image/webp"
+      media="(max-width:820px)" fetchpriority="high">
+<link rel="preload" as="image" href="img/night-w1536.webp" type="image/webp"
+      media="(min-width:821px)" fetchpriority="high">
 
 <script>document.documentElement.className += ' js';</script>
 <style>
@@ -50,6 +53,7 @@
   --line:rgba(83,53,37,.16);
   --display:'Jost',"Century Gothic",system-ui,sans-serif;
   --serif:'Lora',Georgia,serif;
+  --script:'Parisienne',cursive;
   --pad:clamp(1.25rem,5vw,4rem);
   --maxw:1180px;
 }
@@ -111,10 +115,26 @@ section{padding-block:clamp(3.5rem,9vw,7rem);scroll-margin-top:70px}
 .skip:focus{left:.5rem;top:.5rem;background:var(--ink);color:#fff;padding:.75rem 1.1rem}
 
 /* ---------- header ---------- */
+/* The header floats over the photograph at the top of the page and turns solid
+   the moment you scroll past it. The transition is on colour only, never on
+   position, so nothing jumps under a reader's thumb. */
 .hdr{
-  position:sticky;top:0;z-index:60;background:rgba(244,244,244,.94);
+  position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(244,244,244,.94);
   backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line);
+  transition:background .25s ease, border-color .25s ease;
 }
+.hdr--over{background:transparent;backdrop-filter:none;border-bottom-color:transparent}
+.hdr--over .brand b{color:#fff}
+.hdr--over .brand span span{color:#EDE6DC}
+.hdr--over .brand img{filter:brightness(0) invert(1)}
+.hdr.hdr--over nav a{color:#fff}
+.hdr.hdr--over nav a:hover{color:#F4D9A9}
+/* the header sits on an unpredictable part of the photo, so its text carries a
+   shadow rather than relying on the picture staying dark up there */
+.hdr--over .brand,.hdr--over nav a{text-shadow:0 1px 2px rgba(0,0,0,.5),0 2px 18px rgba(0,0,0,.55)}
+/* the one call to action on the page, gold on both header states */
+.hdr__cta .btn{background:var(--gold);border-color:var(--gold);color:#151006}
+.hdr__cta .btn:hover{background:#E0A24E;border-color:#E0A24E;color:#151006}
 .hdr__in{display:flex;align-items:center;gap:1rem;min-height:64px;
   max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
 .brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;margin-right:auto;min-width:0}
@@ -137,20 +157,46 @@ section{padding-block:clamp(3.5rem,9vw,7rem);scroll-margin-top:70px}
 .hdr__cta{display:flex;gap:.5rem}
 
 /* ---------- hero (split: source images cap at ~970px wide) ---------- */
-.hero{display:grid;gap:0;border-bottom:1px solid var(--line)}
-@media(min-width:900px){.hero{grid-template-columns:1fr 1fr;align-items:stretch}}
-.hero__text{
-  display:flex;flex-direction:column;justify-content:center;
-  padding:clamp(2.5rem,7vw,5rem) var(--pad);order:2;
+/* The hero is one photograph, full bleed, with the words low on the left.
+   Legibility is not left to chance: the photo is darkened by two gradients and
+   every line of text was measured against the pixels actually behind it. */
+.hero{position:relative;isolation:isolate;overflow:hidden;background:#0d141b;
+  min-height:100svh;display:flex;align-items:flex-end}
+.hero__media{position:absolute;inset:0;z-index:-2}
+.hero__media img{width:100%;height:100%;object-fit:cover}
+.hero__scrim{position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(to right, rgba(6,10,14,.88) 0%, rgba(6,10,14,.78) 34%, rgba(6,10,14,.46) 62%, rgba(6,10,14,.12) 82%, rgba(6,10,14,0) 95%),
+  linear-gradient(to top, rgba(6,10,14,.84) 0%, rgba(6,10,14,.52) 16%, rgba(6,10,14,.14) 38%, rgba(6,10,14,0) 64%, rgba(6,10,14,.40) 100%)}
+/* On a phone the left-to-right wash collapses, so the bottom-up one does the
+   whole job, and it is tuned for a bright sky rather than this dark one. */
+@media(max-width:820px){
+  .hero__scrim{background:
+    linear-gradient(to top, rgba(6,10,14,.93) 0%, rgba(6,10,14,.86) 30%, rgba(6,10,14,.74) 55%,
+                    rgba(6,10,14,.34) 74%, rgba(6,10,14,.50) 100%)}
 }
-@media(min-width:900px){
-  .hero__text{order:1;padding-left:max(var(--pad),calc((100vw - var(--maxw))/2 + var(--pad)))}
-}
-.hero__media{order:1;position:relative;background:var(--band);min-height:56vh}
-@media(min-width:900px){.hero__media{order:2;min-height:82vh}}
-.hero__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero h1{margin-bottom:1.1rem}
-.hero .lede{max-width:34ch;margin-bottom:2rem}
+.hero__text{max-width:var(--maxw);margin-inline:auto;width:100%;
+  padding:0 var(--pad) clamp(3.5rem,9vh,6.5rem)}
+.hero .eyebrow{color:#FFF6EA}
+/* capped so the headline always breaks inside the darkened part of the photo */
+.hero h1{color:#fff;margin-bottom:1.1rem;max-width:15ch;letter-spacing:.06em}
+.hero .lede{color:#F0EAE3;max-width:38ch;margin-bottom:2rem}
+
+/* The script face. Its x-height is far smaller than Jost, so it is set larger
+   than the uppercase beside it. Never uppercased, never tracked out, both of
+   which break the joins between letters. */
+.scr{font-family:var(--script);font-weight:400;text-transform:none;letter-spacing:0;
+  display:block;color:#FFF3E2;font-size:clamp(3.4rem,10.5vw,7.4rem);line-height:.9;margin-bottom:-.1em}
+.hero h1 .up{display:block;font-size:clamp(2rem,5.8vw,4rem)}
+.hero .eyebrow,.hero h1,.hero .lede,.hero__meta{
+  text-shadow:0 1px 2px rgba(0,0,0,.45), 0 2px 26px rgba(0,0,0,.5)}
+.hero .hero__meta a{color:#F0EAE3}
+.hero .hero__meta a::after{background:rgba(255,255,255,.32)}
+.hero .hero__meta a:hover{color:#fff}
+.hero__actions .btn{background:var(--gold);border-color:var(--gold);color:#151006}
+.hero__actions .btn:hover{background:#E0A24E;border-color:#E0A24E;color:#151006}
+.hero .btn--ghost,.hero__actions .btn--ghost{border-color:rgba(255,255,255,.65);color:#fff;background:transparent}
+.hero__actions .btn--ghost:hover{background:rgba(255,255,255,.14);color:#fff}
+.hero .btn--ghost:hover{background:rgba(255,255,255,.12)}
 .hero__actions{display:flex;flex-wrap:wrap;gap:.7rem}
 .hero__meta{display:flex;flex-wrap:wrap;gap:.2rem 0;margin-top:2rem;font-family:var(--display);
   font-size:.68rem;letter-spacing:.2em;text-transform:uppercase}
@@ -227,6 +273,28 @@ section{padding-block:clamp(3.5rem,9vw,7rem);scroll-margin-top:70px}
   border-radius:2px;padding:1.05rem 1.2rem;
 }
 .rate--free{border-left-color:var(--avail)}
+
+/* tent rates: two prices per size, so the row needs a third column */
+.tents{display:grid;gap:.8rem;margin-top:2.2rem}
+@media(min-width:720px){.tents{grid-template-columns:repeat(3,1fr)}}
+.tent{background:#FAF8F6;border:1px solid var(--line);border-left:3px solid var(--gold);
+  border-radius:2px;padding:1.15rem 1.25rem}
+.tent__k{font-family:var(--display);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink);display:block}
+.tent__n{font-size:.86rem;color:var(--muted);display:block;margin-bottom:.75rem}
+.tent__row{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  padding:.45rem 0;border-top:1px solid var(--line)}
+.tent__lbl{font-size:.9rem;color:var(--muted)}
+.tent__v{font-family:var(--display);font-size:1.3rem;color:var(--ink)}
+.addons{margin-top:1.8rem;background:var(--band);border-radius:2px;padding:clamp(1.3rem,3vw,1.9rem)}
+.addons h4{font-family:var(--display);font-weight:400;font-size:.78rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink);margin:0 0 1rem}
+.addons ul{list-style:none;margin:0;padding:0;display:grid;gap:.15rem 2.5rem;
+  grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))}
+.addons li{display:flex;justify-content:space-between;gap:1rem;padding:.42rem 0;
+  border-bottom:1px solid var(--line);font-size:.94rem}
+.addons li b{font-family:var(--display);font-weight:400;color:var(--ink);white-space:nowrap}
+
 .rate__k{font-family:var(--display);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink)}
 .rate__v{font-family:var(--display);font-size:clamp(1.45rem,3.2vw,1.9rem);color:var(--ink);letter-spacing:.02em;text-align:right}
 .rate--free .rate__v{color:var(--avail)}
@@ -262,6 +330,52 @@ section{padding-block:clamp(3.5rem,9vw,7rem);scroll-margin-top:70px}
 
 /* ---------- calendar ---------- */
 .cal__head{display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between}
+/* ================= GALLERY CAROUSEL =================
+   A native scroll-snap rail. No library, no autoplay, and the arrows scroll
+   the rail rather than the page so the section never jumps under the reader. */
+.gal{position:relative}
+.gal__head{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+.gal__nav{display:none;gap:.5rem}
+@media(min-width:760px){.gal__nav{display:flex}}
+.gal__btn{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:transparent;
+  color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:.18s;flex:0 0 auto}
+.gal__btn:hover:not(:disabled){background:var(--ink);border-color:var(--ink);color:#F7F5F2}
+.gal__btn:disabled{opacity:.3;cursor:default}
+.gal__btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.6}
+.rail{display:flex;gap:clamp(.75rem,2vw,1.35rem);margin-top:2.5rem;
+  overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  padding-inline:var(--pad);margin-inline:calc(var(--pad)*-1);
+  scroll-padding-inline-start:var(--pad);scrollbar-width:none;-ms-overflow-style:none}
+.rail::-webkit-scrollbar{display:none}
+@media(prefers-reduced-motion:reduce){.rail{scroll-behavior:auto}}
+.slide{flex:0 0 86%;scroll-snap-align:start;margin:0;position:relative}
+/* a tail spacer on phones only, so the last photo can also sit at the front */
+.rail::after{content:"";flex:0 0 calc(14% - clamp(.75rem,2vw,1.35rem))}
+@media(min-width:640px){.slide{flex-basis:58%}.rail::after{display:none}}
+@media(min-width:1000px){.slide{flex-basis:42%}}
+.slide__media{aspect-ratio:3/2;background:var(--band);border-radius:2px;overflow:hidden;position:relative}
+.slide__media img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.slide:hover .slide__media img{transform:scale(1.03)}
+@media(prefers-reduced-motion:reduce){.slide__media img,.slide:hover .slide__media img{transition:none;transform:none}}
+.slide figcaption{font-size:.94rem;color:var(--muted);margin-top:.85rem;padding-right:1rem;line-height:1.55}
+.slide__n{font-family:var(--display);font-size:.66rem;letter-spacing:.2em;color:var(--gold-text);
+  display:block;margin-bottom:.3rem}
+/* on phones a slim progress track, because eleven tappable dots either wrap
+   onto two lines or shrink below a usable tap size */
+.prog{height:2px;background:var(--line);margin-top:2rem;position:relative;overflow:hidden}
+.prog i{position:absolute;inset:0 auto 0 0;background:var(--gold);transition:width .25s ease}
+@media(prefers-reduced-motion:reduce){.prog i{transition:none}}
+@media(min-width:640px){.prog{display:none}}
+.dots{display:none;flex-wrap:wrap;gap:.45rem;justify-content:center;margin-top:2rem;padding:0;list-style:none}
+@media(min-width:640px){.dots{display:flex}}
+.dots button{width:34px;height:34px;padding:0;border:0;background:transparent;cursor:pointer;
+  display:grid;place-items:center}
+.dots button::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--line);transition:.2s}
+.dots button[aria-current="true"]::before{background:var(--gold);width:22px;border-radius:4px}
+.gal__hint{font-family:var(--display);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);text-align:center;margin-top:1.2rem}
+@media(min-width:760px){.gal__hint{display:none}}
+
 .months{display:flex;gap:.35rem;overflow-x:auto;padding:1.6rem 0 .6rem;
   scrollbar-width:thin;-webkit-overflow-scrolling:touch}
 .months button{
@@ -456,8 +570,7 @@ footer a:hover{color:#fff}
       <a href="#dates">Dates</a>
     </nav>
     <div class="hdr__cta">
-      <a class="btn btn--sm btn--ghost" id="lnkCall" href="tel:+639065044935">Call</a>
-      <a class="btn btn--sm" id="lnkMsg" href="#" target="_blank" rel="noopener noreferrer">Message</a>
+      <a class="btn btn--sm" href="#dates">Book Now</a>
     </div>
   </div>
 </header>
@@ -466,23 +579,26 @@ footer a:hover{color:#fff}
 
 <!-- ============ HERO ============ -->
 <div class="hero">
+  <div class="hero__media">
+    <picture>
+      <source media="(max-width:820px)" type="image/webp" srcset="img/night-t720.webp 720w, img/night-t1080.webp 1080w" sizes="100vw">
+      <source media="(max-width:820px)" srcset="img/night-t720.jpg 720w, img/night-t1080.jpg 1080w" sizes="100vw">
+      <source type="image/webp" srcset="img/night-w800.webp 800w, img/night-w1200.webp 1200w, img/night-w1536.webp 1536w" sizes="100vw">
+      <img src="img/night-w1536.jpg" srcset="img/night-w800.jpg 800w, img/night-w1200.jpg 1200w, img/night-w1536.jpg 1536w"
+           sizes="100vw" fetchpriority="high"
+           alt="The infinity pool at Valle Justina at blue hour, with the lights of Masbate City across the bay">
+    </picture>
+  </div>
+  <div class="hero__scrim"></div>
   <div class="hero__text">
     <p class="eyebrow">Mayong Payong &middot; Mobo &middot; Masbate</p>
-    <h1>Peace above<br>the city.</h1>
+    <h1><span class="scr">Peace</span><span class="up">above the city.</span></h1>
     <p class="lede">A mountaintop resort where the pool runs into the horizon and Masbate opens up beneath you.</p>
     <div class="hero__actions">
-      <a class="btn" href="#dates">Check availability</a>
+      <a class="btn" href="#dates">Book now</a>
       <a class="btn btn--ghost" href="#stay">See the rooms</a>
     </div>
     <p class="hero__meta"><a href="#stay">Rooms</a><a href="#camp">Camping</a><a href="#daypass">Day Pass</a><a href="#events">Events</a></p>
-  </div>
-  <div class="hero__media">
-    <picture>
-      <source type="image/webp" srcset="img/hero-480.webp 480w, img/hero-800.webp 800w" sizes="(min-width:900px) 50vw, 100vw">
-      <img src="img/hero-800.jpg" srcset="img/hero-480.jpg 480w, img/hero-800.jpg 800w"
-           sizes="(min-width:900px) 50vw, 100vw" width="971" height="1434" fetchpriority="high"
-           alt="The infinity pool at Valle Justina meeting the horizon, with the mountains and bay of Masbate beyond">
-    </picture>
   </div>
 </div>
 
@@ -537,12 +653,36 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
+<!-- ============ GALLERY ============ -->
+<section id="gallery">
+  <div class="wrap gal">
+    <div class="gal__head">
+      <div>
+        <p class="eyebrow">The Gallery</p>
+        <h2>A look around.</h2>
+      </div>
+      <div class="gal__nav">
+        <button class="gal__btn" id="galPrev" type="button" aria-label="Previous photo">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
+        </button>
+        <button class="gal__btn" id="galNext" type="button" aria-label="Next photo">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="rail" id="rail" role="region" aria-label="Photo gallery" tabindex="0"></div>
+    <div class="prog" aria-hidden="true"><i id="galProg"></i></div>
+    <ul class="dots" id="galDots" aria-label="Choose a photo"></ul>
+    <p class="gal__hint">Swipe to see more</p>
+  </div>
+</section>
+
 <!-- ============ STAY ============ -->
 <section id="stay" class="band">
   <div class="wrap">
     <p class="eyebrow">Stay</p>
     <h2>Four rooms on the ridge.</h2>
-    <p class="lede" style="max-width:48ch;margin-top:1rem">Air-conditioned, bunk beds, and the mountain outside the window. Breakfast comes with it.</p>
+    <p class="lede" style="max-width:48ch;margin-top:1rem">Air-conditioned rooms with the mountain outside the window. Breakfast comes with it.</p>
 
     <div class="cards cards--2">
       <article class="card">
@@ -576,7 +716,7 @@ footer a:hover{color:#fff}
           <h3>Balcony Room</h3>
           <p class="price">&#8369;3,500<small>per night &middot; good for 2 to 3</small></p>
           <ul class="incl">
-            <li>Air-conditioned, bunk beds</li>
+            <li>Air-conditioned, queen bed with a pull-out</li>
             <li>Free pool use for 4 guests</li>
             <li>Complimentary breakfast for 2</li>
             <li>Your own balcony over the view</li>
@@ -608,10 +748,10 @@ footer a:hover{color:#fff}
           <h3>Sleep on the ridge.</h3>
           <p style="margin-top:.9rem">Bring your tent, pick your spot, and wake up above the clouds. There is a bonfire, there is the whole sky, and there is nothing else you need to do.</p>
           <ul class="incl">
-            <li>Sold per pitch</li>
-            <li>Bring your own tent</li>
+            <li>Rent a tent or pitch your own</li>
+            <li>Bedding and furniture available</li>
           </ul>
-          <p class="note" id="campRate">Rate <span class="todo">to be confirmed</span></p>
+          <p class="note"><a href="#tents">See the tent rates</a></p>
         </div>
       </article>
 
@@ -638,8 +778,54 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
+
+<!-- ============ TENT RATES ============ -->
+<section id="tents" class="band">
+  <div class="wrap">
+    <p class="eyebrow">Tents</p>
+    <h2>Pick a tent, or bring one.</h2>
+    <p class="lede" style="max-width:52ch;margin-top:1rem">Two prices for every size. Rent one of ours and it is set up and waiting for you, or pay the pitching fee and put your own up wherever you like.</p>
+
+    <div class="tents">
+      <div class="tent">
+        <span class="tent__k">Couple</span>
+        <span class="tent__n">good for 2</span>
+        <div class="tent__row"><span class="tent__lbl">Tent rental</span><span class="tent__v">&#8369;650</span></div>
+        <div class="tent__row"><span class="tent__lbl">Pitching your own</span><span class="tent__v">&#8369;400</span></div>
+      </div>
+      <div class="tent">
+        <span class="tent__k">Amico</span>
+        <span class="tent__n">good for 6</span>
+        <div class="tent__row"><span class="tent__lbl">Tent rental</span><span class="tent__v">&#8369;1,150</span></div>
+        <div class="tent__row"><span class="tent__lbl">Pitching your own</span><span class="tent__v">&#8369;800</span></div>
+      </div>
+      <div class="tent">
+        <span class="tent__k">Grande Amico</span>
+        <span class="tent__n">good for 10</span>
+        <div class="tent__row"><span class="tent__lbl">Tent rental</span><span class="tent__v">&#8369;1,500</span></div>
+        <div class="tent__row"><span class="tent__lbl">Pitching your own</span><span class="tent__v">&#8369;1,200</span></div>
+      </div>
+    </div>
+
+    <div class="addons">
+      <h4>Add anything you need</h4>
+      <ul>
+        <li><span>Lamp</span><b>&#8369;50</b></li>
+        <li><span>Chair</span><b>&#8369;100</b></li>
+        <li><span>Table</span><b>&#8369;100</b></li>
+        <li><span>Pillow</span><b>&#8369;30</b></li>
+        <li><span>Blanket</span><b>&#8369;50</b></li>
+        <li><span>Sleeping mattress</span><b>&#8369;100</b></li>
+        <li><span>Airbed, single</span><b>&#8369;300</b></li>
+        <li><span>Airbed, double</span><b>&#8369;400</b></li>
+      </ul>
+      <p class="muted" style="margin:1.1rem 0 0;font-size:.92rem">Tell us what you want in the notes when you send your request and we will have it ready.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ============ DAY PASS ============ -->
-<section id="daypass" class="band">
+<section id="daypass">
   <div class="wrap">
     <p class="eyebrow">Day Pass</p>
     <h2>Up for the day.</h2>
@@ -731,9 +917,9 @@ footer a:hover{color:#fff}
     <p id="calHelp" style="max-width:56ch;margin-top:1rem">Updated by the resort. Tap a night to set your check-in, then tap a later night in the same row to set your check-out.</p>
 
     <ul class="legend">
-      <li><span class="swatch swatch--open"></span> Open</li>
-      <li><span class="swatch swatch--hold"></span> On hold</li>
-      <li><span class="swatch swatch--full"></span> Taken</li>
+      <li><span class="swatch swatch--open"></span> Available</li>
+      <li><span class="swatch swatch--hold"></span> Hold</li>
+      <li><span class="swatch swatch--full"></span> Booked</li>
     </ul>
 
     <div class="months" id="months" role="group" aria-label="Choose a month"></div>
@@ -849,7 +1035,7 @@ footer a:hover{color:#fff}
     <div style="margin-top:2rem">
       <details><summary>How do I reserve, and how do I pay?</summary><div class="ans"><p>Pick your dates on the calendar, send the request, and the resort will confirm. Sending the form is a request, not a confirmed booking, so please wait for the reply before treating it as final. Reservations are secured by full payment in advance, by BDO transfer or GCash. Send your proof of payment with your reference number.</p></div></details>
       <details><summary>How do I get the 10% discount?</summary><div class="ans"><p>Book at least one month before your check-in date. The calculator above applies it automatically once your check-in is 30 or more days away.</p></div></details>
-      <details><summary>What is included in the room rate?</summary><div class="ans"><p>Air-conditioning, bunk beds for 4 to 5 guests in a Standard Room or 2 to 3 in the Balcony Room, free pool use for 4 guests, and complimentary breakfast for 2.</p></div></details>
+      <details><summary>What is included in the room rate?</summary><div class="ans"><p>Air-conditioning, free pool use for 4 guests, and complimentary breakfast for 2.</p><p>The three Standard Rooms have bunk beds and sleep 4 to 5. The Balcony Room has a queen bed with a pull-out and sleeps 2 to 3.</p></div></details>
       <details><summary>Can I bring extra guests?</summary><div class="ans"><p>Yes. Extra guest and extra pool guest charges are <span class="todo">to be confirmed</span>. Tell us your headcount in the notes and the resort will quote you.</p></div></details>
       <details><summary>Can I come up just for the day?</summary><div class="ans"><p>Yes. Entrance is &#8369;50 per person. Swimming is &#8369;250 in the daytime and &#8369;300 at night, and it is free for guests staying overnight. No reservation needed, and you can settle the day pass by GCash before you drive up. Opening hours are <span class="todo">to be confirmed</span>.</p></div></details>
       <details><summary>What do I need for camping?</summary><div class="ans"><p>Camping is sold per pitch and you bring your own tent. The per-pitch rate is <span class="todo">to be confirmed</span>.</p></div></details>
@@ -873,8 +1059,6 @@ footer a:hover{color:#fff}
       </div>
       <div>
         <p><b>Talk to us</b><br>
-        <a href="tel:+639065044935">+63 906 504 4935</a><br>
-        <a href="tel:+639467535153">+63 946 753 5153</a><br>
         <a href="mailto:vallejustina@gmail.com">vallejustina@gmail.com</a></p>
         <p><a id="lnkFb" href="https://www.facebook.com/p/Valle-Justina-100087347483424/" target="_blank" rel="noopener noreferrer">Facebook Page</a></p>
         <p>Check in 2:00 PM &middot; Check out 11:00 AM</p>
@@ -931,7 +1115,7 @@ footer a:hover{color:#fff}
   "mainEntity":[
     {"@type":"Question","name":"How do I reserve, and how do I pay?","acceptedAnswer":{"@type":"Answer","text":"Pick your dates on the calendar and send the request. Reservations are secured by full payment in advance, by BDO transfer or GCash."}},
     {"@type":"Question","name":"How do I get the 10% discount?","acceptedAnswer":{"@type":"Answer","text":"Book at least one month before your check-in date and 10% is taken off automatically."}},
-    {"@type":"Question","name":"What is included in the room rate?","acceptedAnswer":{"@type":"Answer","text":"Air-conditioning, bunk beds, free pool use for 4 guests, and complimentary breakfast for 2."}},
+    {"@type":"Question","name":"What is included in the room rate?","acceptedAnswer":{"@type":"Answer","text":"Air-conditioning, free pool use for 4 guests, and complimentary breakfast for 2. The three Standard Rooms have bunk beds and sleep 4 to 5. The Balcony Room has a queen bed with a pull-out and sleeps 2 to 3."}},
     {"@type":"Question","name":"Can I come up just for the day?","acceptedAnswer":{"@type":"Answer","text":"Yes. Entrance is 50 pesos per person. Swimming is 250 pesos daytime and 300 pesos at night, free for guests staying overnight."}},
     {"@type":"Question","name":"Can I book the whole place for an event?","acceptedAnswer":{"@type":"Answer","text":"Yes. Exclusive use of the entire property is 50,000 pesos."}},
     {"@type":"Question","name":"What time is check-in and check-out?","acceptedAnswer":{"@type":"Answer","text":"Check in from 2:00 PM. Check out by 11:00 AM."}}
@@ -955,7 +1139,7 @@ const CONFIG = {
      which one the script returns. Recognised column names:
        Date   = YYYY-MM-DD
        Room   (or Unit) = must match a `sheet` value in units below
-       Status = booked | hold      (anything else counts as open)
+       Status = Available | Hold | Booked   (anything else is read as Hold)
 
      If the browser blocks this with a CORS error, publish the sheet
      instead (File > Share > Publish to web > CSV) and paste that link
@@ -1012,7 +1196,6 @@ function toast(msg){
 /* ================================================================
    links
    ================================================================ */
-$("#lnkMsg").href = CONFIG.messenger;
 $("#lnkFb").href  = CONFIG.facebook;
 $("#lnkEvent").href = "mailto:"+CONFIG.bookingEmail+
   "?subject="+encodeURIComponent("Exclusive use enquiry - Valle Justina")+
@@ -1085,6 +1268,10 @@ function parseCsv(text){
    Tolerant on purpose: a non-technical owner editing a spreadsheet will
    eventually type " Booked" with a leading space or "2026-11-5", and the
    calendar must not break because of it. */
+/* The three words the sheet is allowed to use, and nothing else.
+   AVAILABLE means no block at all, so it is simply not stored. */
+const WHOLE_PLACE = ["all","all rooms","whole place","exclusive","entire resort"];
+
 function addRecord(m, dateRaw, roomRaw, statusRaw){
   let d=String(dateRaw==null?"":dateRaw).trim();
   const u=String(roomRaw==null?"":roomRaw).trim().toLowerCase();
@@ -1096,8 +1283,21 @@ function addRecord(m, dateRaw, roomRaw, statusRaw){
     if(isNaN(p)) return;
     d=`${p.getFullYear()}-${String(p.getMonth()+1).padStart(2,"0")}-${String(p.getDate()).padStart(2,"0")}`;
   }
-  if(s!=="booked"&&s!=="hold") return;      // anything else counts as open
-  m.set(d+"|"+u, s==="booked"?"full":"hold");
+
+  /* AVAILABLE is the only word that leaves a night open. BOOKED closes it.
+     Anything else at all, a typo, a stray note, an old word like "pencil",
+     is treated as HOLD. Erring towards "ask us" costs a message. Erring the
+     other way sells a room twice, so the fallback only ever goes one way. */
+  if(s==="available"||s==="") return;
+  const state = s==="booked" ? "full" : "hold";
+
+  /* One row blocks one room. The only exception is a deliberate whole-place
+     booking, which has to be spelled out in the Room column. */
+  if(WHOLE_PLACE.includes(u)){
+    CONFIG.units.forEach(x=> m.set(d+"|"+x.sheet.toLowerCase(), state));
+    return;
+  }
+  m.set(d+"|"+u, state);
 }
 
 /* Accepts JSON (array of objects, array of arrays, or {rows|data|values:[...]})
@@ -1245,8 +1445,7 @@ function renderMonth(){
         '<p>The live calendar is not available right now. Send us the dates you have in mind '+
         'and we will confirm what is free, usually within the hour.</p>'+
         '<p class="cal-down__cta">'+
-          '<a class="btn" href="'+CONFIG.messenger+'" target="_blank" rel="noopener noreferrer">Message us</a>'+
-          '<a class="btn btn--ghost" href="#reserve">Send a request</a>'+
+          '<a class="btn" href="#reserve">Send a request</a>'+
         '</p>'+
       '</div>';
     return;
@@ -1304,8 +1503,8 @@ function renderMonth(){
           b.dataset.s=st;
           b.dataset.date=ymd(d);
           b.dataset.unit=u.id;
-          const label = st==="open"?"Open" : st==="hold"?"On hold" : st==="unknown"?"Unknown" : "Taken";
-          b.dataset.lbl = st==="open"?"Open":st==="hold"?"Hold":"Taken";
+          const label = st==="open"?"Available" : st==="hold"?"Hold" : st==="unknown"?"Unknown" : "Booked";
+          b.dataset.lbl = st==="open"?"Free":st==="hold"?"Hold":"Booked";
           b.dataset.vh  = `${u.name}, ${nice(d)}, ${label}`;
           b.innerHTML = `<span aria-hidden="true">${b.dataset.lbl}</span>
                          <span class="vh">${b.dataset.vh}</span>`;
@@ -1323,6 +1522,115 @@ function renderMonth(){
   paintSelection();
   rovingSetup();
 }
+
+/* ================================================================
+   Header over the hero
+   ================================================================ */
+(function stickyHeader(){
+  const hdr=$(".hdr"), hero=$(".hero");
+  if(!hdr||!hero) return;
+  const io=new IntersectionObserver(([e])=>{
+    hdr.classList.toggle("hdr--over", e.isIntersecting);
+  },{rootMargin:"-64px 0px 0px 0px", threshold:0});
+  // watch the top slice of the hero, not the whole thing
+  const probe=document.createElement("div");
+  probe.style.cssText="position:absolute;inset:0 0 auto 0;height:120px;pointer-events:none";
+  hero.appendChild(probe);
+  io.observe(probe);
+})();
+
+/* ================================================================
+   Gallery carousel
+   ================================================================ */
+(function gallery(){
+  const PHOTOS = [
+    ["pavilion", 1600, "The pavilion and pool in the last of the afternoon light"],
+    ["overlook", 1600, "The infinity edge, with Masbate City across the water"],
+    ["sunset",   1600, "The end of a day at the pool"],
+    ["dusk",     1600, "The deck at dusk, after the last swim"],
+    ["foliage",  1600, "The view from the balcony, out over the bay"],
+    ["bluehour", 1600, "Blue hour on the deck, the city lighting up below"],
+    ["lodge",    1600, "The lodge and the lit pool at nightfall"],
+    ["bluepool", 1200, "The pool lit blue, the city glittering underneath it"],
+    ["stars",    1600, "The lodge under a clear Masbate sky"],
+    ["camp",     1200, "A tent, a bonfire, and the whole sky above the ridge"],
+    ["interior", 1200, "Warm timber and driftwood inside the lodge"],
+    ["arrival",  1600, "The first sight of the place, coming up the road"]
+  ];
+  const rail=$("#rail"), dots=$("#galDots");
+  if(!rail) return;
+  const SIZES='(min-width:1000px) 42vw, (min-width:640px) 58vw, 86vw';
+
+  PHOTOS.forEach(([name,max,cap],i)=>{
+    const ws=[480,800,1200,1600].filter(w=>w<=max);
+    const set=(ext)=>ws.map(w=>`img/${name}-${w}.${ext} ${w}w`).join(", ");
+    const fig=document.createElement("figure");
+    fig.className="slide";
+    fig.innerHTML =
+      '<div class="slide__media"><picture>'+
+        '<source type="image/webp" srcset="'+set("webp")+'" sizes="'+SIZES+'">'+
+        '<img src="img/'+name+'-800.jpg" srcset="'+set("jpg")+'" sizes="'+SIZES+'" '+
+             'width="1200" height="800" '+(i<2?"":'loading="lazy" ')+'decoding="async" alt="'+cap+'">'+
+      '</picture></div>'+
+      '<figcaption><span class="slide__n">'+String(i+1).padStart(2,"0")+" / "+
+        String(PHOTOS.length).padStart(2,"0")+"</span>"+cap+"</figcaption>";
+    rail.appendChild(fig);
+
+    const li=document.createElement("li"), b=document.createElement("button");
+    b.type="button"; b.setAttribute("aria-label","Photo "+(i+1)+", "+cap);
+    b.addEventListener("click",()=>go(i));
+    li.appendChild(b); dots.appendChild(li);
+  });
+
+  const slides=[...rail.querySelectorAll(".slide")];
+  const dotBtns=[...dots.querySelectorAll("button")];
+  const prev=$("#galPrev"), next=$("#galNext"), prog=$("#galProg");
+  let active=0, step=1, pages=slides.length, base=0, tick=false;
+
+  /* Positions are read back off the rail rather than assumed, so the maths
+     stays right at every width. A "page" is one snap position: where several
+     photos fit side by side, the last few share the final position. */
+  function measure(){
+    base=slides[0].offsetLeft;
+    step=slides.length>1 ? slides[1].offsetLeft-base : rail.clientWidth;
+    const max=rail.scrollWidth-rail.clientWidth;
+    pages=1;
+    for(let i=0;i<slides.length;i++){ if(slides[i].offsetLeft-base<=max+1) pages=i+1; }
+    dotBtns.forEach((b,i)=>{ b.parentElement.hidden = i>=pages; });
+    sync(true);
+  }
+  const target=i=>Math.min(slides[i].offsetLeft-base, rail.scrollWidth-rail.clientWidth);
+  function go(i){
+    i=Math.max(0,Math.min(pages-1,i));
+    rail.scrollTo({left:target(i), behavior:"smooth"});
+    setActive(i);
+  }
+  function setActive(i){
+    active=i;
+    dotBtns.forEach((b,n)=>b.setAttribute("aria-current", n===i?"true":"false"));
+    prog.style.width=(100*(i+1)/pages)+"%";
+    prev.disabled=i<=0; next.disabled=i>=pages-1;
+  }
+  function sync(force){
+    const i=Math.max(0,Math.min(pages-1,Math.round(rail.scrollLeft/step)));
+    if(force||i!==active) setActive(i);
+  }
+  rail.addEventListener("scroll",()=>{
+    if(tick) return; tick=true;
+    requestAnimationFrame(()=>{ tick=false; sync(); });
+  },{passive:true});
+  prev.addEventListener("click",()=>go(active-1));
+  next.addEventListener("click",()=>go(active+1));
+  rail.addEventListener("keydown",e=>{
+    if(e.key==="ArrowRight"){ e.preventDefault(); go(active+1); }
+    if(e.key==="ArrowLeft"){  e.preventDefault(); go(active-1); }
+    if(e.key==="Home"){ e.preventDefault(); go(0); }
+    if(e.key==="End"){  e.preventDefault(); go(pages-1); }
+  });
+  measure();
+  addEventListener("resize",()=>{ clearTimeout(window.__galT); window.__galT=setTimeout(measure,150); });
+  addEventListener("load",measure);
+})();
 
 /* roving tabindex so the whole month is one tab stop, arrows move around */
 function rovingSetup(){
