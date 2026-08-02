@@ -502,6 +502,43 @@ textarea{min-height:110px;resize:vertical}
 .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.05rem;color:var(--ink);
   letter-spacing:.06em;word-break:break-all}
 
+/* deposit slip upload. The picture is shrunk in the browser before it goes
+   anywhere, so a 6MB phone photo becomes a couple of hundred kilobytes and a
+   weak signal still gets it through. */
+.slip{margin-top:.4rem}
+.slip__drop{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+  border:1px dashed rgba(83,53,37,.35);border-radius:2px;background:#fff;
+  padding:1rem 1.1rem;transition:.15s}
+.slip__drop.is-over{border-color:var(--gold);background:#FFFCF6}
+.slip__btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--display);
+  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:.6rem 1.1rem;
+  border:1px solid var(--gold-text);color:var(--gold-text);background:transparent;border-radius:2px;
+  cursor:pointer;white-space:nowrap}
+.slip__btn:hover{background:var(--gold-text);color:#fff}
+.slip__hint{margin:0;font-size:.9rem;color:var(--muted);flex:1 1 12rem;min-width:0}
+.slip input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.slip__preview{display:none;align-items:flex-start;gap:1rem;margin-top:.9rem;
+  border:1px solid var(--line);border-radius:2px;padding:.8rem;background:#fff}
+.slip__preview.on{display:flex}
+.slip__preview img{width:84px;height:84px;object-fit:cover;border-radius:2px;flex:0 0 auto}
+.slip__meta{flex:1 1 auto;min-width:0;font-size:.9rem;color:var(--muted)}
+.slip__meta b{display:block;font-family:var(--display);font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink);margin-bottom:.2rem;word-break:break-all}
+.slip__drop--busy{opacity:.6;pointer-events:none}
+
+/* a quiet call to action closing a story section, so the reader never has to
+   scroll back up to find the way to book */
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:.9rem 1.2rem;margin-top:2.6rem;
+  padding-top:1.6rem;border-top:1px solid var(--line)}
+.cta-row p{margin:0;color:var(--body);font-size:.98rem;max-width:38ch}
+.cta-row .btn{margin-left:auto}
+@media(max-width:560px){.cta-row .btn{margin-left:0;width:100%}}
+.times .cta-row{border-top-color:rgba(255,255,255,.18)}
+.times .cta-row p{color:#D8D2CB}
+/* an ink button on the midnight panel would all but disappear, so it goes gold */
+.times .cta-row .btn{background:var(--gold);border-color:var(--gold);color:#151006}
+.times .cta-row .btn:hover{background:#E0A24E;border-color:#E0A24E;color:#151006}
+
 /* ================= TICKET CHECKOUTS =================
    Day pass and camping are pay-first. The guest sends the money, types in the
    reference from their own GCash or BDO record, and the page issues a ticket.
@@ -722,6 +759,10 @@ footer a:hover{color:#fff}
         </div>
       </div>
     </div>
+    <div class="cta-row">
+      <p>Pick the light you want to wake up in. The calendar shows what is free.</p>
+      <a class="btn" href="#dates">Book Now</a>
+    </div>
   </div>
 </section>
 
@@ -746,6 +787,10 @@ footer a:hover{color:#fff}
     <div class="prog" aria-hidden="true"><i id="galProg"></i></div>
     <ul class="dots" id="galDots" aria-label="Choose a photo"></ul>
     <p class="gal__hint">Swipe to see more</p>
+    <div class="cta-row">
+      <p>Every one of these was taken here. Come and stand in it.</p>
+      <a class="btn" href="#dates">Book Now</a>
+    </div>
   </div>
 </section>
 
@@ -802,6 +847,10 @@ footer a:hover{color:#fff}
       Check in from 2:00 PM &nbsp;·&nbsp; Check out by 11:00 AM
     </p>
   </div>
+    <div class="cta-row">
+      <p>Four rooms, and the balcony one goes first. Check your dates now.</p>
+      <a class="btn" href="#dates">Book Now</a>
+    </div>
 </section>
 
 <!-- ============ CAMP + VISIT ============ -->
@@ -942,6 +991,20 @@ footer a:hover{color:#fff}
         <div class="full"><label for="cpRef">Reference number from your payment</label>
           <input id="cpRef" placeholder="The number GCash or BDO gave you" required>
           <span class="err" id="cpRefErr"></span></div>
+        <div class="full slip" id="cpSlip">
+          <label for="cpFile">Screenshot of your payment <span class="muted">(optional but it speeds us up)</span></label>
+          <div class="slip__drop" data-drop>
+            <button class="slip__btn" type="button" data-pick>Choose a picture</button>
+            <p class="slip__hint">A screenshot of your GCash or BDO receipt. Drag it here, or take a photo.</p>
+            <input id="cpFile" type="file" accept="image/*" data-file>
+          </div>
+          <div class="slip__preview" data-preview>
+            <img alt="" data-thumb src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+            <div class="slip__meta"><b data-fname></b><span data-fsize></span><br>
+              <button class="copy" type="button" style="margin-top:.5rem" data-clear>Remove</button></div>
+          </div>
+          <span class="err" data-err></span>
+        </div>
         <div class="full"><label for="cpNotes">Anything we should know <span class="muted">(optional)</span></label>
           <textarea id="cpNotes" placeholder="Arrival time, bonfire, anything else you need"></textarea></div>
       </div>
@@ -1055,6 +1118,20 @@ footer a:hover{color:#fff}
         <div class="full"><label for="dpRef">Reference number from your payment</label>
           <input id="dpRef" placeholder="The number GCash or BDO gave you" required>
           <span class="err" id="dpRefErr"></span></div>
+        <div class="full slip" id="dpSlip">
+          <label for="dpFile">Screenshot of your payment <span class="muted">(optional but it speeds us up)</span></label>
+          <div class="slip__drop" data-drop>
+            <button class="slip__btn" type="button" data-pick>Choose a picture</button>
+            <p class="slip__hint">A screenshot of your GCash or BDO receipt. Drag it here, or take a photo.</p>
+            <input id="dpFile" type="file" accept="image/*" data-file>
+          </div>
+          <div class="slip__preview" data-preview>
+            <img alt="" data-thumb src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+            <div class="slip__meta"><b data-fname></b><span data-fsize></span><br>
+              <button class="copy" type="button" style="margin-top:.5rem" data-clear>Remove</button></div>
+          </div>
+          <span class="err" data-err></span>
+        </div>
         <div class="full"><label for="dpNotes">Anything we should know <span class="muted">(optional)</span></label>
           <textarea id="dpNotes" placeholder="Arrival time, children, someone in the group not swimming"></textarea></div>
       </div>
@@ -1081,7 +1158,8 @@ footer a:hover{color:#fff}
         <p class="lede" style="margin-top:1rem">Weddings, reunions, and company gatherings, with the pool, the pavilion, the lawn, and the entire ridge closed to everyone but you.</p>
         <p class="price">&#8369;50,000<small>exclusive use</small></p>
         <p>Every celebration is different. Tell us your date and what you have in mind.</p>
-        <p><a class="btn" id="lnkEvent" href="#">Enquire about your date</a></p>
+        <p><a class="btn" id="lnkEvent" href="#">Message us about your date</a></p>
+        <p class="muted" style="margin-top:.7rem;font-size:.9rem">We will copy a short message for you to paste.</p>
       </div>
     </div>
   </div>
@@ -1135,6 +1213,20 @@ footer a:hover{color:#fff}
       <div><label for="fMobile">Mobile number</label><input id="fMobile" name="mobile" type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxxx" required><span class="err" id="eMobile"></span></div>
       <div><label for="fEmail">Email <span class="muted">(optional)</span></label><input id="fEmail" name="email" type="email" autocomplete="email"><span class="err" id="eEmail"></span></div>
       <div><label for="fGuests">Number of guests</label><input id="fGuests" name="guests" type="number" min="1" max="60" value="4" required><span class="err" id="eGuests"></span></div>
+      <div class="full slip" id="rsSlip">
+        <label for="rsFile">Screenshot of your deposit slip <span class="muted">(optional but it speeds us up)</span></label>
+        <div class="slip__drop" data-drop>
+          <button class="slip__btn" type="button" data-pick>Choose a picture</button>
+          <p class="slip__hint">A screenshot of your GCash or BDO receipt. Drag it here, or take a photo.</p>
+          <input id="rsFile" type="file" accept="image/*" data-file>
+        </div>
+        <div class="slip__preview" data-preview>
+          <img alt="" data-thumb src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+          <div class="slip__meta"><b data-fname></b><span data-fsize></span><br>
+            <button class="copy" type="button" style="margin-top:.5rem" data-clear>Remove</button></div>
+        </div>
+        <span class="err" data-err></span>
+      </div>
       <div class="full"><label for="fNotes">Anything we should know</label><textarea id="fNotes" name="notes" placeholder="Arrival time, celebrating something, extra guests, camping, day tour, questions"></textarea></div>
 
       <div class="full">
@@ -1382,9 +1474,17 @@ function toast(msg){
    links
    ================================================================ */
 $("#lnkFb").href  = CONFIG.facebook;
-$("#lnkEvent").href = "mailto:"+CONFIG.bookingEmail+
-  "?subject="+encodeURIComponent("Exclusive use enquiry - Valle Justina")+
-  "&body="+encodeURIComponent("Hello Valle Justina,\n\nI would like to ask about booking the whole place.\n\nDate:\nType of event:\nApproximate number of guests:\n\nThank you.");
+/* The exclusive-use enquiry goes to Messenger, not to mail. Almost nobody in
+   the Philippines writes an email to a resort, and Messenger is where the
+   resort actually answers. The template is copied first so the guest only has
+   to paste, because m.me cannot prefill a message. */
+const EVENT_MSG = "Hi Valle Justina, I want to book the whole place. Date: , Type of event: , Number of guests: ";
+$("#lnkEvent").href = CONFIG.messenger;
+$("#lnkEvent").target = "_blank";
+$("#lnkEvent").rel = "noopener noreferrer";
+$("#lnkEvent").addEventListener("click", ()=>{
+  copyText(EVENT_MSG).then(()=>toast("Message copied. Paste it in Messenger.")).catch(()=>{});
+});
 $("#yr").textContent = new Date().getFullYear();
 
 /* ================================================================
@@ -1626,7 +1726,7 @@ function paintSync(){
 }
 
 function statusOf(dateStr, unit){
-  if(AVAIL.state==="err"||AVAIL.state==="load") return "unknown";   // fail closed
+  if(AVAIL.state==="err") return "unknown";                          // fail closed
   return AVAIL.map.get(dateStr+"|"+unit.sheet.toLowerCase()) || "open";
 }
 
@@ -1680,6 +1780,17 @@ function renderMonth(){
      Fail-closed still applies (nothing is bookable), but a wall of "taken"
      reads as "this resort is fully booked forever", which is worse for the
      business than showing no calendar at all. */
+  /* Nothing has arrived yet. Drawing a grid now would mean guessing at every
+     night, and a guess that reads "Booked" is the worst possible guess. */
+  if(AVAIL.state==="load"){
+    $("#months").hidden = true;
+    $(".legend").hidden = true;
+    $("#calHelp").hidden = true;
+    host.innerHTML = '<div class="cal-down"><h3>Reading the calendar</h3>'+
+      '<p>One moment. We are checking which nights are free.</p></div>';
+    return;
+  }
+
   if(AVAIL.state==="err" || AVAIL.state==="none"){
     $("#months").hidden = true;
     $(".legend").hidden = true;
@@ -1748,8 +1859,8 @@ function renderMonth(){
           b.dataset.s=st;
           b.dataset.date=ymd(d);
           b.dataset.unit=u.id;
-          const label = st==="open"?"Available" : st==="hold"?"Hold" : st==="unknown"?"Unknown" : "Booked";
-          b.dataset.lbl = st==="open"?"Free":st==="hold"?"Hold":"Booked";
+          const label = st==="open"?"Available" : st==="hold"?"Hold" : st==="unknown"?"Ask us" : "Booked";
+          b.dataset.lbl = st==="open"?"Free" : st==="hold"?"Hold" : st==="unknown"?"Ask" : "Booked";
           b.dataset.vh  = `${u.name}, ${nice(d)}, ${label}`;
           b.innerHTML = `<span aria-hidden="true">${b.dataset.lbl}</span>
                          <span class="vh">${b.dataset.vh}</span>`;
@@ -1767,6 +1878,95 @@ function renderMonth(){
   paintSelection();
   rovingSetup();
 }
+
+/* ================================================================
+   Deposit slip upload
+   ================================================================
+   A phone photo is six or eight megabytes. Sending that through Apps Script on
+   a mountain signal is asking for a failure, so the picture is drawn onto a
+   canvas at 1400px and re-encoded as JPEG before it leaves the page. What the
+   staff need is legible numbers, not a full resolution photograph. */
+const SLIP_MAX_PX = 1400;
+const SLIP_QUALITY = 0.72;
+const SLIP_LIMIT_MB = 12;
+
+function readableSize(bytes){
+  return bytes >= 1048576 ? (bytes/1048576).toFixed(1)+" MB" : Math.round(bytes/1024)+" KB";
+}
+
+function shrinkImage(file){
+  return new Promise((resolve,reject)=>{
+    const url=URL.createObjectURL(file);
+    const img=new Image();
+    img.onload=()=>{
+      URL.revokeObjectURL(url);
+      let {width:w, height:h} = img;
+      const scale = Math.min(1, SLIP_MAX_PX/Math.max(w,h));
+      w=Math.round(w*scale); h=Math.round(h*scale);
+      const cv=document.createElement("canvas"); cv.width=w; cv.height=h;
+      const cx=cv.getContext("2d");
+      cx.fillStyle="#fff"; cx.fillRect(0,0,w,h);       // flatten any transparency
+      cx.drawImage(img,0,0,w,h);
+      let data;
+      try{ data=cv.toDataURL("image/jpeg", SLIP_QUALITY); }
+      catch(e){ return reject(new Error("could not read that picture")); }
+      resolve({dataUrl:data, w, h, bytes: Math.round((data.length-data.indexOf(",")-1)*3/4)});
+    };
+    img.onerror=()=>{ URL.revokeObjectURL(url); reject(new Error("that file is not a picture we can read")); };
+    img.src=url;
+  });
+}
+
+/* one of these per form; the value is read at submit time */
+function makeSlip(rootId){
+  const root=$(rootId); if(!root) return {get:()=>null, clear:()=>{}};
+  const drop=root.querySelector("[data-drop]"), input=root.querySelector("[data-file]");
+  const prev=root.querySelector("[data-preview]"), thumb=root.querySelector("[data-thumb]");
+  const fname=root.querySelector("[data-fname]"), fsize=root.querySelector("[data-fsize]");
+  const err=root.querySelector("[data-err]");
+  let held=null;
+
+  function fail(msg){ err.textContent=msg||""; }
+  function clear(){
+    held=null; input.value=""; prev.classList.remove("on");
+    thumb.removeAttribute("src"); fname.textContent=""; fsize.textContent=""; fail("");
+  }
+
+  async function take(file){
+    fail("");
+    if(!file) return;
+    if(!/^image\//.test(file.type)){ return fail("Pick a picture, a screenshot or a photo"); }
+    if(file.size > SLIP_LIMIT_MB*1048576){ return fail("That picture is over "+SLIP_LIMIT_MB+" MB. Try a screenshot instead"); }
+    drop.classList.add("slip__drop--busy");
+    try{
+      const out=await shrinkImage(file);
+      held={name:file.name||"deposit-slip.jpg", dataUrl:out.dataUrl, bytes:out.bytes};
+      thumb.src=out.dataUrl;
+      fname.textContent=held.name;
+      fsize.textContent="Ready to send, "+readableSize(out.bytes)+" after shrinking from "+readableSize(file.size);
+      prev.classList.add("on");
+    }catch(e){ fail(e.message||"Could not read that picture"); }
+    finally{ drop.classList.remove("slip__drop--busy"); }
+  }
+
+  root.querySelector("[data-pick]").addEventListener("click",()=>input.click());
+  input.addEventListener("change",()=>take(input.files&&input.files[0]));
+  root.querySelector("[data-clear]").addEventListener("click",clear);
+  ["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{
+    e.preventDefault(); drop.classList.add("is-over"); }));
+  ["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{
+    e.preventDefault(); drop.classList.remove("is-over"); }));
+  drop.addEventListener("drop",e=>{
+    const f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0]; if(f) take(f); });
+
+  return { get:()=>held, clear };
+}
+
+const SLIP = {
+  dp: makeSlip("#dpSlip"),
+  cp: makeSlip("#cpSlip"),
+  rs: makeSlip("#rsSlip")
+};
 
 /* ================================================================
    Ticket checkouts: day pass and camping
@@ -1843,7 +2043,7 @@ const validMobile = v => /^(\+?63|0)9\d{9}$/.test(String(v).replace(/[\s\-()]/g,
       mobile:$("#dpMobile").value.trim(), email:em,
       pay:box.querySelector("input[name=dpPay]:checked").value,
       payRef:$("#dpRef").value.trim(), notes:$("#dpNotes").value.trim(),
-      guests:c.h, total:c.total, lines
+      guests:c.h, total:c.total, lines, slip:SLIP.dp.get()
     }, box);
   });
 })();
@@ -1903,7 +2103,7 @@ const validMobile = v => /^(\+?63|0)9\d{9}$/.test(String(v).replace(/[\s\-()]/g,
       pay:box.querySelector("input[name=cpPay]:checked").value,
       payRef:$("#cpRef").value.trim(), notes:$("#cpNotes").value.trim(),
       guests:parseInt($("#cpPax").value,10)||0, total:c.total, lines,
-      tent:c.tent.name, mode:c.mode
+      tent:c.tent.name, mode:c.mode, slip:SLIP.cp.get()
     }, box);
   });
 })();
@@ -1976,10 +2176,10 @@ async function postTicket(t){
   if(!CONFIG.dataUrl || ticketSent.has(t.ref)) return;
   ticketSent.add(t.ref);
   try{
-    await fetch(CONFIG.dataUrl,{method:"POST",
-      headers:{"Content-Type":"text/plain;charset=utf-8"},
-      body: JSON.stringify(Object.assign({}, t, {lines: t.lines.map(l=>l.join(": ")).join("; ")})),
-      keepalive:true});
+    const body = JSON.stringify(Object.assign({}, t, {lines: t.lines.map(l=>l.join(": ")).join("; ")}));
+    const opts = {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body};
+    if(!t.slip) opts.keepalive = true;   // keepalive caps the body at 64KB
+    await fetch(CONFIG.dataUrl, opts);
   }catch(e){ ticketSent.delete(t.ref); }   // let a retry happen on reprint
 }
 
@@ -2318,16 +2518,20 @@ async function record(){
     name:     $("#fName").value.trim(),
     mobile:   $("#fMobile").value.trim(),
     email:    $("#fEmail").value.trim(),
-    notes:    $("#fNotes").value.trim()
+    notes:    $("#fNotes").value.trim(),
+    slip:     SLIP.rs.get()
   };
   submitted = true;                       // never double-log one enquiry
   try{
-    await fetch(CONFIG.dataUrl, {
+    /* keepalive caps the body at 64KB, and a deposit slip is bigger than that,
+       so a request carrying a picture is sent as an ordinary one */
+    const opts = {
       method:"POST",
       headers:{"Content-Type":"text/plain;charset=utf-8"},
-      body: JSON.stringify(payload),
-      keepalive:true                      // survives the tab navigating away
-    });
+      body: JSON.stringify(payload)
+    };
+    if(!payload.slip) opts.keepalive = true;   // survives the tab navigating away
+    await fetch(CONFIG.dataUrl, opts);
   }catch(e){ submitted = false; }         // let them try again
 }
 
