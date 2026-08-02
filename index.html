@@ -502,6 +502,78 @@ textarea{min-height:110px;resize:vertical}
 .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.05rem;color:var(--ink);
   letter-spacing:.06em;word-break:break-all}
 
+/* ================= TICKET CHECKOUTS =================
+   Day pass and camping are pay-first. The guest sends the money, types in the
+   reference from their own GCash or BDO record, and the page issues a ticket.
+   Nothing here claims the payment is verified: staff match it at the gate. */
+.tk{margin-top:2.4rem;background:#FBFAF8;border:1px solid var(--line);border-radius:2px;
+  padding:clamp(1.4rem,3.5vw,2.2rem)}
+.tk h3{margin:0}
+.tk__step{font-family:var(--display);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold-text);margin:0 0 .5rem}
+.tk__grid{display:grid;gap:1.05rem;margin-top:1.4rem}
+@media(min-width:700px){.tk__grid{grid-template-columns:1fr 1fr}.tk__grid .full{grid-column:1/-1}}
+.tk__hr{border:0;border-top:1px solid var(--line);margin:1.8rem 0}
+.tk__lines{display:grid;gap:.5rem;margin-top:1.2rem}
+.tk__line{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:.8rem;
+  padding:.6rem 0;border-bottom:1px solid var(--line)}
+.tk__line label{margin:0;text-transform:none;letter-spacing:.01em;font-family:var(--serif);
+  font-size:.98rem;color:var(--body)}
+.tk__line label b{display:block;font-family:var(--display);font-size:.72rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink);margin-bottom:.15rem}
+.tk__line input[type=number]{width:5.2rem;min-height:46px;text-align:center;padding:.5rem}
+.tk__line .amt{font-family:var(--display);font-size:1.05rem;color:var(--ink);min-width:5.5rem;
+  text-align:right}
+/* on the narrowest phones the three columns will not fit, so the label takes a
+   line of its own and the number and the amount sit under it */
+@media(max-width:359px){
+  .tk__line{grid-template-columns:1fr auto}
+  .tk__line label{grid-column:1/-1}
+  .tk__line .amt{min-width:0}
+}
+.tk__tot{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-top:1.3rem;
+  padding-top:1.1rem;border-top:2px solid var(--gold)}
+.tk__tot span{font-family:var(--display);font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink)}
+.tk__tot b{font-family:var(--display);font-weight:400;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--ink)}
+.tk__pick{display:grid;gap:.6rem}
+@media(min-width:560px){.tk__pick{grid-template-columns:repeat(3,1fr)}}
+.tk__opt{display:block;border:1px solid var(--line);border-radius:2px;padding:.9rem 1rem;cursor:pointer;
+  background:#fff;transition:.15s}
+.tk__opt:has(input:checked){border-color:var(--gold);box-shadow:inset 3px 0 0 var(--gold);background:#FFFCF6}
+.tk__opt input{width:auto;min-height:0;margin:0 .5rem 0 0}
+.tk__opt b{font-family:var(--display);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink);display:block;margin-bottom:.2rem}
+.tk__opt small{color:var(--muted);font-size:.86rem}
+.tk__note{background:#FBF3E4;border:1px solid rgba(138,90,24,.3);color:#5B3C10;
+  padding:.85rem 1rem;border-radius:2px;font-size:.92rem;margin:1.2rem 0 0}
+
+/* the ticket itself */
+.ticket{border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:2px;
+  background:#fff;padding:clamp(1.4rem,3.5vw,2rem);margin-top:1.6rem}
+.ticket__top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.ticket__brand{font-family:var(--display);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold-text);margin:0}
+.ticket__ref{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:clamp(1.3rem,4vw,1.8rem);
+  letter-spacing:.08em;color:var(--ink);margin:.3rem 0 0;word-break:break-all}
+.ticket__kind{font-family:var(--display);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  background:var(--ink);color:#F7F5F2;padding:.42rem .8rem;border-radius:2px;white-space:nowrap}
+.ticket dl{display:grid;grid-template-columns:auto 1fr;gap:.5rem 1.2rem;margin:1.4rem 0 0;font-size:.96rem}
+.ticket dt{font-family:var(--display);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);align-self:center}
+.ticket dd{margin:0;text-align:right;color:var(--ink)}
+.ticket__fine{margin:1.4rem 0 0;padding-top:1rem;border-top:1px solid var(--line);
+  font-size:.88rem;color:var(--muted)}
+.ticket__acts{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.3rem}
+
+@media print{
+  body>*:not(#printArea){display:none!important}
+  #printArea{display:block!important}
+  .ticket{border:1px solid #999;box-shadow:none}
+  .ticket__acts{display:none}
+}
+#printArea{display:none}
+
 /* ---------- sticky reserve bar ---------- */
 .bar{
   position:fixed;left:0;right:0;bottom:0;z-index:70;transform:translateY(105%);
@@ -819,7 +891,64 @@ footer a:hover{color:#fff}
         <li><span>Airbed, single</span><b>&#8369;300</b></li>
         <li><span>Airbed, double</span><b>&#8369;400</b></li>
       </ul>
-      <p class="muted" style="margin:1.1rem 0 0;font-size:.92rem">Tell us what you want in the notes when you send your request and we will have it ready.</p>
+      <p class="muted" style="margin:1.1rem 0 0;font-size:.92rem">Tick what you need below and it is added to your total.</p>
+    </div>
+
+    <!-- camping ticket checkout -->
+    <div class="tk" id="cpBox">
+      <p class="tk__step">Step 1 of 2 &middot; build your pitch</p>
+      <h3>Get your camping ticket.</h3>
+      <p style="margin-top:.8rem;max-width:56ch">Pick a tent, add what you need, send the payment, then enter the reference and the page will issue your ticket. No need to check the calendar, there is always room on the ridge.</p>
+
+      <div class="full" style="margin-top:1.4rem">
+        <label>Tent</label>
+        <div class="tk__pick">
+          <label class="tk__opt"><input type="radio" name="cpTent" value="couple" checked><b>Couple</b><small>good for 2</small></label>
+          <label class="tk__opt"><input type="radio" name="cpTent" value="amico"><b>Amico</b><small>good for 6</small></label>
+          <label class="tk__opt"><input type="radio" name="cpTent" value="grande"><b>Grande Amico</b><small>good for 10</small></label>
+        </div>
+      </div>
+
+      <div class="full" style="margin-top:1.2rem">
+        <label>Whose tent</label>
+        <div class="tk__pick" style="grid-template-columns:1fr 1fr">
+          <label class="tk__opt"><input type="radio" name="cpMode" value="rental" checked><b>Rent ours</b><small id="cpRentLbl">&#8369;650, set up and waiting</small></label>
+          <label class="tk__opt"><input type="radio" name="cpMode" value="pitching"><b>Bring my own</b><small id="cpPitchLbl">&#8369;400 pitching fee</small></label>
+        </div>
+      </div>
+
+      <div class="tk__lines" id="cpAddons"></div>
+
+      <div class="tk__tot"><span>Total to pay</span><b id="cpTotal">&#8369;650</b></div>
+
+      <hr class="tk__hr">
+      <p class="tk__step">Step 2 of 2 &middot; your details and payment</p>
+
+      <div class="tk__grid">
+        <div><label for="cpDate">Night you are coming</label><input id="cpDate" type="date" required><span class="err" id="cpDateErr"></span></div>
+        <div><label for="cpPax">Number of campers</label><input id="cpPax" type="number" inputmode="numeric" min="1" max="60" value="2" required><span class="err" id="cpPaxErr"></span></div>
+        <div><label for="cpName">Your name</label><input id="cpName" autocomplete="name" required><span class="err" id="cpNameErr"></span></div>
+        <div><label for="cpMobile">Mobile number</label><input id="cpMobile" type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxxx" required><span class="err" id="cpMobileErr"></span></div>
+        <div><label for="cpEmail">Email <span class="muted">(optional)</span></label><input id="cpEmail" type="email" autocomplete="email"><span class="err" id="cpEmailErr"></span></div>
+
+        <div class="full">
+          <label>How you paid</label>
+          <div class="tk__pick">
+            <label class="tk__opt"><input type="radio" name="cpPay" value="GCash" checked><b>GCash</b><small>V.JUSTINA, 0946 753 5153</small></label>
+            <label class="tk__opt"><input type="radio" name="cpPay" value="BDO"><b>BDO</b><small>Valle Justina, 048750002967</small></label>
+          </div>
+        </div>
+
+        <div class="full"><label for="cpRef">Reference number from your payment</label>
+          <input id="cpRef" placeholder="The number GCash or BDO gave you" required>
+          <span class="err" id="cpRefErr"></span></div>
+        <div class="full"><label for="cpNotes">Anything we should know <span class="muted">(optional)</span></label>
+          <textarea id="cpNotes" placeholder="Arrival time, bonfire, anything else you need"></textarea></div>
+      </div>
+
+      <p class="tk__note">Send the payment first. The reference number is the one on your own GCash or BDO receipt. Staff check it against the payment at the gate.</p>
+
+      <p style="margin-top:1.4rem"><button class="btn" type="button" id="cpGo">Generate my ticket</button></p>
     </div>
   </div>
 </section>
@@ -875,9 +1004,64 @@ footer a:hover{color:#fff}
           <p class="eyebrow" style="margin-bottom:.5rem">Or bank transfer</p>
           <p style="margin-bottom:.25rem"><b>BDO</b> &middot; Valle Justina</p>
           <p class="mono">048750002967</p>
-          <button class="copy" type="button" data-copy="048750002967">Copy account number</button>
+            <button class="copy" type="button" data-copy="048750002967">Copy account number</button>
         </div>
       </div>
+    </div>
+
+    <!-- day pass ticket checkout -->
+    <div class="tk" id="dpBox">
+      <p class="tk__step">Step 1 of 2 &middot; work out your total</p>
+      <h3>Get your day pass ticket.</h3>
+      <p style="margin-top:.8rem;max-width:56ch">Everyone coming up pays the &#8369;50 entrance. Swimming is charged on top of it. Set your numbers, send the payment, then enter the reference and the page will issue your ticket.</p>
+
+      <div class="tk__lines">
+        <div class="tk__line">
+          <label for="dpHeads"><b>Entrance</b>everyone coming up, &#8369;50 each</label>
+          <input id="dpHeads" type="number" inputmode="numeric" min="0" max="200" value="2">
+          <span class="amt" id="dpHeadsAmt">&#8369;100</span>
+        </div>
+        <div class="tk__line">
+          <label for="dpDay"><b>Daytime swim</b>&#8369;250 each, on top of entrance</label>
+          <input id="dpDay" type="number" inputmode="numeric" min="0" max="200" value="2">
+          <span class="amt" id="dpDayAmt">&#8369;500</span>
+        </div>
+        <div class="tk__line">
+          <label for="dpNight"><b>Night swim</b>&#8369;300 each, on top of entrance</label>
+          <input id="dpNight" type="number" inputmode="numeric" min="0" max="200" value="0">
+          <span class="amt" id="dpNightAmt">&#8369;0</span>
+        </div>
+      </div>
+      <p class="err" id="dpSwimErr"></p>
+      <div class="tk__tot"><span>Total to pay</span><b id="dpTotal">&#8369;600</b></div>
+
+      <hr class="tk__hr">
+      <p class="tk__step">Step 2 of 2 &middot; your details and payment</p>
+
+      <div class="tk__grid">
+        <div><label for="dpDate">Date of visit</label><input id="dpDate" type="date" required><span class="err" id="dpDateErr"></span></div>
+        <div><label for="dpName">Your name</label><input id="dpName" autocomplete="name" required><span class="err" id="dpNameErr"></span></div>
+        <div><label for="dpMobile">Mobile number</label><input id="dpMobile" type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxxx" required><span class="err" id="dpMobileErr"></span></div>
+        <div><label for="dpEmail">Email <span class="muted">(optional)</span></label><input id="dpEmail" type="email" autocomplete="email"><span class="err" id="dpEmailErr"></span></div>
+
+        <div class="full">
+          <label>How you paid</label>
+          <div class="tk__pick">
+            <label class="tk__opt"><input type="radio" name="dpPay" value="GCash" checked><b>GCash</b><small>V.JUSTINA, 0946 753 5153</small></label>
+            <label class="tk__opt"><input type="radio" name="dpPay" value="BDO"><b>BDO</b><small>Valle Justina, 048750002967</small></label>
+          </div>
+        </div>
+
+        <div class="full"><label for="dpRef">Reference number from your payment</label>
+          <input id="dpRef" placeholder="The number GCash or BDO gave you" required>
+          <span class="err" id="dpRefErr"></span></div>
+        <div class="full"><label for="dpNotes">Anything we should know <span class="muted">(optional)</span></label>
+          <textarea id="dpNotes" placeholder="Arrival time, children, someone in the group not swimming"></textarea></div>
+      </div>
+
+      <p class="tk__note">Send the payment first. The reference number is the one on your own GCash or BDO receipt, not one we give you. Staff check it against the payment at the gate.</p>
+
+      <p style="margin-top:1.4rem"><button class="btn" type="button" id="dpGo">Generate my ticket</button></p>
     </div>
   </div>
 </section>
@@ -1075,6 +1259,7 @@ footer a:hover{color:#fff}
   </div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="printArea" aria-hidden="true"></div>
 
 <script type="application/ld+json">
 {
@@ -1182,7 +1367,7 @@ const ymd = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-$
 const midnight = d => { const x=new Date(d); x.setHours(0,0,0,0); return x; };
 const addDays = (d,n) => { const x=new Date(d); x.setDate(x.getDate()+n); return x; };
 const daysBetween = (a,b) => Math.round((midnight(b)-midnight(a))/86400000);
-const peso = n => "₱" + n.toLocaleString("en-PH");
+const peso = n => "₱" + Number(n||0).toLocaleString("en-PH");
 const nice = d => `${DOW[(d.getDay()+6)%7]} ${d.getDate()} ${MON[d.getMonth()].slice(0,3)} ${d.getFullYear()}`;
 const unitById = id => CONFIG.units.find(u=>u.id===id);
 
@@ -1344,24 +1529,79 @@ function buildMap(text){
   return m;
 }
 
-async function tryUrl(url){
-  const u = url + (url.includes("?")?"&":"?") + "_=" + Date.now();
-  const r = await fetch(u,{cache:"no-store",redirect:"follow"});
-  if(!r.ok) throw new Error(r.status);
-  return buildMap(await r.text());
+/* Apps Script is not a fast server. It sleeps, it cold starts, it redirects
+   through a second host, and on a phone with a weak signal any one of those can
+   time out. A single failed request must not take the calendar off the page. */
+const CACHE_KEY = "vj-cal-v1";
+const CACHE_MAX_HOURS = 24;
+
+function cacheSave(rows){
+  try{ localStorage.setItem(CACHE_KEY, JSON.stringify({t:Date.now(), rows})); }catch(_){}
+}
+function cacheLoad(){
+  try{
+    const c=JSON.parse(localStorage.getItem(CACHE_KEY)||"null");
+    if(!c||!c.rows||!c.t) return null;
+    if(Date.now()-c.t > CACHE_MAX_HOURS*3600e3) return null;   // too old to trust
+    return c;
+  }catch(_){ return null; }
 }
 
-async function loadAvail(){
+function tryUrl(url, ms){
+  const u = url + (url.includes("?")?"&":"?") + "_=" + Date.now();
+  const ctl = new AbortController();
+  const timer = setTimeout(()=>ctl.abort(), ms);
+  return fetch(u,{cache:"no-store",redirect:"follow",signal:ctl.signal})
+    .then(r=>{ if(!r.ok) throw new Error(r.status); return r.text(); })
+    .finally(()=>clearTimeout(timer));
+}
+
+const wait = ms => new Promise(r=>setTimeout(r,ms));
+
+/* Three goes at each source, with a longer patience each time, because the
+   first request after a quiet spell is the slow one. */
+async function fetchWithRetry(){
+  const sources=[CONFIG.dataUrl, CONFIG.fallbackCsvUrl].filter(Boolean);
+  const patience=[6000, 12000, 20000];
+  let last=null;
+  for(let attempt=0; attempt<patience.length; attempt++){
+    for(const src of sources){
+      try{ return await tryUrl(src, patience[attempt]); }
+      catch(err){ last=err; }
+    }
+    if(attempt<patience.length-1) await wait(700*Math.pow(2,attempt));
+  }
+  throw last||new Error("unreachable");
+}
+
+async function loadAvail(background){
   const sources=[CONFIG.dataUrl, CONFIG.fallbackCsvUrl].filter(Boolean);
   if(!sources.length){ AVAIL.state="none"; paintSync(); return; }
-  for(const src of sources){
-    try{
-      AVAIL.map = await tryUrl(src);
-      AVAIL.state="ok"; AVAIL.fetched=Date.now();
-      paintSync(); renderMonth(); return;
-    }catch(err){ /* try the next source */ }
+
+  /* Paint the last known calendar straight away so the page is usable while
+     the network is still thinking. It is replaced the moment fresh data lands. */
+  if(!background && AVAIL.state==="load"){
+    const c=cacheLoad();
+    if(c){
+      AVAIL.map=buildMap(c.rows); AVAIL.state="cache"; AVAIL.fetched=c.t;
+      paintSync(); renderMonth();
+    }
   }
-  AVAIL.state="err";
+
+  try{
+    const text = await fetchWithRetry();
+    AVAIL.map = buildMap(text);
+    AVAIL.state="ok"; AVAIL.fetched=Date.now();
+    cacheSave(text);
+  }catch(err){
+    /* A failed refresh never throws away a calendar we already have. */
+    if(AVAIL.state==="ok"||AVAIL.state==="cache"){ AVAIL.state="cache"; }
+    else{
+      const c=cacheLoad();
+      if(c){ AVAIL.map=buildMap(c.rows); AVAIL.state="cache"; AVAIL.fetched=c.t; }
+      else AVAIL.state="err";
+    }
+  }
   paintSync(); renderMonth();
 }
 
@@ -1373,15 +1613,20 @@ function paintSync(){
     else { el.dataset.s="ok"; el.textContent="Synced with the resort calendar"; }
   } else if(AVAIL.state==="none"){
     el.dataset.s="stale"; el.textContent="Calendar source not connected yet";
+  } else if(AVAIL.state==="cache"){
+    const t=AVAIL.fetched?new Date(AVAIL.fetched):null;
+    const hh=t?t.toLocaleTimeString([], {hour:"numeric",minute:"2-digit"}):"";
+    el.dataset.s="stale";
+    el.textContent = "Showing the calendar as of "+hh+". Checking again shortly.";
   } else if(AVAIL.state==="err"){
-    el.dataset.s="err"; el.textContent="Could not reach the calendar. Please message us.";
+    el.dataset.s="err"; el.textContent="Could not reach the calendar. Please send us your dates.";
   } else {
     el.dataset.s="load"; el.textContent="Loading the resort calendar";
   }
 }
 
 function statusOf(dateStr, unit){
-  if(AVAIL.state==="err") return "unknown";           // fail closed
+  if(AVAIL.state==="err"||AVAIL.state==="load") return "unknown";   // fail closed
   return AVAIL.map.get(dateStr+"|"+unit.sheet.toLowerCase()) || "open";
 }
 
@@ -1521,6 +1766,221 @@ function renderMonth(){
   host.appendChild(frag);
   paintSelection();
   rovingSetup();
+}
+
+/* ================================================================
+   Ticket checkouts: day pass and camping
+   ================================================================
+   Both are pay-first. The reference the guest types in is their own GCash or
+   BDO receipt number; the reference the page issues is ours, for the gate.
+   The ticket is shown immediately and only then posted to the sheet, so a
+   flaky connection can never cost a guest the ticket they just paid for. */
+const TENTS = {
+  couple: {name:"Couple",       pax:"good for 2",  rental:650,  pitching:400},
+  amico:  {name:"Amico",        pax:"good for 6",  rental:1150, pitching:800},
+  grande: {name:"Grande Amico", pax:"good for 10", rental:1500, pitching:1200}
+};
+const ADDONS = [
+  ["lamp","Lamp",50],["chair","Chair",100],["table","Table",100],["pillow","Pillow",30],
+  ["blanket","Blanket",50],["mattress","Sleeping mattress",100],
+  ["airbed1","Airbed, single",300],["airbed2","Airbed, double",400]
+];
+
+function ticketRef(prefix){
+  const d=new Date(), y=String(d.getFullYear()).slice(2);
+  const stamp=y+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0");
+  let tail=""; const AZ="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const r=new Uint32Array(4); (crypto.getRandomValues?crypto.getRandomValues(r):r.fill(Date.now()));
+  for(let i=0;i<4;i++) tail+=AZ[r[i]%AZ.length];
+  return "VJ-"+prefix+"-"+stamp+"-"+tail;
+}
+function setErr(id,msg){ const e=$(id); if(e) e.textContent=msg||""; return !msg; }
+function todayISO(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+const validMobile = v => /^(\+?63|0)9\d{9}$/.test(String(v).replace(/[\s\-()]/g,""));
+
+/* ---------------- day pass ---------------- */
+(function dayPass(){
+  const box=$("#dpBox"); if(!box) return;
+  const heads=$("#dpHeads"), day=$("#dpDay"), night=$("#dpNight");
+  const n = el => Math.max(0, Math.min(200, parseInt(el.value,10)||0));
+
+  function calcDP(){
+    const h=n(heads), d=n(day), g=n(night);
+    const total = h*CONFIG.dayPass.entrance + d*CONFIG.dayPass.swimDay + g*CONFIG.dayPass.swimNight;
+    $("#dpHeadsAmt").textContent = peso(h*CONFIG.dayPass.entrance);
+    $("#dpDayAmt").textContent   = peso(d*CONFIG.dayPass.swimDay);
+    $("#dpNightAmt").textContent = peso(g*CONFIG.dayPass.swimNight);
+    $("#dpTotal").textContent    = peso(total);
+    // swimmers cannot outnumber the people who came up
+    setErr("#dpSwimErr", (d+g)>h ? "More swimmers than people. Raise the entrance count." : "");
+    return {h,d,g,total};
+  }
+  [heads,day,night].forEach(el=>el.addEventListener("input",calcDP));
+  $("#dpDate").min = todayISO(); $("#dpDate").value = todayISO();
+  calcDP();
+
+  $("#dpGo").addEventListener("click",()=>{
+    const c=calcDP();
+    let ok=true;
+    ok = setErr("#dpDateErr", $("#dpDate").value ? "" : "Pick the date you are coming") && ok;
+    ok = setErr("#dpNameErr", $("#dpName").value.trim() ? "" : "We need a name for the gate") && ok;
+    ok = setErr("#dpMobileErr", validMobile($("#dpMobile").value) ? "" : "A Philippine mobile number, like 0917 123 4567") && ok;
+    const em=$("#dpEmail").value.trim();
+    ok = setErr("#dpEmailErr", (!em || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) ? "" : "Check the email address") && ok;
+    ok = setErr("#dpRefErr", $("#dpRef").value.trim().length>=4 ? "" : "Enter the reference from your GCash or BDO payment") && ok;
+    if(c.total<=0){ ok=false; setErr("#dpSwimErr","Set at least one person"); }
+    if((c.d+c.g)>c.h) ok=false;
+    if(!ok){ const bad=box.querySelector(".err:not(:empty)"); if(bad){ const f=bad.parentElement.querySelector("input,textarea"); (f||bad).scrollIntoView({block:"center",behavior:"smooth"}); if(f) f.focus({preventScroll:true}); } return; }
+
+    const lines=[];
+    if(c.h) lines.push(["Entrance", c.h+" × "+peso(CONFIG.dayPass.entrance)]);
+    if(c.d) lines.push(["Daytime swim", c.d+" × "+peso(CONFIG.dayPass.swimDay)]);
+    if(c.g) lines.push(["Night swim", c.g+" × "+peso(CONFIG.dayPass.swimNight)]);
+
+    issueTicket({
+      kind:"daypass", label:"Day Pass", ref:ticketRef("DP"),
+      date:$("#dpDate").value, name:$("#dpName").value.trim(),
+      mobile:$("#dpMobile").value.trim(), email:em,
+      pay:box.querySelector("input[name=dpPay]:checked").value,
+      payRef:$("#dpRef").value.trim(), notes:$("#dpNotes").value.trim(),
+      guests:c.h, total:c.total, lines
+    }, box);
+  });
+})();
+
+/* ---------------- camping ---------------- */
+(function camping(){
+  const box=$("#cpBox"); if(!box) return;
+  const host=$("#cpAddons");
+  ADDONS.forEach(([id,label,price])=>{
+    const row=document.createElement("div");
+    row.className="tk__line";
+    row.innerHTML='<label for="cp_'+id+'"><b>'+label+'</b>'+peso(price)+' each</label>'+
+      '<input id="cp_'+id+'" type="number" inputmode="numeric" min="0" max="40" value="0" data-addon="'+id+'">'+
+      '<span class="amt" id="amt_'+id+'">'+peso(0)+'</span>';
+    host.appendChild(row);
+  });
+
+  const tentOf = () => box.querySelector("input[name=cpTent]:checked").value;
+  const modeOf = () => box.querySelector("input[name=cpMode]:checked").value;
+
+  function calcCP(){
+    const t=TENTS[tentOf()];
+    $("#cpRentLbl").innerHTML = peso(t.rental)+", set up and waiting";
+    $("#cpPitchLbl").innerHTML = peso(t.pitching)+" pitching fee";
+    let total = t[modeOf()];
+    const picked=[];
+    ADDONS.forEach(([id,label,price])=>{
+      const q=Math.max(0,Math.min(40,parseInt($("#cp_"+id).value,10)||0));
+      $("#amt_"+id).textContent = peso(q*price);
+      if(q){ total+=q*price; picked.push([label, q+" × "+peso(price)]); }
+    });
+    $("#cpTotal").textContent = peso(total);
+    return {tent:t, mode:modeOf(), total, picked};
+  }
+  box.querySelectorAll("input[name=cpTent],input[name=cpMode],[data-addon]")
+     .forEach(el=>el.addEventListener("input",calcCP));
+  $("#cpDate").min = todayISO(); $("#cpDate").value = todayISO();
+  calcCP();
+
+  $("#cpGo").addEventListener("click",()=>{
+    const c=calcCP();
+    let ok=true;
+    ok = setErr("#cpDateErr", $("#cpDate").value ? "" : "Pick the night you are coming") && ok;
+    ok = setErr("#cpPaxErr", (parseInt($("#cpPax").value,10)||0)>0 ? "" : "How many of you?") && ok;
+    ok = setErr("#cpNameErr", $("#cpName").value.trim() ? "" : "We need a name for the gate") && ok;
+    ok = setErr("#cpMobileErr", validMobile($("#cpMobile").value) ? "" : "A Philippine mobile number, like 0917 123 4567") && ok;
+    const em=$("#cpEmail").value.trim();
+    ok = setErr("#cpEmailErr", (!em || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) ? "" : "Check the email address") && ok;
+    ok = setErr("#cpRefErr", $("#cpRef").value.trim().length>=4 ? "" : "Enter the reference from your GCash or BDO payment") && ok;
+    if(!ok){ const bad=box.querySelector(".err:not(:empty)"); if(bad){ const f=bad.parentElement.querySelector("input,textarea"); (f||bad).scrollIntoView({block:"center",behavior:"smooth"}); if(f) f.focus({preventScroll:true}); } return; }
+
+    const lines=[[c.tent.name+" tent", c.mode==="rental" ? "rental, "+peso(c.tent.rental) : "pitching, "+peso(c.tent.pitching)]].concat(c.picked);
+    issueTicket({
+      kind:"camping", label:"Camping", ref:ticketRef("CP"),
+      date:$("#cpDate").value, name:$("#cpName").value.trim(),
+      mobile:$("#cpMobile").value.trim(), email:em,
+      pay:box.querySelector("input[name=cpPay]:checked").value,
+      payRef:$("#cpRef").value.trim(), notes:$("#cpNotes").value.trim(),
+      guests:parseInt($("#cpPax").value,10)||0, total:c.total, lines,
+      tent:c.tent.name, mode:c.mode
+    }, box);
+  });
+})();
+
+/* ---------------- the ticket ---------------- */
+function issueTicket(t, box){
+  const rows = t.lines.map(([k,v])=>"<dt>"+k+"</dt><dd>"+v+"</dd>").join("");
+  const html =
+    '<div class="ticket" role="status" aria-live="polite">'+
+      '<div class="ticket__top">'+
+        '<div><p class="ticket__brand">Valle Justina Mountain Resort</p>'+
+        '<p class="ticket__ref">'+t.ref+'</p></div>'+
+        '<span class="ticket__kind">'+t.label+'</span>'+
+      '</div>'+
+      '<dl>'+
+        '<dt>Name</dt><dd>'+esc(t.name)+'</dd>'+
+        '<dt>Date</dt><dd>'+niceISO(t.date)+'</dd>'+
+        '<dt>Guests</dt><dd>'+t.guests+'</dd>'+
+        rows+
+        '<dt>Paid by</dt><dd>'+t.pay+'</dd>'+
+        '<dt>Their reference</dt><dd>'+esc(t.payRef)+'</dd>'+
+        '<dt>Total</dt><dd><b>'+peso(t.total)+'</b></dd>'+
+      '</dl>'+
+      '<p class="ticket__fine">Show this at the gate. It is not proof of payment on its own. '+
+        'Our staff match it against the reference number you entered.</p>'+
+      '<div class="ticket__acts">'+
+        '<button class="btn btn--sm" type="button" data-print="1">Print or save as PDF</button>'+
+        '<button class="btn btn--sm btn--ghost" type="button" data-tkcopy="1">Copy the details</button>'+
+        '<button class="btn btn--sm btn--ghost" type="button" data-again="1">Make another</button>'+
+      '</div>'+
+    '</div>';
+
+  const holder=document.createElement("div");
+  holder.innerHTML=html;
+  const card=holder.firstElementChild;
+  box.querySelectorAll(".ticket").forEach(x=>x.remove());
+  box.appendChild(card);
+  card.scrollIntoView({block:"center",behavior:"smooth"});
+
+  const plain = ["Valle Justina Mountain Resort", t.label+" ticket "+t.ref, "",
+    "Name: "+t.name, "Date: "+niceISO(t.date), "Guests: "+t.guests]
+    .concat(t.lines.map(([k,v])=>k+": "+v))
+    .concat(["Paid by: "+t.pay, "Reference: "+t.payRef, "Total: "+peso(t.total), "",
+      "Show this at the gate."]).join("\n");
+
+  card.querySelector("[data-print]").addEventListener("click",()=>{
+    const area=$("#printArea"); area.innerHTML=card.outerHTML; window.print();
+  });
+  card.querySelector("[data-tkcopy]").addEventListener("click",()=>{
+    copyText(plain).then(()=>toast("Ticket details copied"));
+  });
+  card.querySelector("[data-again]").addEventListener("click",()=>{
+    card.remove(); box.scrollIntoView({block:"start",behavior:"smooth"});
+  });
+
+  postTicket(t);
+}
+
+function esc(v){ return String(v==null?"":v).replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+function niceISO(iso){
+  if(!iso) return "";
+  const d=new Date(iso+"T00:00:00");
+  return isNaN(d) ? iso : nice(d);
+}
+
+/* Fire and forget, exactly like the reservation post: text/plain so the browser
+   does not ask Apps Script a preflight question it cannot answer. */
+const ticketSent = new Set();
+async function postTicket(t){
+  if(!CONFIG.dataUrl || ticketSent.has(t.ref)) return;
+  ticketSent.add(t.ref);
+  try{
+    await fetch(CONFIG.dataUrl,{method:"POST",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body: JSON.stringify(Object.assign({}, t, {lines: t.lines.map(l=>l.join(": ")).join("; ")})),
+      keepalive:true});
+  }catch(e){ ticketSent.delete(t.ref); }   // let a retry happen on reprint
 }
 
 /* ================================================================
@@ -1933,7 +2393,17 @@ renderMonth();
 paintSync();
 loadAvail();
 setInterval(paintSync, 60000);
-document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) loadAvail(); });
+/* quiet refresh every ten minutes, and again whenever the tab comes back,
+   but never more than once a minute, so a guest flicking between apps does
+   not hammer the script */
+let lastLoad=0;
+function refresh(background){
+  if(Date.now()-lastLoad < 60000) return;
+  lastLoad=Date.now(); loadAvail(background);
+}
+setInterval(()=>refresh(true), CONFIG.refreshMinutes*60000);
+document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) refresh(true); });
+addEventListener("online", ()=>refresh(true));
 </script>
 </body>
 </html>
