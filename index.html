@@ -1448,7 +1448,7 @@ const CONFIG = {
     { id:"s1", name:"Standard 1", short:"Std 1",  sheet:"Standard 1", rate:3000, kind:"room" },
     { id:"s2", name:"Standard 2", short:"Std 2",  sheet:"Standard 2", rate:3000, kind:"room" },
     { id:"s3", name:"Standard 3", short:"Std 3",  sheet:"Standard 3", rate:3000, kind:"room" },
-    { id:"b1", name:"Balcony Room", short:"Balcony", sheet:"Balcony", rate:3500, kind:"room" },
+    { id:"b1", name:"Balcony Room", short:"Balcony", sheet:"Balcony Room", rate:3500, kind:"room" },
     /* Camping is not in the calendar. There is always room on the ridge, and it
        has its own registration form, so it would only ever read Available. */
     { id:"cp", name:"Camping",    short:"Camp",   sheet:"Camping",    rate:null,  kind:"camp" }
@@ -2564,10 +2564,11 @@ async function record(){
     ref: REF,
     room:      c ? c.us.map(u=>u.name).join(", ") : "",
     roomCount: c ? c.us.length : 0,
-    /* The calendar is keyed on the sheet's own room name, which is not always
-       the name a guest sees: the Balcony Room is just "Balcony" in the sheet.
-       Send both, and send the dates as plain YYYY-MM-DD as well, so the script
-       never has to guess at either. */
+    /* Every room's sheet name now matches its display name exactly (the
+       Balcony Room used to be "Balcony" in the sheet; not any more), so
+       roomSheets and room are the same text, just one is an array. Both are
+       still sent, along with plain YYYY-MM-DD dates, so the script never has
+       to guess at either. */
     roomSheets: c ? c.us.map(u=>u.sheet) : [],
     checkIn:  SEL.inD  ? nice(SEL.inD)  : "",
     checkOut: SEL.outD ? nice(SEL.outD) : "",
