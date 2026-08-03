@@ -1545,6 +1545,21 @@ const AVAIL = { map:new Map(), state:"load", fetched:null };
 /* the rooms the calendar is actually about */
 const ROOMS = CONFIG.units.filter(u=>u.kind==="room");
 
+/* Staff type into the Sheet by hand, and spreadsheets autocomplete from
+   whatever has been typed into that column before, so an old value like
+   "Balcony" (used before the sheet name became "Balcony Room") can keep
+   getting suggested and accepted for years after the rename. Rather than
+   fight that, every name, short name, and sheet name a room has ever gone
+   by all resolve to the one canonical sheet key, so any of them work in the
+   Room column. */
+const ROOM_ALIASES = new Map();
+CONFIG.units.forEach(u=>{
+  [u.name, u.short, u.sheet].forEach(v=>{
+    if(v) ROOM_ALIASES.set(String(v).trim().toLowerCase(), u.sheet.toLowerCase());
+  });
+});
+ROOM_ALIASES.set("balcony", "balcony room");   // the old sheet name, before the rename
+
 function parseCsv(text){
   const rows=[]; let f="",row=[],q=false;
   for(let i=0;i<text.length;i++){
@@ -1592,7 +1607,8 @@ function addRecord(m, dateRaw, roomRaw, statusRaw){
     ROOMS.forEach(x=> m.set(d+"|"+x.sheet.toLowerCase(), state));
     return;
   }
-  m.set(d+"|"+u, state);
+  const key = ROOM_ALIASES.get(u) || u;
+  m.set(d+"|"+key, state);
 }
 
 /* Accepts JSON (array of objects, array of arrays, or {rows|data|values:[...]})
