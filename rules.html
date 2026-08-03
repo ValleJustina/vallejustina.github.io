@@ -12,7 +12,222 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/vj-shared.css">
+<style>
+/* ============================================================
+   VALLE JUSTINA · shared styles for standalone pages
+   (Resort Rules, Shuttle). Pulled from the "Golden Horizon"
+   system in index.html so every page matches. If the palette or
+   type on the home page ever changes, mirror the change here too
+   — this file is intentionally separate so the home page is never
+   put at risk by edits made for these secondary pages.
+   ============================================================ */
+:root{
+  --canvas:#F4F4F4;
+  --band:#EBE7E2;
+  --ink:#0A0A0A;
+  --body:#533525;
+  --muted:#7A675C;
+  --gold:#C88A3C;
+  --gold-text:#8A5A18;
+  --midnight:#1B2B3A;
+  --line:rgba(83,53,37,.16);
+  --display:'Jost',"Century Gothic",system-ui,sans-serif;
+  --serif:'Lora',Georgia,serif;
+  --pad:clamp(1.25rem,5vw,4rem);
+  --maxw:1180px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+body{margin:0;background:var(--canvas);color:var(--body);font:400 17px/1.75 var(--serif);
+  padding-top:64px;padding-bottom:env(safe-area-inset-bottom)}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--gold-text)}
+:focus-visible{outline:2px solid var(--gold-text);outline-offset:3px;border-radius:2px}
+
+h1,h2,h3,.dsp{font-family:var(--display);font-weight:300;color:var(--ink);
+  letter-spacing:.11em;text-transform:uppercase;line-height:1.22;margin:0}
+h1{font-size:clamp(2rem,6.2vw,3.4rem);letter-spacing:.07em}
+h2{font-size:clamp(1.35rem,3vw,1.9rem);margin:2.2rem 0 1rem}
+h3{font-size:clamp(1.05rem,2vw,1.2rem);letter-spacing:.14em}
+p{margin:0 0 1.15em}
+.lede{font-size:clamp(1.05rem,2vw,1.25rem);line-height:1.72}
+.eyebrow{font-family:var(--display);font-size:.72rem;font-weight:400;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--gold-text);margin:0 0 1.1rem}
+.muted{color:var(--muted)}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+section{padding-block:clamp(2.6rem,7vw,5rem)}
+.band{background:var(--band)}
+.rule{height:1px;background:var(--gold);border:0;opacity:.55;margin:0}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:var(--display);font-size:.82rem;font-weight:400;letter-spacing:.2em;
+  text-transform:uppercase;text-decoration:none;cursor:pointer;
+  min-height:52px;padding:.9rem 1.9rem;border:1px solid var(--ink);border-radius:2px;
+  background:var(--ink);color:#F7F5F2;transition:background .18s,color .18s,border-color .18s}
+.btn:hover{background:var(--gold-text);border-color:var(--gold-text)}
+.btn--ghost{background:transparent;color:var(--ink)}
+.btn--ghost:hover{background:var(--ink);color:#F7F5F2}
+.btn--sm{min-height:44px;padding:.6rem 1.15rem;font-size:.72rem;letter-spacing:.16em}
+.btn[disabled]{opacity:.42;cursor:not-allowed}
+
+.skip{position:absolute;left:-9999px;top:0;z-index:200}
+.skip:focus{left:.5rem;top:.5rem;background:var(--ink);color:#fff;padding:.75rem 1.1rem}
+
+/* ---------- header (always solid on these pages, no hero underneath) ---------- */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:60;background:rgba(244,244,244,.96);
+  backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+.hdr__in{display:flex;align-items:center;gap:1rem;min-height:64px;
+  max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;margin-right:auto;min-width:0}
+.brand img{width:32px;height:32px;flex:0 0 auto}
+.brand b{display:block;font-family:var(--display);font-weight:400;font-size:.74rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink);white-space:nowrap}
+.brand span span{display:block;font-family:var(--display);font-size:.55rem;letter-spacing:.22em;
+  color:var(--muted);text-transform:uppercase;white-space:nowrap}
+@media(min-width:520px){.brand img{width:36px;height:36px}.brand b{font-size:.82rem;letter-spacing:.2em}
+  .brand span span{font-size:.6rem;letter-spacing:.26em}}
+@media(max-width:400px){.brand span span{display:none}}
+.hdr nav{display:none;gap:1.5rem}
+@media(min-width:900px){.hdr nav{display:flex}}
+.hdr nav a{font-family:var(--display);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;color:var(--body);border-bottom:0}
+.hdr nav a:hover{color:var(--gold-text)}
+.hdr__cta{display:flex;gap:.5rem}
+.hdr__cta .btn{background:var(--gold);border-color:var(--gold);color:#151006}
+.hdr__cta .btn:hover{background:#E0A24E;border-color:#E0A24E;color:#151006}
+
+/* ---------- simple page header band (stands in for the photo hero) ---------- */
+.pghdr{background:var(--midnight);color:#EDE6DC;padding-block:clamp(3.4rem,9vw,5.5rem)}
+.pghdr .eyebrow{color:#E3C08A}
+.pghdr h1{color:#fff}
+.pghdr p{color:#D8D2CB}
+.crumb{font-family:var(--display);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:#B9AF9F;margin-bottom:1.2rem}
+.crumb a{color:#E3C08A;text-decoration:none;border-bottom:1px solid rgba(227,192,138,.35)}
+.crumb a:hover{color:#fff}
+
+/* ---------- form basics (shared with the ticket checkouts) ---------- */
+.form{display:grid;gap:1.1rem;margin-top:2rem}
+@media(min-width:700px){.form{grid-template-columns:1fr 1fr}.form .full{grid-column:1/-1}}
+label{display:block;font-family:var(--display);font-size:.7rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:.42rem}
+input,textarea,select{width:100%;font:400 16px/1.5 var(--serif);color:var(--body);background:#FBFAF8;
+  border:1px solid var(--line);border-radius:2px;padding:.85rem .9rem;min-height:50px}
+input:focus,textarea:focus,select:focus{border-color:var(--gold-text);outline:none;
+  box-shadow:0 0 0 2px rgba(138,90,24,.18)}
+textarea{min-height:110px;resize:vertical}
+.err{display:block;color:#8C2F1E;font-family:var(--display);font-size:.7rem;letter-spacing:.1em;
+  text-transform:uppercase;margin-top:.35rem;min-height:1em}
+.copy{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--display);font-size:.72rem;
+  letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--gold-text);
+  border:1px solid var(--gold-text);border-radius:2px;padding:.5rem .8rem;min-height:44px;cursor:pointer}
+.copy:hover{background:var(--gold-text);color:#fff}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:1.05rem;color:var(--ink);
+  letter-spacing:.06em;word-break:break-all}
+
+/* deposit slip upload */
+.slip{margin-top:.4rem}
+.slip__drop{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+  border:1px dashed rgba(83,53,37,.35);border-radius:2px;background:#fff;padding:1rem 1.1rem;transition:.15s}
+.slip__drop.is-over{border-color:var(--gold);background:#FFFCF6}
+.slip__btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--display);
+  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;min-height:44px;padding:.6rem 1.1rem;
+  border:1px solid var(--gold-text);color:var(--gold-text);background:transparent;border-radius:2px;
+  cursor:pointer;white-space:nowrap}
+.slip__btn:hover{background:var(--gold-text);color:#fff}
+.slip__hint{margin:0;font-size:.9rem;color:var(--muted);flex:1 1 12rem;min-width:0}
+.slip input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.slip__preview{display:none;align-items:flex-start;gap:1rem;margin-top:.9rem;
+  border:1px solid var(--line);border-radius:2px;padding:.8rem;background:#fff}
+.slip__preview.on{display:flex}
+.slip__preview img{width:84px;height:84px;object-fit:cover;border-radius:2px;flex:0 0 auto}
+.slip__meta{flex:1 1 auto;min-width:0;font-size:.9rem;color:var(--muted)}
+.slip__meta b{display:block;font-family:var(--display);font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink);margin-bottom:.2rem;word-break:break-all}
+.slip__drop--busy{opacity:.6;pointer-events:none}
+
+/* ---------- ticket checkout card (mirrors Day Pass / Camping) ---------- */
+.tk{margin-top:2rem;background:#FBFAF8;border:1px solid var(--line);border-radius:2px;
+  padding:clamp(1.4rem,3.5vw,2.2rem)}
+.tk h3{margin:0}
+.tk__step{font-family:var(--display);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold-text);margin:0 0 .5rem}
+.tk__grid{display:grid;gap:1.05rem;margin-top:1.4rem}
+@media(min-width:700px){.tk__grid{grid-template-columns:1fr 1fr}.tk__grid .full{grid-column:1/-1}}
+.tk__hr{border:0;border-top:1px solid var(--line);margin:1.8rem 0}
+.tk__tot{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-top:1.3rem;
+  padding-top:1.1rem;border-top:2px solid var(--gold)}
+.tk__tot span{font-family:var(--display);font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink)}
+.tk__tot b{font-family:var(--display);font-weight:400;font-size:clamp(1.6rem,4vw,2.2rem);color:var(--ink)}
+.tk__pick{display:grid;gap:.6rem}
+@media(min-width:560px){.tk__pick{grid-template-columns:repeat(3,1fr)}}
+.tk__opt{display:block;border:1px solid var(--line);border-radius:2px;padding:.9rem 1rem;cursor:pointer;
+  background:#fff;transition:.15s}
+.tk__opt:has(input:checked){border-color:var(--gold);box-shadow:inset 3px 0 0 var(--gold);background:#FFFCF6}
+.tk__opt input{width:auto;min-height:0;margin:0 .5rem 0 0}
+.tk__opt b{font-family:var(--display);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink);display:block;margin-bottom:.2rem}
+.tk__opt small{color:var(--muted);font-size:.86rem}
+.tk__note{background:#FBF3E4;border:1px solid rgba(138,90,24,.3);color:#5B3C10;
+  padding:.85rem 1rem;border-radius:2px;font-size:.92rem;margin:1.2rem 0 0}
+
+.ticket{border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:2px;
+  background:#fff;padding:clamp(1.4rem,3.5vw,2rem);margin-top:1.6rem}
+.ticket__top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.ticket__brand{font-family:var(--display);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold-text);margin:0}
+.ticket__ref{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:clamp(1.3rem,4vw,1.8rem);
+  letter-spacing:.08em;color:var(--ink);margin:.3rem 0 0;word-break:break-all}
+.ticket__kind{font-family:var(--display);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  background:var(--ink);color:#F7F5F2;padding:.42rem .8rem;border-radius:2px;white-space:nowrap}
+.ticket dl{display:grid;grid-template-columns:auto 1fr;gap:.5rem 1.2rem;margin:1.4rem 0 0;font-size:.96rem}
+.ticket dt{font-family:var(--display);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);align-self:center}
+.ticket dd{margin:0;text-align:right;color:var(--ink)}
+.ticket__fine{margin:1.4rem 0 0;padding-top:1rem;border-top:1px solid var(--line);
+  font-size:.88rem;color:var(--muted)}
+.ticket__acts{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.3rem}
+@media print{
+  body>*:not(#printArea){display:none!important}
+  #printArea{display:block!important}
+  .ticket{border:1px solid #999;box-shadow:none}
+  .ticket__acts{display:none}
+}
+#printArea{display:none}
+
+.todo{display:inline-block;background:repeating-linear-gradient(45deg,#F6E9D2,#F6E9D2 6px,#F0DFC2 6px,#F0DFC2 12px);
+  border:1px dashed var(--gold-text);color:#5A3B10;font-family:var(--display);
+  font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;padding:.18rem .5rem;border-radius:2px}
+
+/* ---------- rules page content blocks ---------- */
+.rules-list{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.rules-list>li{padding:1.3rem 0;border-top:1px solid var(--line)}
+.rules-list>li:first-child{border-top:0}
+.rules-list h3{margin:0 0 .5rem}
+.rules-list p{margin:0}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,10px);z-index:90;
+  background:var(--ink);color:#fff;padding:.8rem 1.3rem;border-radius:2px;opacity:0;
+  pointer-events:none;transition:.25s;font-family:var(--display);font-size:.75rem;letter-spacing:.12em;
+  text-transform:uppercase}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- footer ---------- */
+footer{background:var(--midnight);color:#CFC7BE;padding-block:clamp(3rem,7vw,5rem)}
+footer h2,footer b{color:#F7F5F2}
+.fgrid{display:grid;gap:2.2rem}
+@media(min-width:760px){.fgrid{grid-template-columns:1.3fr 1fr 1fr}}
+footer a{color:#E3C08A;text-decoration:none;border-bottom:1px solid rgba(227,192,138,.35)}
+footer a:hover{color:#fff}
+.fine{margin-top:2.6rem;padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.15);
+  font-size:.82rem;color:#8D9099}
+
+</style>
 <style>
 .rules-list{counter-reset:rule}
 .rules-list h3::before{counter-increment:rule;content:counter(rule)". ";color:var(--gold-text)}
@@ -128,6 +343,198 @@
   </div>
 </footer>
 
-<script src="assets/vj-shared.js"></script>
+<script>
+/* ============================================================
+   VALLE JUSTINA · shared JS for standalone pages
+   (Resort Rules, Shuttle). Mirrors the ticket-checkout pattern
+   already used by Day Pass and Camping on index.html: pay first,
+   type the payment reference, the page issues an instant ticket,
+   then quietly posts it to the same Apps Script backend.
+   ============================================================ */
+
+/* Same web app URL as index.html. If that ever changes on the
+   home page, change it here too. */
+const VJ = {
+  dataUrl: "https://script.google.com/macros/s/AKfycbxvITWOYCqUiNQ7DZtlzakOVIe-s9D7IGvTLZBLkAfbjEg75RZ4BZq2zNd4bIJ3qXwY/exec",
+  messenger: "https://m.me/100087347483424",
+  bookingEmail: "apayaresorts@gmail.com"
+};
+
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const peso = n => "₱" + Number(n||0).toLocaleString("en-PH");
+const esc = v => String(v==null?"":v).replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+
+function todayISO(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function niceISO(iso){
+  const DOW=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  const MON=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  if(!iso) return "";
+  const d=new Date(iso+"T00:00:00");
+  if(isNaN(d)) return iso;
+  return `${DOW[(d.getDay()+6)%7]} ${d.getDate()} ${MON[d.getMonth()].slice(0,3)} ${d.getFullYear()}`;
+}
+const validMobile = v => /^(\+?63|0)9\d{9}$/.test(String(v).replace(/[\s\-()]/g,""));
+function setErr(id,msg){ const e=$(id); if(e) e.textContent=msg||""; return !msg; }
+
+function toast(msg){
+  const t=$("#toast"); if(!t) return;
+  t.textContent=msg; t.classList.add("on");
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("on"),2400);
+}
+
+async function copyText(t){
+  try{ await navigator.clipboard.writeText(t); return true; }
+  catch(e){
+    const ta=document.createElement("textarea");
+    ta.value=t; ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select();
+    let ok=false; try{ ok=document.execCommand("copy"); }catch(_){}
+    ta.remove(); return ok;
+  }
+}
+
+function ticketRef(prefix){
+  const d=new Date(), y=String(d.getFullYear()).slice(2);
+  const stamp=y+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0");
+  let tail=""; const AZ="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  const r=new Uint32Array(4); (crypto.getRandomValues?crypto.getRandomValues(r):r.fill(Date.now()));
+  for(let i=0;i<4;i++) tail+=AZ[r[i]%AZ.length];
+  return "VJ-"+prefix+"-"+stamp+"-"+tail;
+}
+
+/* ---------------- deposit slip upload, shrunk before it leaves the page ---------------- */
+const SLIP_MAX_PX = 1400, SLIP_QUALITY = 0.72, SLIP_LIMIT_MB = 12;
+function readableSize(bytes){ return bytes >= 1048576 ? (bytes/1048576).toFixed(1)+" MB" : Math.round(bytes/1024)+" KB"; }
+function shrinkImage(file){
+  return new Promise((resolve,reject)=>{
+    const url=URL.createObjectURL(file);
+    const img=new Image();
+    img.onload=()=>{
+      URL.revokeObjectURL(url);
+      let {width:w, height:h} = img;
+      const scale = Math.min(1, SLIP_MAX_PX/Math.max(w,h));
+      w=Math.round(w*scale); h=Math.round(h*scale);
+      const cv=document.createElement("canvas"); cv.width=w; cv.height=h;
+      const cx=cv.getContext("2d");
+      cx.fillStyle="#fff"; cx.fillRect(0,0,w,h);
+      cx.drawImage(img,0,0,w,h);
+      let data;
+      try{ data=cv.toDataURL("image/jpeg", SLIP_QUALITY); }
+      catch(e){ return reject(new Error("could not read that picture")); }
+      resolve({dataUrl:data, w, h, bytes: Math.round((data.length-data.indexOf(",")-1)*3/4)});
+    };
+    img.onerror=()=>{ URL.revokeObjectURL(url); reject(new Error("that file is not a picture we can read")); };
+    img.src=url;
+  });
+}
+function makeSlip(rootId){
+  const root=$(rootId); if(!root) return {get:()=>null, clear:()=>{}};
+  const drop=root.querySelector("[data-drop]"), input=root.querySelector("[data-file]");
+  const prev=root.querySelector("[data-preview]"), thumb=root.querySelector("[data-thumb]");
+  const fname=root.querySelector("[data-fname]"), fsize=root.querySelector("[data-fsize]");
+  const err=root.querySelector("[data-err]");
+  let held=null;
+  function fail(msg){ err.textContent=msg||""; }
+  function clear(){
+    held=null; input.value=""; prev.classList.remove("on");
+    thumb.removeAttribute("src"); fname.textContent=""; fsize.textContent=""; fail("");
+  }
+  async function take(file){
+    fail("");
+    if(!file) return;
+    if(!/^image\//.test(file.type)){ return fail("Pick a picture, a screenshot or a photo"); }
+    if(file.size > SLIP_LIMIT_MB*1048576){ return fail("That picture is over "+SLIP_LIMIT_MB+" MB. Try a screenshot instead"); }
+    drop.classList.add("slip__drop--busy");
+    try{
+      const out=await shrinkImage(file);
+      held={name:file.name||"deposit-slip.jpg", dataUrl:out.dataUrl, bytes:out.bytes};
+      thumb.src=out.dataUrl;
+      fname.textContent=held.name;
+      fsize.textContent="Ready to send, "+readableSize(out.bytes)+" after shrinking from "+readableSize(file.size);
+      prev.classList.add("on");
+    }catch(e){ fail(e.message||"Could not read that picture"); }
+    finally{ drop.classList.remove("slip__drop--busy"); }
+  }
+  root.querySelector("[data-pick]").addEventListener("click",()=>input.click());
+  input.addEventListener("change",()=>take(input.files&&input.files[0]));
+  root.querySelector("[data-clear]").addEventListener("click",clear);
+  ["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{ e.preventDefault(); drop.classList.add("is-over"); }));
+  ["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{ e.preventDefault(); drop.classList.remove("is-over"); }));
+  drop.addEventListener("drop",e=>{ const f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0]; if(f) take(f); });
+  return { get:()=>held, clear };
+}
+
+/* ---------------- issue a ticket, then quietly post it ---------------- */
+function issueTicket(t, box){
+  const rows = (t.lines||[]).map(([k,v])=>"<dt>"+k+"</dt><dd>"+v+"</dd>").join("");
+  const html =
+    '<div class="ticket" role="status" aria-live="polite">'+
+      '<div class="ticket__top">'+
+        '<div><p class="ticket__brand">Valle Justina Mountain Resort</p>'+
+        '<p class="ticket__ref">'+t.ref+'</p></div>'+
+        '<span class="ticket__kind">'+t.label+'</span>'+
+      '</div>'+
+      '<dl>'+
+        '<dt>Name</dt><dd>'+esc(t.name)+'</dd>'+
+        '<dt>Date</dt><dd>'+niceISO(t.date)+'</dd>'+
+        '<dt>Guests</dt><dd>'+t.guests+'</dd>'+
+        rows+
+        '<dt>Paid by</dt><dd>'+t.pay+'</dd>'+
+        '<dt>Their reference</dt><dd>'+esc(t.payRef)+'</dd>'+
+        '<dt>Total</dt><dd><b>'+peso(t.total)+'</b></dd>'+
+      '</dl>'+
+      '<p class="ticket__fine">Show this at the gate. It is not proof of payment on its own. '+
+        'Our staff match it against the reference number you entered.</p>'+
+      '<div class="ticket__acts">'+
+        '<button class="btn btn--sm" type="button" data-print="1">Print or save as PDF</button>'+
+        '<button class="btn btn--sm btn--ghost" type="button" data-tkcopy="1">Copy the details</button>'+
+        '<button class="btn btn--sm btn--ghost" type="button" data-again="1">Make another</button>'+
+      '</div>'+
+    '</div>';
+
+  const holder=document.createElement("div");
+  holder.innerHTML=html;
+  const card=holder.firstElementChild;
+  box.querySelectorAll(".ticket").forEach(x=>x.remove());
+  box.appendChild(card);
+  card.scrollIntoView({block:"center",behavior:"smooth"});
+
+  const plain = ["Valle Justina Mountain Resort", t.label+" ticket "+t.ref, "",
+    "Name: "+t.name, "Date: "+niceISO(t.date), "Guests: "+t.guests]
+    .concat((t.lines||[]).map(([k,v])=>k+": "+v))
+    .concat(["Paid by: "+t.pay, "Reference: "+t.payRef, "Total: "+peso(t.total), "",
+      "Show this at the gate."]).join("\n");
+
+  card.querySelector("[data-print]").addEventListener("click",()=>{
+    const area=$("#printArea"); area.innerHTML=card.outerHTML; window.print();
+  });
+  card.querySelector("[data-tkcopy]").addEventListener("click",()=>{
+    copyText(plain).then(()=>toast("Ticket details copied"));
+  });
+  card.querySelector("[data-again]").addEventListener("click",()=>{
+    card.remove(); box.scrollIntoView({block:"start",behavior:"smooth"});
+  });
+
+  postTicket(t);
+}
+
+const ticketSent = new Set();
+async function postTicket(t){
+  if(!VJ.dataUrl || ticketSent.has(t.ref)) return;
+  ticketSent.add(t.ref);
+  try{
+    const body = JSON.stringify(Object.assign({}, t, {lines: (t.lines||[]).map(l=>l.join(": ")).join("; ")}));
+    const opts = {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body};
+    if(!t.slip) opts.keepalive = true;
+    await fetch(VJ.dataUrl, opts);
+  }catch(e){ ticketSent.delete(t.ref); }
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  const y=$("#yr"); if(y) y.textContent = new Date().getFullYear();
+});
+
+</script>
 </body>
 </html>
