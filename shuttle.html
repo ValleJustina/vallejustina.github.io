@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-PH">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shuttle Service | Valle Justina Mountain Resort</title>
+<meta name="description" content="Round trip shuttle between Masbate City center and Valle Justina Mountain Resort. ₱1,200 per trip, up to 8 people, pay first and get an instant ticket.">
+<link rel="canonical" href="https://vallejustina.com/shuttle.html">
+<meta name="robots" content="noindex,follow">
+<link rel="icon" href="img/icon-48.png" sizes="48x48">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vj-shared.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hdr">
+  <div class="hdr__in">
+    <a class="brand" href="index.html#top">
+      <img src="img/logo.png" alt="" width="32" height="32">
+      <span><b>Valle Justina</b><span>Mountain Resort</span></span>
+    </a>
+    <nav aria-label="Sections">
+      <a href="index.html#stay">Stay</a>
+      <a href="index.html#camp">Camp</a>
+      <a href="index.html#daypass">Day Pass</a>
+      <a href="shuttle.html" aria-current="page">Shuttle</a>
+      <a href="rules.html">Resort Rules</a>
+    </nav>
+    <div class="hdr__cta"><a class="btn btn--sm" href="index.html#dates">Book a room</a></div>
+  </div>
+</header>
+
+<main id="main">
+
+<div class="pghdr">
+  <div class="wrap">
+    <p class="crumb"><a href="index.html#top">Valle Justina</a> &nbsp;/&nbsp; Shuttle</p>
+    <p class="eyebrow">Getting here</p>
+    <h1>Round trip shuttle</h1>
+    <p class="lede" style="margin-top:1rem;max-width:56ch">Door to door between Masbate City center and the resort. One flat fare for the whole vehicle, not per person.</p>
+  </div>
+</div>
+
+<section class="band">
+  <div class="wrap">
+    <div class="summary" style="max-width:44ch">
+      <dl>
+        <dt>Route</dt><dd>City center &harr; Valle Justina</dd>
+        <dt>Fare</dt><dd><b>&#8369;1,200</b> round trip, per vehicle</dd>
+        <dt>Capacity</dt><dd>Up to 8 people per trip</dd>
+      </dl>
+    </div>
+    <p class="muted" style="margin-top:1.4rem;max-width:58ch">The fare is flat for the trip, whether it is 1 person or 8. Pick a group up to your size and split it among yourselves. Send the payment first, then enter the reference below and this page issues your ticket right away. We will confirm the exact pickup time with you by Messenger or call after you send your request &mdash; the time below is your preference, not a fixed schedule.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="tk" id="shBox">
+      <p class="tk__step">Round trip shuttle</p>
+      <h3>Book your shuttle.</h3>
+
+      <div class="tk__tot"><span>Total to pay</span><b>&#8369;1,200</b></div>
+
+      <hr class="tk__hr">
+      <p class="tk__step">Your details and payment</p>
+
+      <div class="tk__grid">
+        <div><label for="shDate">Date of travel</label><input id="shDate" type="date" required><span class="err" id="shDateErr"></span></div>
+        <div><label for="shTime">Preferred pickup time</label><input id="shTime" type="time" required><span class="err" id="shTimeErr"></span></div>
+        <div><label for="shPickup">Pickup point in the city</label><input id="shPickup" placeholder="Landmark, terminal, or address" required><span class="err" id="shPickupErr"></span></div>
+        <div><label for="shPax">Number of passengers</label><input id="shPax" type="number" inputmode="numeric" min="1" max="8" value="1" required><span class="err" id="shPaxErr"></span></div>
+        <div><label for="shName">Your name</label><input id="shName" autocomplete="name" required><span class="err" id="shNameErr"></span></div>
+        <div><label for="shMobile">Mobile number</label><input id="shMobile" type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxxx" required><span class="err" id="shMobileErr"></span></div>
+        <div class="full"><label for="shEmail">Email <span class="muted">(optional)</span></label><input id="shEmail" type="email" autocomplete="email"><span class="err" id="shEmailErr"></span></div>
+
+        <div class="full">
+          <label>How you paid</label>
+          <div class="tk__pick">
+            <label class="tk__opt"><input type="radio" name="shPay" value="GCash" checked><b>GCash</b><small>V.JUSTINA, 0946 753 5153</small></label>
+            <label class="tk__opt"><input type="radio" name="shPay" value="BDO"><b>BDO</b><small>Valle Justina, 048750002967</small></label>
+          </div>
+        </div>
+
+        <div class="full"><label for="shRef">Reference number from your payment</label>
+          <input id="shRef" placeholder="The number GCash or BDO gave you" required>
+          <span class="err" id="shRefErr"></span></div>
+        <div class="full slip" id="shSlip">
+          <label for="shFile">Screenshot of your payment <span class="muted">(optional but it speeds us up)</span></label>
+          <div class="slip__drop" data-drop>
+            <button class="slip__btn" type="button" data-pick>Choose a picture</button>
+            <p class="slip__hint">A screenshot of your GCash or BDO receipt. Drag it here, or take a photo.</p>
+            <input id="shFile" type="file" accept="image/*" data-file>
+          </div>
+          <div class="slip__preview" data-preview>
+            <img alt="" data-thumb src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+            <div class="slip__meta"><b data-fname></b><span data-fsize></span><br>
+              <button class="copy" type="button" style="margin-top:.5rem" data-clear>Remove</button></div>
+          </div>
+          <span class="err" data-err></span>
+        </div>
+        <div class="full"><label for="shNotes">Anything we should know <span class="muted">(optional)</span></label>
+          <textarea id="shNotes" placeholder="Flight or ferry time, extra bags, meeting a specific landmark"></textarea></div>
+      </div>
+
+      <p class="tk__note">Send the payment first. The reference number is the one on your own GCash or BDO receipt. We confirm your exact pickup time after you send this, since it depends on the other trips already booked that day.</p>
+
+      <p style="margin-top:1.4rem"><button class="btn" type="button" id="shGo">Generate my ticket</button></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h2 style="font-size:1.2rem">Valle Justina<br>Mountain Resort</h2>
+        <p style="margin-top:1rem">Peace above the city.</p>
+      </div>
+      <div>
+        <p><b>Find us</b><br>Mayong Payong<br>5401 Mobo, Masbate<br>Philippines</p>
+        <p><a href="https://www.google.com/maps/search/?api=1&query=8JGP%2B7M+Mobo,+Masbate" target="_blank" rel="noopener noreferrer">Open in Maps</a></p>
+      </div>
+      <div>
+        <p><b>Talk to us</b><br><a href="mailto:vallejustina@gmail.com">vallejustina@gmail.com</a></p>
+        <p><a href="https://www.facebook.com/p/Valle-Justina-100087347483424/" target="_blank" rel="noopener noreferrer">Facebook Page</a></p>
+        <p><a href="rules.html">Resort Rules</a></p>
+      </div>
+    </div>
+    <p class="fine">&copy; <span id="yr">2026</span> Valle Justina Mountain Resort. All rights reserved.</p>
+  </div>
+</footer>
+
+<div id="printArea"></div>
+<div class="toast" id="toast"></div>
+
+<script src="assets/vj-shared.js"></script>
+<script>
+const SLIP_SH = makeSlip("#shSlip");
+$("#shDate").min = todayISO(); $("#shDate").value = todayISO();
+
+$("#shGo").addEventListener("click", ()=>{
+  const box=$("#shBox");
+  let ok=true;
+  ok = setErr("#shDateErr", $("#shDate").value ? "" : "Pick the date you are travelling") && ok;
+  ok = setErr("#shTimeErr", $("#shTime").value ? "" : "Pick a preferred pickup time") && ok;
+  ok = setErr("#shPickupErr", $("#shPickup").value.trim() ? "" : "Tell us where to pick you up") && ok;
+  const pax = Math.max(1, Math.min(8, parseInt($("#shPax").value,10)||0));
+  ok = setErr("#shPaxErr", (parseInt($("#shPax").value,10)||0)>=1 ? "" : "At least 1 passenger") && ok;
+  if((parseInt($("#shPax").value,10)||0) > 8){ ok=false; setErr("#shPaxErr","Max 8 per trip. Book a second trip for more."); }
+  ok = setErr("#shNameErr", $("#shName").value.trim() ? "" : "We need a name for the driver") && ok;
+  ok = setErr("#shMobileErr", validMobile($("#shMobile").value) ? "" : "A Philippine mobile number, like 0917 123 4567") && ok;
+  const em=$("#shEmail").value.trim();
+  ok = setErr("#shEmailErr", (!em || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) ? "" : "Check the email address") && ok;
+  ok = setErr("#shRefErr", $("#shRef").value.trim().length>=4 ? "" : "Enter the reference from your GCash or BDO payment") && ok;
+  if(!ok){ const bad=box.querySelector(".err:not(:empty)"); if(bad){ const f=bad.parentElement.querySelector("input,textarea"); (f||bad).scrollIntoView({block:"center",behavior:"smooth"}); if(f) f.focus({preventScroll:true}); } return; }
+
+  issueTicket({
+    kind:"shuttle", label:"Shuttle", ref:ticketRef("SH"),
+    date:$("#shDate").value, name:$("#shName").value.trim(),
+    mobile:$("#shMobile").value.trim(), email:em,
+    pay:box.querySelector("input[name=shPay]:checked").value,
+    payRef:$("#shRef").value.trim(), notes:$("#shNotes").value.trim(),
+    guests:pax, total:1200,
+    lines:[["Pickup time", $("#shTime").value], ["Pickup point", $("#shPickup").value.trim()]],
+    slip:SLIP_SH.get()
+  }, box);
+});
+</script>
+</body>
+</html>
